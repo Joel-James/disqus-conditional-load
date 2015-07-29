@@ -33,12 +33,12 @@ class DCL_Activator {
 
 		// Set default values for the plugin
 		
-		$dcl_type			= self::transfer( 'js_type', 'dcl_type', 'click' );
+		$dcl_type			= self::transfer( 'js_type', 'dcl_type', 'scroll' );
 		$dcl_width			= self::transfer( '', 'dcl_div_width', '');
 		$dcl_button			= self::transfer( 'js_button', 'dcl_btn_txt', 'Load Comments' );
 		$dcl_class			= self::transfer( 'js_class', 'dcl_btn_class', '' );
 		$dcl_message		= self::transfer( 'js_message', 'dcl_message', 'Loading...' );
-		$dcl_count_old		= self::transfer( 'js_count_disable', 'dcl_message', 'yes' );
+		$dcl_count_old		= self::transfer( 'js_count_disable', 'dcl_count_disable', 'yes' );
 
 
 		// Count disable value structure changed. So we are transfering to new structure

@@ -12,10 +12,10 @@ if ( ! defined( 'WPINC' ) ) {
 				<th scope="row"><label>How to Load Disqus<br><span class="description thin">to improve performance</span></label></th>
 					<td>
 						<select id="dcl_type" class="select" typle="select" name="dcl_gnrl_options[dcl_type]" required>
-							<option value="" disabled>On Scroll Start (Pro Only)</option>
 							<option value="click" <?php selected( $options['dcl_type'], 'click' ); ?>>On Click</option>
 							<option value="scroll" <?php selected( $options['dcl_type'], 'scroll' ); ?>>On Scroll</option>
 							<option value="normal" <?php selected( $options['dcl_type'], 'normal' ); ?>>Normal (Disable Lazy Load)</option>
+							<option value="" disabled>On Scroll Start (Pro Only)</option>
 						</select><br/>
 						<span class="description thin">This feature will let you prevent Disqus from automatically loading comments and scripts on pages, posts or whatever it is. If you choose "Normal" comments will be loaded normally and no lazy load effect will be there.</span>
 					</td>

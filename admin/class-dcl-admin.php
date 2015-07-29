@@ -79,11 +79,32 @@ class DCL_Admin {
 	 */
 	public function dcl_setup_redirect() {  
 		
-		if ( get_option('dcl_do_activation_redirect', false) ) {
+		if ( get_option('dcl_do_activation_redirect') ) {
 			delete_option('dcl_do_activation_redirect');
 			if( !dsq_is_installed() ) {
 				exit(wp_redirect( DCL_DISQUS_PAGE ));
 			}
+		}
+	}
+	
+	/**
+	 * Run upgrade functions
+	 *
+	 * If DCL is upgraded, we may need to perform few updations in db
+	 * This function is used for that.
+	 * @since	10.0.2
+	 * @uses	get_option()	To get the activation redirect option from db.
+	 * @return	void.
+	 */
+	public function dcl_upgrade_if_new() {
+	
+		if ( !get_option('dcl_version_no') || ( get_option('dcl_version_no') <= DCL_VERSION  ) ) {
+			
+			if( !class_exists( 'DCL_Activator' ) ) {
+				include_once( plugin_dir_path( __FILE__ ) . '../includes/class-dcl-activator.php' );
+			}
+			DCL_Activator::activate();
+			update_option('dcl_version_no', DCL_VERSION );
 		}
 	}
 

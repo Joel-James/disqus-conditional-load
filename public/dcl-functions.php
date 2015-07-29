@@ -23,8 +23,6 @@ if ( ! defined( 'WPINC' ) ) {
 	 * @var      string    $dcl_gnrl_options    Options values from database.
 	 */
 	$dcl_gnrl_options = get_option('dcl_gnrl_options');
-
-	
 		
 	/**
 	* Get Disqus Conditional Code.
