@@ -1175,10 +1175,9 @@ function dsq_add_query_posts($posts) {
 }
 
 function dsq_output_count_js() {
-    
+    global $post;
     $dcl_gnrl_options = get_option('dcl_gnrl_options');
     if( $dcl_gnrl_options['dcl_count_disable'] == 1 && 'open' == $post->comment_status) {
-	
         if ( get_option('dsq_external_js') == '1' ) {
             $count_vars = array(
                 'disqusShortname' => strtolower( get_option( 'disqus_forum_url' ) ),

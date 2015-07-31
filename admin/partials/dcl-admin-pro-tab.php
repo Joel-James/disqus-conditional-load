@@ -6,7 +6,7 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 <div style="float: left; width: 68%">
 <div class="wrap">
-<h2 style="font-size: 1.3em; font-weight: 600;">Additional Features Available in DCL Pro  <a href="http://dclwp.com" class="add-new-h2">Upgrade</a></h2></div>
+<h2 style="font-size: 1.3em; font-weight: 600;">Additional Features Available in DCL Pro  <a href="https://dclwp.com" class="add-new-h2">Upgrade</a></h2></div>
 <form action="#" style="margin-top: 5px; margin-bottom: 25px;">
 	<div class="dcl-container">
 		<div class="dcl-row">
@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<p><span class="dcl-feature-title">Buy DCL Pro </span><br/>
 				<span class="description thin">Get all these additional and upcoming features + to help my development and other efforts. Assured <a href="http://dclwp.com/refund-policy/">money back</a> if you are not satisfied.</span><br/>
 				<strong>Immediate download after purchase.</strong><br/>
-				<a href="http://dclwp.com/" title="Buy Now"><img src="<?php echo plugin_dir_url( __FILE__ ); ?>../images/buy-now-dcl.png" width="100%" alt="Buy DCL Pro"></a></p>
+				<a href="https://dclwp.com/" title="Buy Now"><img src="<?php echo plugin_dir_url( __FILE__ ); ?>../images/buy-now-dcl.png" width="100%" alt="Buy DCL Pro"></a></p>
 			</div>
 			<div class="dcl-column2">
 				<h3 class="dcl-pro-h3">Load on "Scroll Start"</h3><p><span class="description thin">This is a <strong>MOST WANTED</strong> feature! Seriously.<br/>
@@ -70,6 +70,7 @@ if ( ! defined( 'WPINC' ) ) {
                 <p>Looking for support?<br/>
 				Check out the <a href="https://wordpress.org/plugins/disqus-conditional-load/faq/" target="_blank">FAQs</a>
                 and <a href="http://wordpress.org/support/plugin/disqus-conditional-load/" target="_blank">Support Forums</a></p>
+				<p>Found a bug? <a href="https://dclwp.com/bugs/" target="_blank" title="Report now">Report here<a></p>
             </td>
         </tr>
     </tbody>
@@ -90,6 +91,22 @@ if ( ! defined( 'WPINC' ) ) {
                 <p>Plugin Boilerplate : <a href="http://tommcfarlin.com/" target="_blank">Tom McFarlin</a><br/>
 				Plugin Admin UI : <a href="http://kevinw.de/" target="_blank">Kevin Weber</a>, <a href="http://codepen.io/whmii/pen/pGKed/" target="_blank">CodePen</a><br/>
 				Other Reference : <a href="http://dannyvankooten.com/" target="_blank">Danny and Team</a></p>
+            </td>
+        </tr>
+    </tbody>
+</table><br/>
+<table cellpadding="0" class="widefat" border="0">
+    <thead>
+        <th scope="col"><span class="dashicons dashicons-smiley"></span> Like this plugin?</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border:0;">
+				<p><span class="dashicons dashicons-cart"></span> <strong><a href="https://dclwp.com/" target="_blank" title="Upgrade now">Upgrade to DCL Pro</a></strong></p>
+                <p><span class="dashicons dashicons-star-filled"></span> <strong><a href="https://wordpress.org/support/view/plugin-reviews/disqus-conditional-load?filter=5#postform" target="_blank" title="Rate now">Rate this on WordPress</a></strong></p>
+				<p><span class="dashicons dashicons-heart"></span> <strong><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XUVWY8HUBUXY4" target="_blank" title="Donate now">Make a small donation</a></strong></p>
+				<p><span class="dashicons dashicons-admin-plugins"></span> <strong><a href="https://github.com/joel-james/disqus-conditional-load/" target="_blank" title="Contribute now">Contribute to the Plugin</a></strong></p>
+				<p><span class="dashicons dashicons-twitter"></span> <strong><a href="https://twitter.com/home?status=I'm%20using%20Disqus%20Conditional%20Load%20plugin%20by%20%40Joel_James%20to%20lazy%20load%20%40Disqus%20in%20my%20%40WordPress%20site%20-%20it%20is%20awesome!%20%20https://dclwp.com/" target="_blank" title="Tweet now">Tweet about the Plugin</a></strong></p>
             </td>
         </tr>
     </tbody>

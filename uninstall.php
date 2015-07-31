@@ -26,5 +26,8 @@ if( get_option( 'dcl_gnrl_options' ) ) {
 if( get_option( 'dcl_do_activation_redirect' ) ) {
 	delete_option( 'dcl_do_activation_redirect' );
 }
+if( get_option( 'dcl_version_no' ) ) {
+	delete_option( 'dcl_version_no' );
+}
 
 /******* The end. Thanks for using DCL plugin ********/

@@ -98,12 +98,10 @@ class DCL_Admin {
 	 */
 	public function dcl_upgrade_if_new() {
 	
-		if ( !get_option('dcl_version_no') || ( get_option('dcl_version_no') <= DCL_VERSION  ) ) {
-			
-			if( !class_exists( 'DCL_Activator' ) ) {
-				include_once( plugin_dir_path( __FILE__ ) . '../includes/class-dcl-activator.php' );
+		if ( !get_option('dcl_version_no') || ( get_option('dcl_version_no') < DCL_VERSION  ) ) {
+			if( class_exists( 'DCL_Activator' ) ) {
+				DCL_Activator::activate();
 			}
-			DCL_Activator::activate();
 			update_option('dcl_version_no', DCL_VERSION );
 		}
 	}
@@ -170,7 +168,8 @@ class DCL_Admin {
 	* @author	Joel James
 	*/
 	public function dcl_disqus_page() {
-		exit(wp_redirect( DCL_DISQUS_PAGE ));
+		wp_redirect( DCL_DISQUS_PAGE );
+		exit();
 	}
 	
 	/**

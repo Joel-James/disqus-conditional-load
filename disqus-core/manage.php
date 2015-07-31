@@ -201,7 +201,10 @@ if ( isset($_POST['active']) && isset($_GET['active']) ) {
 $dsq_user_api_key = isset($_POST['dsq_user_api_key']) ? $_POST['dsq_user_api_key'] : null;
 
 // Get installation step process (or 0 if we're already installed).
-$step = @intval($_GET['step']);
+$step = 0;
+if(isset($_GET['step'])) {
+	$step = @intval($_GET['step']);
+}
 if ($step > 1 && $step != 3 && $dsq_user_api_key) $step = 1;
 elseif ($step == 2 && !isset($_POST['dsq_username'])) $step = 1;
 $step = (dsq_is_installed()) ? 0 : ($step ? $step : 1);

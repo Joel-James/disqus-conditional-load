@@ -40,7 +40,7 @@ if ( ! defined( 'WPINC' ) ) {
 			?>
 		        <li class="<?php echo $class_gnrl; ?>"><a href="?page=dcl-settings" class="tab-orange tab-premium">DCL Settings <span class="newred_dot">&bull;</span></a></li>
 				<li class=""><a href="<?php echo DCL_DISQUS_PAGE; ?>#adv" class="tab-orange tab-premium">Disqus Settings <span class="newred_dot">&bull;</span></a></li>
-		        <li class="<?php echo $class_pro; ?>"><a href="?page=dcl-settings&tab=pro" class="tab-orange tab-premium">DCL Pro Features <span class="newred_dot">&bull;</span></a></li>
+		        <li class="<?php echo $class_pro; ?>"><a href="?page=dcl-settings&tab=pro" class="tab-orange tab-premium">DCL Pro & Info <span class="newred_dot">&bull;</span></a></li>
 				<?php // echo dcl_output_tabs(); ?>
 		    </ul>
 			<?php if ( ! isset( $_REQUEST['updated'] ) ) $_REQUEST['updated'] = false; ?>

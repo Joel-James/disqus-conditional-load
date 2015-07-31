@@ -160,7 +160,7 @@ defined('ABSPATH') or die("I am really helpless if you call me directly. Serious
 		);
 	}
 	
-	if ( get_option('dsq_external_js') == '1' && $dcl_gnrl_options['dcl_type'] == 'normal' ) {
+	if ( get_option('dsq_external_js') && $dcl_gnrl_options['dcl_type'] == 'normal' ) {
 		wp_register_script( 'dsq_embed_script', plugin_dir_url( __FILE__ ). '../disqus-core/media/js/disqus.js');
 		wp_localize_script( 'dsq_embed_script', 'embedVars', $embed_vars );
 		wp_enqueue_script( 'dsq_embed_script', plugin_dir_url( __FILE__ ). '../disqus-core/media/js/disqus.js' );

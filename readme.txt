@@ -4,11 +4,11 @@ Donate link: https://dclwp.com/
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
 Tested up to: 4.2.3
-Stable tag: 10.0.2
+Stable tag: 10.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Use Disqus comments with advanced features like lazy load, shortcode, widgets etc. Boost your page speed.
+Use Disqus comments with advanced features like lazy load, shortcode, widgets etc. Don't let Disqus to slow your site down.
 
 == Description ==
 
@@ -145,6 +145,18 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 
 == Changelog ==
+
+= 10.0.4 =
+
+**Bug Fixes**
+- Fixed issue with count.js
+
+= 10.0.3 =
+
+**Bug Fixes**
+- Fixed not loading when 'Render Javascript in external files' unchecked.
+- Fixed Activator class error.
+- Fixed undefined variable from Disqus.
 
 = 10.0.2 =
 
@@ -288,5 +300,5 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.0.2 =
-- Fixed old options not being transferred when updating.
+= 10.0.4 =
+- Fixed issue with count.js
