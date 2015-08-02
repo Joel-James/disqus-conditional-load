@@ -69,7 +69,7 @@ class DCL {
 	public function __construct() {
 
 		$this->plugin_name = 'disqus-conditional-load';
-		$this->version = '10.0.4';
+		$this->version = '10.0.7';
 		$this->dcl_gnrl_options = get_option( 'dcl_gnrl_options' );
 		$this->load_dependencies();
 		$this->define_admin_hooks();
@@ -113,7 +113,7 @@ class DCL {
 
 		$plugin_admin = new DCL_Admin( $this->get_plugin_name(), $this->get_version(), $this->get_options() );
 
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'dcl_setup_redirect' );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'dcl_setup_required_notice' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'dcl_create_menu');
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'dcl_options_register' );

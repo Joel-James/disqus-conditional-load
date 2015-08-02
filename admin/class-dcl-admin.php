@@ -70,20 +70,20 @@ class DCL_Admin {
 	
 	
 	/**
-	 * Redirect to installation page
+	 * Show warning message if Disqus is not configured
 	 *
-	 * If Disqus is not setup, let us redirect them to setup.
+	 * If Disqus is not setup, let us warn user that they need to set it up.
+	 * Otherwise comments will not work
 	 * @since	10.0.0
-	 * @uses	get_option()	To get the activation redirect option from db.
+	 * @uses	dsq_is_installed()	To check if Disqus configured.
 	 * @return	void.
 	 */
-	public function dcl_setup_redirect() {  
+	public function dcl_setup_required_notice() {  
 		
-		if ( get_option('dcl_do_activation_redirect') ) {
-			delete_option('dcl_do_activation_redirect');
-			if( !dsq_is_installed() ) {
-				exit(wp_redirect( DCL_DISQUS_PAGE ));
-			}
+		if( !dsq_is_installed() ) {
+			$class = "error";
+			$message = "<strong>Please configure Disqus in order to start using Disqus comments. <a href='".DCL_DISQUS_PAGE."'>Click here</a> to configure</strong>";
+			echo "<div class=\"$class\"> <p>$message</p></div>"; 
 		}
 	}
 	
@@ -125,24 +125,6 @@ class DCL_Admin {
 			plugin_dir_url( __FILE__ ) . 'images/js-icon.png'
 		);
 		
-		add_submenu_page( 
-			'dcl-settings', 
-			'Disqus Settings', 
-			'Disqus Settings', 
-			DCL_ADMIN_PERMISSION, 
-			'dcl-disqus-redirect', 
-			array( $this, 'dcl_disqus_page' ) 
-		);
-		
-		add_submenu_page( 
-			'dcl-settings', 
-			'DCL Pro', 
-			'Pro Features', 
-			DCL_ADMIN_PERMISSION, 
-			'dcl-settings&tab=pro', 
-			array( $this, 'dcl_admin_page' ) 
-		);
-		
 	}
 
 	/**
@@ -157,20 +139,7 @@ class DCL_Admin {
 	public function dcl_admin_page() {
 		require plugin_dir_path( __FILE__ ) . 'partials/dcl-admin-display.php';
 	}
-	
-	/**
-	* Redirect to Disqus page.
-	*
-	* Function to make a redirect to Dsqus settings page.
-	* This is used to add a new nav for user friendly.
-	* @since    1.0.0
-	* @uses		wp_redirect()	WordPress redirection hook.
-	* @author	Joel James
-	*/
-	public function dcl_disqus_page() {
-		wp_redirect( DCL_DISQUS_PAGE );
-		exit();
-	}
+
 	
 	/**
 	* Registering DCL options.

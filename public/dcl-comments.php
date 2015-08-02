@@ -41,16 +41,16 @@ defined('ABSPATH') or die("I am really helpless if you call me directly. Serious
 	}
 	
 	/*
-	* Output disqus_thread to page
+	* Output disqus_thread only to required pages - Not using currently
 	*
-	* In order to load disqus comments on a page you need
-	* to have disqus thread. Here we simple adds disqus_thread
+	* Do not load everything simply on all pages. This checks if pages required
+	* to add Disqus scripts
 	*
 	* @since	1.0.0
 	*/
-	if ( !is_singular( array( 'post', 'page' ) ) ) {
-		return;
-	}
+	//if ( !is_singular( array( 'post', 'page' ) ) ) {
+		//return;
+	//}
 	?>
 	
 	<!-- Here we load disqus comments -->
