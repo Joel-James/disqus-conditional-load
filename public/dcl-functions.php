@@ -178,7 +178,7 @@ if ( ! defined( 'WPINC' ) ) {
 					(function() {
 						var dsq = document.createElement('script'); dsq.type = 'text/javascript';
 						dsq.async = true;
-						dsq.src = '//' + disqus_shortname + '.' + '".DISQUS_DOMAIN."' + '/' + 'embed' + '.js' + '?pname=wordpress&pver=<?php echo DISQUS_VERSION; ?>';
+						dsq.src = '//' + disqus_shortname + '.' + '".DISQUS_DOMAIN."' + '/' + 'embed' + '.js' + '?pname=wordpress&pver=".DISQUS_VERSION."';
 						(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 					})();}
 					/* ]]> */
