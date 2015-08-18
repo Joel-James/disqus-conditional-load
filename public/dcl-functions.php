@@ -134,6 +134,7 @@ if ( ! defined( 'WPINC' ) ) {
 	* normally, without lazy load.
 	*
 	* @since    10.0.0
+	* @modified 14/8/2015
 	* @author	Joel James
 	* @echo		$normal		Disqus comments script call.
 	*/
@@ -164,6 +165,7 @@ if ( ! defined( 'WPINC' ) ) {
 	* a particular comment.
 	*
 	* @since    10.0.0
+	* @modified 14/8/2015
 	* @author	Joel James
 	* @echo		$script		Normal disqus code with hash checking.
 	*/
