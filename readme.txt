@@ -3,8 +3,8 @@ Contributors: joelcj91
 Donate link: https://dclwp.com/
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
-Tested up to: 4.2.4
-Stable tag: 10.1.0
+Tested up to: 4.3
+Stable tag: 10.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,7 @@ DCL is an advanced version of Disqus Commenting System, with which experience th
 
 - All the features from official Disqus plugin.
 - Lazy load Disqus comments using - OnScroll,OnClick and Normal.
+- SEO Friendly.
 - Use **shortcode** to load comments anywhere.
 - **Custom Post Types** support.
 - Adjust Disqus container width
@@ -146,6 +147,13 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 
 == Changelog ==
+
+= 10.1.1 =
+
+**Improvements**
+
+- [Big SEO improvement](https://dclwp.com/big-seo-improvement-disqus-seo/) - Showing synced WordPress comments to Search engine bots even if lazy load.
+- Tested with WordPress 4.3
 
 = 10.1.0 =
 
@@ -315,5 +323,5 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.1.0 =
-- Fixed wrong output issues in [dcl-functions.php](https://github.com/joel-james/disqus-conditional-load/blob/master/public/dcl-functions.php#L150)
+= 10.1.1 =
+- Big SEO improvement - Showing synced WordPress comments to Search engine bots even if lazy load.

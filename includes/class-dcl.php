@@ -69,7 +69,7 @@ class DCL {
 	public function __construct() {
 
 		$this->plugin_name = 'disqus-conditional-load';
-		$this->version = '10.1.0';
+		$this->version = '10.1.1';
 		$this->dcl_gnrl_options = get_option( 'dcl_gnrl_options' );
 		$this->load_dependencies();
 		$this->define_admin_hooks();

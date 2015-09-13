@@ -1250,8 +1250,10 @@ function dsq_check_permalink($post_id) {
 }
 add_action('edit_post', 'dsq_check_permalink');
 
-// Only replace comments if the disqus_forum_url option is set.
-add_filter('comments_template', 'dsq_comments_template');
+// Only replace comments if it is not bot.
+if( !dcl_is_bot() ) {
+	add_filter('comments_template', 'dsq_comments_template');
+}
 add_filter('comments_number', 'dsq_comments_text');
 add_filter('get_comments_number', 'dsq_comments_number');
 add_filter('bloginfo_url', 'dsq_bloginfo_url');

@@ -205,11 +205,40 @@ if ( ! defined( 'WPINC' ) ) {
 		if($dcl_gnrl_options['dcl_type'] !== 'normal'){
 			add_action('wp_footer', 'dcl_'.$dcl_gnrl_options["dcl_type"].'_code', 100);
 			add_action('wp_footer', 'dcl_disqus_hash_load', 100);
-		}
-		else {
-				// Output disqus normal load script
+		} else {
+			// Output disqus normal load script
 			add_action('wp_footer', 'dcl_disqus_normal_code', 100);
 		}
+	}
+	
+	
+	/**
+	* Check if Bot is visiting.
+	*
+	* This function is used to check if a bot is being viewed our site content.
+	* If bot, we don't have to load everything.
+	*
+	* @reference http://stackoverflow.com/questions/677419/how-to-detect-search-engine-bots-with-php
+	* @since    10.1.1
+	* @author	Joel James
+	*/
+	function dcl_is_bot() {
+	
+		$botlist = array("Teoma", "alexa", "froogle", "Gigabot", "inktomi",
+		"looksmart", "URL_Spider_SQL", "Firefly", "NationalDirectory",
+		"Ask Jeeves", "TECNOSEEK", "InfoSeek", "WebFindBot", "girafabot",
+		"crawler", "www.galaxy.com", "Googlebot", "Scooter", "Slurp",
+		"msnbot", "appie", "FAST", "WebBug", "Spade", "ZyBorg", "rabaz",
+		"Baiduspider", "Feedfetcher-Google", "TechnoratiSnoop", "Rankivabot",
+		"Mediapartners-Google", "Sogou web spider", "WebAlta Crawler","TweetmemeBot",
+		"Butterfly","Twitturls","Me.dium","Twiceler");
+	 
+		foreach($botlist as $bot){
+			if(strpos($_SERVER['HTTP_USER_AGENT'],$bot)!==false)
+			return true;	// Is a bot
+		}
+	 
+		return false;	// Not a bot
 	}
 
 	
