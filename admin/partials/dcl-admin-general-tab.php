@@ -24,7 +24,9 @@ if ( ! defined( 'WPINC' ) ) {
 			<tr valign="top">
 				<th scope="row"><label>Disqus Comments Width<br><span class="description thin">to match your theme</span></label></th>
 					<td>
-						<input placeholder="Default" type="number" name="dcl_gnrl_options[dcl_div_width]" value="<?php echo $options['dcl_div_width']; ?>" size="20"><br/>
+						<input placeholder="Default" type="number" name="dcl_gnrl_options[dcl_div_width]" value="<?php echo $options['dcl_div_width']; ?>" size="20">
+						<input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked($options['dcl_div_width_type'], '%'); ?> value="%">%
+						<input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked($options['dcl_div_width_type'], 'px'); ?> value="px">px<br/>
 						<span class="description thin">If Disqus comments are not looking good because of the large or smaller width, you can adjust the width of comments division here. Just enter the width size. Leave empty if not required.</span>
 					</td>
 			</tr>
@@ -59,6 +61,16 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<input placeholder="Loading.." type="text" name="dcl_gnrl_options[dcl_message]" value="<?php echo $options['dcl_message']; ?>" size="20"><br/>
 						<span class="description thin">There may be few milliseconds delay before Disqus starts loading when visitors clicks on the button. Enter something here, and we will show that during that delay. By Default it will be "Loading..". You may use html tags like <code>&lt;p&gt; &lt;b&gt; &lt;h2&gt;</code>(Works only with "On Click" option)</span>
+					</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label>Rocker Loader Support<br><span class="description thin">to ignore the Disqus script</span></label></th>
+					<td>
+						<select id="dcl_cfasync" class="select" name="dcl_gnrl_options[dcl_cfasync]">
+							<option value="1" <?php selected( $options['dcl_cfasync'], 1 ); ?>>Enable</option>
+							<option value="0" <?php selected( $options['dcl_cfasync'], 0 ); ?>>Disable</option>
+						</select><br/>
+						<span class="description thin">If you are using Cloudflare Rocker Loader, enable this to have <a href="https://support.cloudflare.com/hc/en-us/articles/200169436-How-can-I-have-Rocket-Loader-ignore-my-script-s-in-Automatic-Mode-" target="_blank">Rocket Loader ignore</a> the Disqus scripts by adding the <code>data-cfasync="false"</code> attribute to the script tag.</span>
 					</td>
 			</tr>
 		</div>

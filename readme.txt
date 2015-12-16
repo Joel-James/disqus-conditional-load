@@ -1,10 +1,10 @@
 === Disqus Conditional Load ===
 Contributors: joelcj91
-Donate link: https://dclwp.com/
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XUVWY8HUBUXY4
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
-Tested up to: 4.3
-Stable tag: 10.1.1
+Tested up to: 4.4
+Stable tag: 10.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ DCL is an advanced version of Disqus Commenting System, with which experience th
 
 - All the features from official Disqus plugin.
 - Lazy load Disqus comments using - OnScroll,OnClick and Normal.
-- SEO Friendly.
+- **SEO FRIENDLY.**
 - Use **shortcode** to load comments anywhere.
 - **Custom Post Types** support.
 - Adjust Disqus container width
@@ -44,7 +44,7 @@ DCL is an advanced version of Disqus Commenting System, with which experience th
 > [Upgrade to DCL Pro](https://dclwp.com/)
 
 
-= Other Features by Disqus =
+= Other Features by Disqus and DCL =
 
 * Support for importing existing comments.
 * Adjust the Disqus comments width.
@@ -147,6 +147,23 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 
 == Changelog ==
+
+
+= 10.1.3 =
+**New Features**
+- Added option to choose comment div width in % and pixel.
+- Added option to make CloudFlair Rocket Loader ignore the script.
+
+**Improvements**
+- Changed comments div align to center using inline css.
+
+
+= 10.1.2 =
+
+**Bug Fixes**
+
+- Added checking if USER_AGENT is set before checking current user agent -Thanks to [johnstonphilip](https://mintplugins.com/)
+- Tested with WordPress 4.3.1
 
 = 10.1.1 =
 
@@ -323,5 +340,10 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.1.1 =
-- Big SEO improvement - Showing synced WordPress comments to Search engine bots even if lazy load.
+= 10.1.3 =
+**New Features**
+- Added option to choose comment div width in % and pixel.
+- Added option to make CloudFlair Rocket Loader ignore the script.
+
+**Improvements**
+- Changed comments div align to center using inline css.

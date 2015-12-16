@@ -23,6 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 	 * @var      string    $dcl_gnrl_options    Options values from database.
 	 */
 	$dcl_gnrl_options = get_option('dcl_gnrl_options');
+	$dcl_cfasync = ( !empty($dcl_gnrl_options['dcl_cfasync']) && $dcl_gnrl_options['dcl_cfasync'] == 1 ) ? 'data-cfasync="false"' : '';
 		
 	/**
 	* Get Disqus Conditional Code.
@@ -37,10 +38,11 @@ if ( ! defined( 'WPINC' ) ) {
 	function dcl_conditional_code() {
 		
 		global $dcl_gnrl_options;
+		global $dcl_cfasync;
 		
 		$base = is_ssl() ? 'https://' : 'http://';
 
-		$script = '<script type="text/javascript">
+		$script = '<script '.$dcl_cfasync.' type="text/javascript">
 					var disqus_shortname = "'.strtolower(get_option("disqus_forum_url")).'";
 					if (typeof ds_loaded == "undefined") {
 						var ds_loaded = false; //To track loading only once on a page.
@@ -140,8 +142,9 @@ if ( ! defined( 'WPINC' ) ) {
 	*/
 	function dcl_disqus_normal_code() {
 		
+		global $dcl_cfasync;
 		$normal = "";
-		$normal = "<script type='text/javascript'>
+		$normal = "<script ".$dcl_cfasync." type='text/javascript'>
 					/* <![CDATA[ */
 					var ds_loaded = true;
 					var dcl_loaded = 1;
@@ -170,8 +173,10 @@ if ( ! defined( 'WPINC' ) ) {
 	* @echo		$script		Normal disqus code with hash checking.
 	*/
 	function dcl_disqus_hash_load() {
+		
+		global $dcl_cfasync;
 		$script = "";
-		$script = "<script type='text/javascript'>
+		$script = "<script  ".$dcl_cfasync." type='text/javascript'>
 					/* <![CDATA[ */
 					var hash = window.location.hash;
 					if(hash!==''){
@@ -234,7 +239,7 @@ if ( ! defined( 'WPINC' ) ) {
 		"Butterfly","Twitturls","Me.dium","Twiceler");
 	 
 		foreach($botlist as $bot){
-			if(strpos($_SERVER['HTTP_USER_AGENT'],$bot)!==false)
+			if( isset( $_SERVER['HTTP_USER_AGENT'] ) && strpos($_SERVER['HTTP_USER_AGENT'], $bot )!== false )
 			return true;	// Is a bot
 		}
 	 

@@ -31,13 +31,14 @@ defined('ABSPATH') or die("I am really helpless if you call me directly. Serious
 	}
 	
 	$dcl_gnrl_options = get_option('dcl_gnrl_options');
+	$dcl_div_width_type	= ( !empty($dcl_gnrl_options['dcl_div_width_type']) && $dcl_gnrl_options['dcl_div_width_type'] == 'px' ) ? 'px' : '%';
 	$dcl_div_style = '';
 	
 	global $post;
 	global $comments;
 	// Check if custom div width is enabled.
 	if( $dcl_gnrl_options['dcl_div_width'] !=='') {
-		$dcl_div_style = 'style="width: '.$dcl_gnrl_options["dcl_div_width"].'px; margin:0 auto;"';
+		$dcl_div_style = 'style="width: '.$dcl_gnrl_options["dcl_div_width"].$dcl_div_width_type.'; margin:0 auto;"';
 	}
 	
 	/*
@@ -69,7 +70,7 @@ defined('ABSPATH') or die("I am really helpless if you call me directly. Serious
 		$dcl_final_btn_class = $dcl_gnrl_options['dcl_btn_class'];
 	
 	?>
-		<div id='dcl-hidden-div' align='center'>
+		<div id='dcl-hidden-div' style='text-align: center;'>
 		<button data-disqus-url="<?php echo the_permalink(); ?>" id='dcl_comment_btn' class="<?php echo $dcl_final_btn_class; ?>" style="margin-bottom:20px;margin-top:20px;"><?php echo $dcl_gnrl_options['dcl_btn_txt']; ?></button>
 		</div>
 		

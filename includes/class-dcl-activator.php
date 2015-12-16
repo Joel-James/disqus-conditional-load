@@ -35,10 +35,12 @@ class DCL_Activator {
 		
 		$dcl_type			= self::transfer( 'js_type', 'dcl_type', 'scroll' );
 		$dcl_width			= self::transfer( '', 'dcl_div_width', '');
+		$dcl_div_width_type	= self::transfer( 'dcl_div_width_type', 'dcl_div_width_type', 'px');
 		$dcl_button			= self::transfer( 'js_button', 'dcl_btn_txt', 'Load Comments' );
 		$dcl_class			= self::transfer( 'js_class', 'dcl_btn_class', '' );
 		$dcl_message		= self::transfer( 'js_message', 'dcl_message', 'Loading...' );
 		$dcl_count_old		= self::transfer( 'js_count_disable', 'dcl_count_disable', 'yes' );
+		$dcl_cfasync		= self::transfer( 'dcl_cfasync', 'dcl_cfasync', 0 );
 
 
 		// Count disable value structure changed. So we are transfering to new structure
@@ -48,10 +50,12 @@ class DCL_Activator {
 		$newGnrlOptions = array( 
 					'dcl_type' => $dcl_type,
 					'dcl_div_width' => $dcl_width,
+					'dcl_div_width_type' => $dcl_div_width_type,
 					'dcl_count_disable' => $dcl_count_new,
 					'dcl_btn_txt' => $dcl_button,
 					'dcl_btn_class' => $dcl_class,
-					'dcl_message' => $dcl_message
+					'dcl_message' => $dcl_message,
+					'dcl_cfasync' => $dcl_cfasync
 				);
 				
 		update_option( 'dcl_gnrl_options', $newGnrlOptions );
@@ -81,7 +85,7 @@ class DCL_Activator {
 		if( get_option( 'dcl_gnrl_options' ) ) {
 			$dcl_option = get_option( 'dcl_gnrl_options' );
 			// If exists, then take that option value
-			$fresh = $dcl_option[$new];
+			$fresh = (!empty($dcl_option[$new])) ? $dcl_option[$new] : $fresh;
 			// Check if old value is available for the same option
 			if(get_option( $old )) {
 				// If available delete it, as we are moving to new settings
