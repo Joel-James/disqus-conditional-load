@@ -52,7 +52,7 @@ if ( ! defined( 'WPINC' ) ) {
 						var disqus_div = document.getElementById("disqus_thread"); //The ID of the Disqus DIV tag
 						var top = disqus_div.offsetTop;
 						var disqus_data = disqus_div.dataset;
-						if ( !ds_loaded && document.documentElement.scrollTop + window.innerHeight > top ) 
+						if ( !ds_loaded && ( window.scrollY || window.pageYOffset ) + window.innerHeight > top ) 
 						{
 							ds_loaded = true;
 							for (var key in disqus_data) 

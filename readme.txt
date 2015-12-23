@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
 Tested up to: 4.4
-Stable tag: 10.1.5
+Stable tag: 10.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,7 +152,7 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 == Changelog ==
 
 
-= 10.1.5 =
+= 10.1.6 =
 
 **Bug Fixes**
 - Fixed issues in Internet Explorer after last update.
@@ -355,7 +355,7 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.1.5 =
+= 10.1.6 =
 
 **Bug Fixes**
 - Fixed issues in Internet Explorer after last update.
