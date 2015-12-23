@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
 Tested up to: 4.4
-Stable tag: 10.1.3
+Stable tag: 10.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,8 @@ Use Disqus comments with advanced features like lazy load, shortcode, widgets et
 == Description ==
 
 DCL is an advanced version of Disqus Commenting System, with which experience the boosted page loading speed difference. This free plugin adds advanced features like lazy loading and SHORTCODE, comment widgets, script disabling etc to your Disqus powered website.
+
+> - **This plugin doesn't require jQuery. We use pure JavaScript**
 
 **Disqus Conditional Load, popular features..**
 
@@ -46,6 +48,7 @@ DCL is an advanced version of Disqus Commenting System, with which experience th
 
 = Other Features by Disqus and DCL =
 
+* jQuery independent, using only javascript.
 * Support for importing existing comments.
 * Adjust the Disqus comments width.
 * You can use SHORTCODE to load disqus where ever on the page.
@@ -149,7 +152,19 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 == Changelog ==
 
 
+= 10.1.5 =
+
+**Bug Fixes**
+- Fixed issues in Internet Explorer after last update.
+
+= 10.1.4 =
+
+**Improvements**
+- GOOD NEWS! This plugin is now jQuery independent. That means we use just javascript. So no jQuery issues!
+- Improved performance.
+
 = 10.1.3 =
+
 **New Features**
 - Added option to choose comment div width in % and pixel.
 - Added option to make CloudFlair Rocket Loader ignore the script.
@@ -340,10 +355,7 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.1.3 =
-**New Features**
-- Added option to choose comment div width in % and pixel.
-- Added option to make CloudFlair Rocket Loader ignore the script.
+= 10.1.5 =
 
-**Improvements**
-- Changed comments div align to center using inline css.
+**Bug Fixes**
+- Fixed issues in Internet Explorer after last update.

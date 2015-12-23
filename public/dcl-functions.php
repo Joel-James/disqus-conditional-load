@@ -49,10 +49,10 @@ if ( ! defined( 'WPINC' ) ) {
 					}
 					function loadDisqus()
 					{
-						var disqus_div = jQuery("#disqus_thread"); //The ID of the Disqus DIV tag
-						var top = disqus_div.offset().top;
-						var disqus_data = disqus_div.data();
-						if ( !ds_loaded && jQuery(window).scrollTop() + jQuery(window).height() > top ) 
+						var disqus_div = document.getElementById("disqus_thread"); //The ID of the Disqus DIV tag
+						var top = disqus_div.offsetTop;
+						var disqus_data = disqus_div.dataset;
+						if ( !ds_loaded && document.documentElement.scrollTop + window.innerHeight > top ) 
 						{
 							ds_loaded = true;
 							for (var key in disqus_data) 
@@ -66,7 +66,9 @@ if ( ! defined( 'WPINC' ) ) {
 							dsq.type = "text/javascript";
 							dsq.async = true;
 							dsq.src = "'.$base.'" + window.disqus_shortname + ".disqus.com/embed.js";
-							jQuery("#dcl-hidden-div").html("'.$dcl_gnrl_options["dcl_message"].'");
+							if(document.getElementById("dcl-hidden-div")) {
+								document.getElementById("dcl-hidden-div").innerHTML = "'.$dcl_gnrl_options["dcl_message"].'";
+							}
 							(document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(dsq);
 						}    
 					}
@@ -88,18 +90,13 @@ if ( ! defined( 'WPINC' ) ) {
 	function dcl_scroll_code(){
 
 		$scroll = dcl_conditional_code();
-		$scroll .= 'jQuery(function () 
-					{
-						var disqus_div = jQuery("#disqus_thread");
-						if(document.body.scrollHeight < window.innerHeight){
-							loadDisqus();
-						}
-						else if (disqus_div.size() > 0) 
-						{
-							jQuery(window).scroll(loadDisqus);      
-						} 
+		$scroll .= 'var disqus_div_new = document.getElementById("disqus_thread");
+					var divExists = disqus_div_new != null;
+					if(document.body.scrollHeight < window.innerHeight){
+						loadDisqus();
+					} else if(divExists) {
+						window.onscroll = function() { loadDisqus(); }
 					}
-					);
 					</script>';
 		
 		echo $scroll;
@@ -119,9 +116,7 @@ if ( ! defined( 'WPINC' ) ) {
 	function dcl_click_code(){
 
 		$click = dcl_conditional_code();
-		$click = 'jQuery(function () {
-					jQuery("#dcl_comment_btn").click(loadDisqus);
-					});
+		$click = 'document.getElementById("dcl_comment_btn").onclick = function() { loadDisqus() };
 				</script>';
 		
 		echo $click;
