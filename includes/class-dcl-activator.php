@@ -40,6 +40,7 @@ class DCL_Activator {
 		$dcl_class			= self::transfer( 'js_class', 'dcl_btn_class', '' );
 		$dcl_message		= self::transfer( 'js_message', 'dcl_message', 'Loading...' );
 		$dcl_count_old		= self::transfer( 'js_count_disable', 'dcl_count_disable', 'yes' );
+		$dcl_caching 		= self::transfer( 'dcl_caching', 'dcl_caching', 0 );
 		$dcl_cfasync		= self::transfer( 'dcl_cfasync', 'dcl_cfasync', 0 );
 
 
@@ -55,6 +56,7 @@ class DCL_Activator {
 					'dcl_btn_txt' => $dcl_button,
 					'dcl_btn_class' => $dcl_class,
 					'dcl_message' => $dcl_message,
+					'dcl_caching' => $dcl_caching,
 					'dcl_cfasync' => $dcl_cfasync
 				);
 				

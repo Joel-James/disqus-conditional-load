@@ -1250,8 +1250,9 @@ function dsq_check_permalink($post_id) {
 }
 add_action('edit_post', 'dsq_check_permalink');
 
+$dcl_gnrl_options = get_option('dcl_gnrl_options');
 // Only replace comments if it is not bot.
-if( !dcl_is_bot() ) {
+if( !dcl_is_bot() || $dcl_gnrl_options['dcl_caching'] == 1 ) {
 	add_filter('comments_template', 'dsq_comments_template');
 }
 add_filter('comments_number', 'dsq_comments_text');
@@ -1384,7 +1385,7 @@ function dsq_sso() {
         $avatar_tag = get_avatar($current_user->ID);
         $avatar_data = array();
         preg_match('/(src)=((\'|")[^(\'|")]*(\'|"))/i', $avatar_tag, $avatar_data);
-        $avatar = str_replace(array('"', "'"), '', $avatar_data[2]);
+        $avatar = (isset($avatar_data[2])) ? str_replace(array('"', "'"), '', $avatar_data[2]) : '';
         $user_data = array(
             'username' => $current_user->display_name,
             'id' => $current_user->ID,

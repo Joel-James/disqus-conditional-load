@@ -64,6 +64,16 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 			</tr>
 			<tr valign="top">
+				<th scope="row"><label>Caching Support<br><span class="description thin">to work with caching plugins</span></label></th>
+					<td>
+						<select id="dcl_caching" class="select" name="dcl_gnrl_options[dcl_caching]">
+							<option value="1" <?php selected( $options['dcl_caching'], 1 ); ?>>Enable</option>
+							<option value="0" <?php selected( $options['dcl_caching'], 0 ); ?>>Disable</option>
+						</select><br/>
+						<span class="description thin">If you are having issues loading Disqus comments when caching is enabled, please enable this.</span>
+					</td>
+			</tr>
+			<tr valign="top">
 				<th scope="row"><label>Rocker Loader Support<br><span class="description thin">to ignore the Disqus script</span></label></th>
 					<td>
 						<select id="dcl_cfasync" class="select" name="dcl_gnrl_options[dcl_cfasync]">
