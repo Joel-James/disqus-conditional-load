@@ -1385,7 +1385,7 @@ function dsq_sso() {
         $avatar_tag = get_avatar($current_user->ID);
         $avatar_data = array();
         preg_match('/(src)=((\'|")[^(\'|")]*(\'|"))/i', $avatar_tag, $avatar_data);
-        $avatar = (isset($avatar_data[2])) ? str_replace(array('"', "'"), '', $avatar_data[2]) : '';
+        $avatar = str_replace(array('"', "'"), '', $avatar_data[2]);
         $user_data = array(
             'username' => $current_user->display_name,
             'id' => $current_user->ID,

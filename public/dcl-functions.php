@@ -142,6 +142,7 @@ if ( ! defined( 'WPINC' ) ) {
 		$normal = "<script ".$dcl_cfasync." type='text/javascript'>
 					/* <![CDATA[ */
 					var ds_loaded = true;
+                                        var disqus_shortname = '".strtolower(get_option("disqus_forum_url"))."';
 					var dcl_loaded = 1;
 					(function() {
 						var dsq = document.createElement('script'); dsq.type = 'text/javascript';
@@ -174,6 +175,7 @@ if ( ! defined( 'WPINC' ) ) {
 		$script = "<script  ".$dcl_cfasync." type='text/javascript'>
 					/* <![CDATA[ */
 					var hash = window.location.hash;
+                                        var disqus_shortname = '".strtolower(get_option("disqus_forum_url"))."';
 					if(hash!==''){
 					var ds_loaded = true;
 					var dcl_loaded = 1;

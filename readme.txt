@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
 Tested up to: 4.4.1
-Stable tag: 10.1.7
+Stable tag: 10.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -151,27 +151,35 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Changelog ==
 
-= 10.1.7 =
+
+= 10.1.8 =
+
 **Bug Fixes**
-- Fixed issues in caching plugins - Thanks to [jackennils](https://wordpress.org/support/topic/dcl-wont-load-in-some-posts?replies=26#post-7875726).
-- Tested with WordPress 4.4.1.
+
+- Fixed issue when # found in url.
+
+= 10.1.7 =
+
+**Bug Fixes**
+- Fixed issues in caching plugins - Thanks to [jackennils](https://wordpress.org/support/topic/dcl-wont-load-in-some-posts?replies=26#post-7875726)
+- Tested with WordPress 4.4.1
 
 = 10.1.6 =
 
 **Bug Fixes**
-- Fixed issues in Internet Explorer after last update.
+- Fixed issues in Internet Explorer after last update
 
 = 10.1.4 =
 
 **Improvements**
 - GOOD NEWS! This plugin is now jQuery independent. That means we use just javascript. So no jQuery issues!
-- Improved performance.
+- Improved performance
 
 = 10.1.3 =
 
 **New Features**
-- Added option to choose comment div width in % and pixel.
-- Added option to make CloudFlair Rocket Loader ignore the script.
+- Added option to choose comment div width in % and pixel
+- Added option to make CloudFlair Rocket Loader ignore the script
 
 **Improvements**
 - Changed comments div align to center using inline css.
@@ -359,7 +367,7 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.1.7 =
+= 10.1.8 =
 
 **Bug Fixes**
-- Fixed issues in caching plugins - Thanks to [jackennils](https://wordpress.org/support/topic/dcl-wont-load-in-some-posts?replies=26#post-7875726).
+- Fixed issue when # found in url.
