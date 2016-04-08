@@ -234,12 +234,16 @@ function dsq_can_replace() {
     if (get_option('disqus_active') === '0'){ return false; }
 
     $replace = get_option('disqus_replace');
+    $dcl_gnrl_options = get_option('dcl_gnrl_options');
+    $excluded_cpts = dcl_splite_to_array($dcl_gnrl_options['dcl_cpt_exclude']);
 
     if ( is_feed() )                       { return false; }
     if ( !isset($post) )                   { return false; }
     if ( 'draft' == $post->post_status )   { return false; }
     if ( !get_option('disqus_forum_url') ) { return false; }
-	if ( 'product' == get_post_type() )    { return false; }
+    if ( 'product' == get_post_type() )    { return false; }
+    // exclude cpts
+    if ( in_array(get_post_type(), $excluded_cpts) ) { return false; }
     else if ( 'all' == $replace )          { return true; }
 
     if ( !isset($post->comment_count) ) {

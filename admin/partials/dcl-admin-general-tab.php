@@ -64,6 +64,13 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 			</tr>
 			<tr valign="top">
+				<th scope="row"><label>Disable on CPTs<br><span class="description thin">to skip custom post types</span></label></th>
+					<td>
+						<input placeholder="product" type="text" name="dcl_gnrl_options[dcl_cpt_exclude]" value="<?php echo $options['dcl_cpt_exclude']; ?>"><br/><br/>
+						<span class="description thin">If Disqus adds its scripts on custom post types, and you dont like it, enter the custom post type here. Separate with comma.</span>
+					</td>
+			</tr>
+                        <tr valign="top">
 				<th scope="row"><label>Caching Support<br><span class="description thin">to work with caching plugins</span></label></th>
 					<td>
 						<select id="dcl_caching" class="select" name="dcl_gnrl_options[dcl_caching]">

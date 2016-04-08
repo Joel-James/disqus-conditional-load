@@ -3,8 +3,8 @@ Contributors: joelcj91
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XUVWY8HUBUXY4
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
-Tested up to: 4.4.1
-Stable tag: 10.1.8
+Tested up to: 4.5
+Stable tag: 10.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,7 @@ DCL is an advanced version of Disqus Commenting System, with which experience th
 
 * jQuery independent, using only javascript.
 * Support for importing existing comments.
+* Ability to remove all disqus scripts from custom post types.
 * Adjust the Disqus comments width.
 * You can use SHORTCODE to load disqus where ever on the page.
 * Prevent auto load of Disqus Comments.
@@ -129,6 +130,9 @@ Use the following shortcode in your post/page where you want to show comments.
 = What are the main differences between DCL Pro and Free? =
 Please have a look at the [DCL Pro vs Free comparision](https://dclwp.com/features) page on official website.
 
+= I don't want Disqus scripts on custom posts. Can I remove that? =
+Yes. GO to DCL settings and enter custom post type name from which you want to remove dsiqus scripts.
+
 = More documentation =
 More detailed documentation can be found on the [DCL documentation](https://dclwp.com/docs/) section.
 
@@ -152,6 +156,18 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 == Changelog ==
 
 
+= 10.1.9 =
+
+**New Features**
+
+- Option to remove disqus scripts from post types.
+
+**Bug Fixes**
+
+- Issues with custom post types fixed.
+- Deprecated usage fixed.
+- Tested with WordPress 4.5.
+
 = 10.1.8 =
 
 **Bug Fixes**
@@ -161,27 +177,32 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 = 10.1.7 =
 
 **Bug Fixes**
+
 - Fixed issues in caching plugins - Thanks to [jackennils](https://wordpress.org/support/topic/dcl-wont-load-in-some-posts?replies=26#post-7875726)
 - Tested with WordPress 4.4.1
 
 = 10.1.6 =
 
 **Bug Fixes**
+
 - Fixed issues in Internet Explorer after last update
 
 = 10.1.4 =
 
 **Improvements**
+
 - GOOD NEWS! This plugin is now jQuery independent. That means we use just javascript. So no jQuery issues!
 - Improved performance
 
 = 10.1.3 =
 
 **New Features**
+
 - Added option to choose comment div width in % and pixel
 - Added option to make CloudFlair Rocket Loader ignore the script
 
 **Improvements**
+
 - Changed comments div align to center using inline css.
 
 
@@ -367,7 +388,14 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.1.8 =
+= 10.1.9 =
+
+**New Features**
+
+- Option to remove disqus scripts from post types.
 
 **Bug Fixes**
-- Fixed issue when # found in url.
+
+- Issues with custom post types fixed.
+- Deprecated usage fixed.
+- Tested with WordPress 4.5.

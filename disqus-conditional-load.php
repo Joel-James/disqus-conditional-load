@@ -3,7 +3,7 @@
  * Plugin Name:       Disqus Conditional Load
  * Plugin URI:        https://dclwp.com
  * Description:       Advanced version of Disqus plugin with much more features like <strong>lazy load, shortcode</strong> etc.
- * Version:           10.1.8
+ * Version:           10.1.9
  * Author:            Joel James
  * Author URI:        http://www.joelsays.com/
  * License:           GPL-2.0+
@@ -11,31 +11,30 @@
  * Text Domain:       disqus-conditional-load
  * Domain Path:       /languages
  */
-
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die('Damn it.! Dude you are looking for what?');
+if (!defined('WPINC')) {
+    die('Damn it.! Dude you are looking for what?');
 }
 
 // Defines plugin constants
-if(!defined('DCL_VERSION')) {
-	define( 'DCL_VERSION', '10.1.8' );
+if (!defined('DCL_VERSION')) {
+    define('DCL_VERSION', '10.1.9');
 }
-if(!defined('DCLPATH')){
-	define( 'DCLPATH', home_url( PLUGINDIR . '/disqus-conditional-load/' ) );
+if (!defined('DCLPATH')) {
+    define('DCLPATH', home_url(PLUGINDIR . '/disqus-conditional-load/'));
 }
-if(!defined('DCL_PLUGIN_DIR')) {
-	define( 'DCL_PLUGIN_DIR', __FILE__ );
+if (!defined('DCL_PLUGIN_DIR')) {
+    define('DCL_PLUGIN_DIR', __FILE__);
 }
-if(!defined('DCL_DISQUS_PAGE')) {
-	define( 'DCL_DISQUS_PAGE', admin_url( 'edit-comments.php?page=disqus' ) );
+if (!defined('DCL_DISQUS_PAGE')) {
+    define('DCL_DISQUS_PAGE', admin_url('edit-comments.php?page=disqus'));
 }
-if(!defined('DCL_SETTINGS_PAGE')) {
-	define( 'DCL_SETTINGS_PAGE', admin_url( 'admin.php?page=dcl-settings' ) );
+if (!defined('DCL_SETTINGS_PAGE')) {
+    define('DCL_SETTINGS_PAGE', admin_url('admin.php?page=dcl-settings'));
 }
 // Set who all can access DCL settings. You can change this if you want to give others access.
-if(!defined('DCL_ADMIN_PERMISSION')) {
-	define( 'DCL_ADMIN_PERMISSION', 'manage_options' );
+if (!defined('DCL_ADMIN_PERMISSION')) {
+    define('DCL_ADMIN_PERMISSION', 'manage_options');
 }
 
 /**
@@ -43,18 +42,19 @@ if(!defined('DCL_ADMIN_PERMISSION')) {
  * This action is documented in includes/class-dcl-activator.php
  */
 function activate_dcl() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-dcl-activator.php';
-	DCL_Activator::activate();
+    require_once plugin_dir_path(__FILE__) . 'includes/class-dcl-activator.php';
+    DCL_Activator::activate();
 }
-register_activation_hook( __FILE__, 'activate_dcl' );
+
+register_activation_hook(__FILE__, 'activate_dcl');
 
 /**
  * The core plugin class that is used to define
  * dashboard-specific hooks, and public-facing site hooks.
  */
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-dcl.php';
-require_once plugin_dir_path( __FILE__ ) . 'public/dcl-functions.php';
-require_once plugin_dir_path( __FILE__ ) . 'disqus-core/disqus.php';
+require_once plugin_dir_path(__FILE__) . 'includes/class-dcl.php';
+require_once plugin_dir_path(__FILE__) . 'public/dcl-functions.php';
+require_once plugin_dir_path(__FILE__) . 'disqus-core/disqus.php';
 
 /**
  * Begins execution of the plugin.
@@ -67,10 +67,10 @@ require_once plugin_dir_path( __FILE__ ) . 'disqus-core/disqus.php';
  */
 function run_dcl() {
 
-	$plugin = new DCL();
-	$plugin->run();
-
+    $plugin = new DCL();
+    $plugin->run();
 }
+
 run_dcl();
 
 //*** Thank you for your interest in DCL - Developed and managed by Joel James ***// 

@@ -45,11 +45,11 @@ if ( ! defined( 'WPINC' ) ) {
 		$script = '<script '.$dcl_cfasync.' type="text/javascript">
 					var disqus_shortname = "'.strtolower(get_option("disqus_forum_url")).'";
 					if (typeof ds_loaded == "undefined") {
-						var ds_loaded = false; //To track loading only once on a page.
+						var ds_loaded = false;
 					}
 					function loadDisqus()
 					{
-						var disqus_div = document.getElementById("disqus_thread"); //The ID of the Disqus DIV tag
+						var disqus_div = document.getElementById("disqus_thread");
 						var top = disqus_div.offsetTop;
 						var disqus_data = disqus_div.dataset;
 						if ( !ds_loaded && ( window.scrollY || window.pageYOffset ) + window.innerHeight > top ) 
@@ -297,3 +297,27 @@ if ( ! defined( 'WPINC' ) ) {
 
 		return $output;
 	}
+        
+        /**
+         * Split a option value string to array
+         * 
+         * @param $string - Input string to convert to array
+         * @param string $separator - Separator to separate by (default: ,)
+         * 
+         * @since 10.1.9
+         *
+         * @return array
+         */
+        function dcl_splite_to_array($string, $separator = ',') {
+          
+            //Explode on comma
+            $vals = explode($separator, $string);
+
+            //Trim whitespace
+            foreach($vals as $key => $val) {
+                $vals[$key] = trim($val);
+            }
+            //Return empty array if no items found
+            //http://php.net/manual/en/function.explode.php#114273
+            return array_diff($vals, array(""));
+        }
