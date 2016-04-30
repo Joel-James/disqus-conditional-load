@@ -56,6 +56,7 @@ defined('ABSPATH') or die("I am really helpless if you call me directly. Serious
 	
 	<!-- Here we load disqus comments -->
 	<div class="dcl-disqus-thread" id="comments" <?php echo $dcl_div_style; ?>>
+	<div id="respond">
 	<div id="disqus_thread">
 	<?php
 	/*
@@ -118,6 +119,7 @@ defined('ABSPATH') or die("I am really helpless if you call me directly. Serious
 			<?php } ?>
 
 		<?php endif; ?>
+	</div>
 	</div>
 	</div>
 	
