@@ -19,44 +19,18 @@ if (!defined('WPINC')) {
 class DCL_Public {
 
     /**
-     * The ID of this plugin.
-     *
-     * @since    10.0.0
-     * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
+     * Change the respond/comments links
+     * 
+     * By default the respond links may be #respond.
+     * Incase Disqus is unable to do that,
+     * We will change that to #disqus_thread
+     * 
+     * @since 10.2.0
+     * 
+     * @return void
      */
-    private $plugin_name;
+    public function change_respond_link(){
 
-    /**
-     * The version of this plugin.
-     *
-     * @since    10.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
-     */
-    private $version;
-
-    /**
-     * The options of plugin.
-     *
-     * @since    10.0.0
-     * @access   protected
-     * @var      string    $options    The options from db.
-     */
-    private $dcl_gnrl_options;
-
-    /**
-     * Initialize the class and set its properties.
-     *
-     * @since    10.0.0
-     * @var      string    $plugin_name       The name of the plugin.
-     * @var      string    $version    The version of this plugin.
-     */
-    public function __construct($plugin_name, $version, $dcl_gnrl_options) {
-
-        $this->plugin_name = $plugin_name;
-        $this->version = $version;
-        $this->options = $dcl_gnrl_options;
+        return get_permalink() . '#disqus_threads';
     }
-
 }

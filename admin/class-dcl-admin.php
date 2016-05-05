@@ -80,7 +80,9 @@ class DCL_Admin {
 
         if (!dsq_is_installed()) {
             $class = "error";
+
             $message = "<strong>Please configure Disqus in order to start using Disqus comments. <a href='" . DCL_DISQUS_PAGE . "'>Click here</a> to configure</strong>";
+
             echo "<div class=\"$class\"> <p>$message</p></div>";
         }
     }
@@ -100,6 +102,7 @@ class DCL_Admin {
             if (class_exists('DCL_Activator')) {
                 DCL_Activator::activate();
             }
+
             update_option('dcl_version_no', DCL_VERSION);
         }
     }
@@ -129,7 +132,7 @@ class DCL_Admin {
      * @author	Joel James
      */
     public function dcl_admin_page() {
-        
+
         require plugin_dir_path(__FILE__) . 'partials/dcl-admin-display.php';
     }
 
@@ -141,7 +144,7 @@ class DCL_Admin {
      * @action	hooks 		register_setting       Hook to register options in db.
      */
     public function dcl_options_register() {
-        
+
         register_setting(
                 'dcl_gnrl_options', 'dcl_gnrl_options'
         );
@@ -160,8 +163,9 @@ class DCL_Admin {
      * @author	Joel James
      */
     public function dcl_dashboard_footer() {
-        
+
         global $pagenow;
+        
         if (( $pagenow == 'admin.php' ) && ( in_array($_GET['page'], array('dcl-settings')))) {
             echo 'Thank you for choosing this plugin | <a href="http://dclwp.com">Upgrade to DCL Pro</a> | <a href="https://wordpress.org/support/view/plugin-reviews/disqus-conditional-load?filter=5#postform">Rate it &#9733; &#9733;</a>';
         } else {
@@ -180,9 +184,11 @@ class DCL_Admin {
      * @author	Joel James
      */
     public function dcl_plugin_action_links($links, $file) {
-        
+
         $plugin_file = basename('disqus-conditional-load.php');
+        
         if (basename($file) == $plugin_file) {
+            
             if (!dsq_is_installed()) {
                 $settings_link = '<a href="edit-comments.php?page=disqus">' . dsq_i('Configure') . '</a>';
             } else {
@@ -190,6 +196,7 @@ class DCL_Admin {
             }
             array_unshift($links, $settings_link);
         }
+        
         return $links;
     }
 

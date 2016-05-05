@@ -71,10 +71,11 @@ class DCL {
     public function __construct() {
 
         $this->plugin_name = 'disqus-conditional-load';
-        $this->version = '10.1.9';
+        $this->version = '10.2.0';
         $this->dcl_gnrl_options = get_option('dcl_gnrl_options');
         $this->load_dependencies();
         $this->define_admin_hooks();
+        $this->define_public_hooks();
         $this->add_dcl_shortcodes();
     }
 
@@ -96,6 +97,7 @@ class DCL {
 
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-dcl-loader.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-dcl-admin.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-dcl-public.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-dcl-activator.php';
 
         $this->loader = new DCL_Loader();
@@ -120,6 +122,24 @@ class DCL {
         $this->loader->add_filter('plugin_action_links', $plugin_admin, 'dcl_plugin_action_links', 10, 5);
         $this->loader->add_filter('plugin_row_meta', $plugin_admin, 'dcl_plugin_row_meta', 10, 2);
         $this->loader->add_action('plugins_loaded', $plugin_admin, 'dcl_upgrade_if_new');
+    }
+    
+    /**
+     * Register all of the hooks related to the public functionality
+     * of the plugin.
+     *
+     * @since    10.2.0
+     * @access   private
+     */
+    private function define_public_hooks() {
+        
+        if ( is_admin() ) {
+            return;
+        }
+        
+        $plugin_public = new DCL_Public();
+        
+        $this->loader->add_filter('respond_link', $plugin_public, 'change_respond_link');
     }
 
     /**
