@@ -31,6 +31,6 @@ class DCL_Public {
      */
     public function change_respond_link(){
 
-        return get_permalink() . '#disqus_thread';
+        return get_permalink() . '#disqus_threads';
     }
 }
