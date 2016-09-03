@@ -139,7 +139,7 @@ class DCL {
         
         $plugin_public = new DCL_Public();
         
-        $this->loader->add_filter('respond_link', $plugin_public, 'change_respond_link');
+        $this->loader->add_filter('respond_link', $plugin_public, 'change_respond_link', 99);
     }
 
     /**
