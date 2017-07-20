@@ -1,60 +1,86 @@
 <?php
 /**
- * Plugin Name:       Disqus Conditional Load
- * Plugin URI:        https://dclwp.com
- * Description:       Advanced version of Disqus plugin with much more features like <strong>lazy load, shortcode</strong> etc.
- * Version:           10.2.0
- * Author:            Joel James
- * Author URI:        http://www.joelsays.com/
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       disqus-conditional-load
- * Domain Path:       /languages
+ * Plugin Name:     Disqus Conditional Load
+ * Plugin URI:      https://dclwp.com
+ * Description:     Disqus commenting system for WordPress with advanced features like like <strong>lazy load, shortcode</strong> etc.
+ * Version:         11.0.0
+ * Author:          Joel James
+ * Author URI:      https://duckdev.com/
+ * Donate link:     https://paypal.me/JoelCJ
+ * License:         GPL-2.0+
+ * License URI:     http://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain:     disqus-conditional-load
+ * Domain Path:     /languages
+ *
+ * Disqus Conditional Load is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * Disqus Conditional Load is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Disqus Conditional Load. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category Core
+ * @package  DCL
+ * @author   Joel James <mail@cjoel.com>
+ * @license  http://www.gnu.org/licenses/ GNU General Public License
+ * @link     https://dclwp.com
  */
-// If this file is called directly, abort.
-if (!defined('WPINC')) {
-    die('Damn it.! Dude you are looking for what?');
-}
 
-// Defines plugin constants
-if (!defined('DCL_VERSION')) {
-    define('DCL_VERSION', '10.2.0');
-}
-if (!defined('DCLPATH')) {
-    define('DCLPATH', home_url(PLUGINDIR . '/disqus-conditional-load/'));
-}
-if (!defined('DCL_PLUGIN_DIR')) {
-    define('DCL_PLUGIN_DIR', __FILE__);
-}
-if (!defined('DCL_DISQUS_PAGE')) {
-    define('DCL_DISQUS_PAGE', admin_url('edit-comments.php?page=disqus'));
-}
-if (!defined('DCL_SETTINGS_PAGE')) {
-    define('DCL_SETTINGS_PAGE', admin_url('admin.php?page=dcl-settings'));
-}
-// Set who all can access DCL settings. You can change this if you want to give others access.
-if (!defined('DCL_ADMIN_PERMISSION')) {
-    define('DCL_ADMIN_PERMISSION', 'manage_options');
+// If this file is called directly, abort.
+defined( 'ABSPATH' ) or exit;
+
+// Define required constants for the plugin.
+// These constants can be overwritten.
+$constants = array(
+	'DCL_NAME' => '404-to-301',
+	'DCL_DOMAIN' => '404-to-301',
+	'DCL_DIR' => plugin_dir_path( __FILE__ ),
+	'DCL_PATH' => plugin_dir_url( __FILE__ ),
+	'DCL_BASE_FILE' => __FILE__,
+	'DCL_VERSION' => '11.0.0',
+	// Set who all can access plugin settings.
+	// You can change this if you want to give others access.
+	'DCL_ACCESS' => 'manage_options',
+);
+
+foreach ( $constants as $constant => $value ) {
+	if ( ! defined( $constant ) ) {
+		define( $constant, $value );
+	}
 }
 
 /**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-dcl-activator.php
+ * Plugin activation actions.
+ *
+ * Actions to perform during plugin activation.
+ * We will be registering default options in this function.
+ *
+ * @uses   register_activation_hook() To register activation hook.
+ * @since  3.0.0
+ * @access private
+ *
+ * @return void
  */
 function activate_dcl() {
-    require_once plugin_dir_path(__FILE__) . 'includes/class-dcl-activator.php';
-    DCL_Activator::activate();
+
+    //require_once DCL_DIR . 'includes/class-dcl-activator.php';
+
+    //DCL_Activator::activate();
 }
 
-register_activation_hook(__FILE__, 'activate_dcl');
+// Make use of activation hook.
+register_activation_hook( DCL_BASE_FILE , 'activate_dcl' );
 
-/**
- * The core plugin class that is used to define
- * dashboard-specific hooks, and public-facing site hooks.
- */
-require_once plugin_dir_path(__FILE__) . 'includes/class-dcl.php';
-require_once plugin_dir_path(__FILE__) . 'public/dcl-functions.php';
-require_once plugin_dir_path(__FILE__) . 'disqus-core/disqus.php';
+// Load all required files for the plugin to work.
+// We are loading official DIsqus plugin from vendor.
+require_once DCL_DIR . 'vendor/disqus/disqus.php';
+require_once DCL_DIR . 'includes/class-disqus-conditional-load.php';
 
 /**
  * Begins execution of the plugin.
@@ -63,12 +89,14 @@ require_once plugin_dir_path(__FILE__) . 'disqus-core/disqus.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    10.0.0
+ * @since 10.0.0
+ * @access public
+ *
+ * @return void
  */
 function run_dcl() {
 
-    $plugin = new DCL();
-    $plugin->run();
+	( new Disqus_Conditional_Load() )->run();
 }
 
 run_dcl();

@@ -1,36 +1,46 @@
 <?php
 
 // If this file is called directly, abort.
-if (!defined('WPINC')) {
-    die('Damn it.! Dude you are looking for what?');
-}
+defined( 'ABSPATH' ) or exit;
 
 /**
- * The public-facing functionality of the plugin.
+ * Public facing functionality for Disqus Conditional Load.
  *
- * Currently this class not doing anything for us. We may use it later.
+ * A class definition that includes attributes and functions used across the public
+ * facing side of the plugin.
  *
- * @link       http://dclwp.com
- * @since      10.0.0
- * @package    DCL
- * @subpackage DCL/public
- * @author     Joel James <me@joelsays.com>
+ * @category   Core
+ * @package    DCLAdmin
+ * @subpackage Public
+ * @author     Joel James <mail@cjoel.com>
+ * @license    http://www.gnu.org/licenses/ GNU General Public License
+ * @link       https://dclwp.com
  */
 class DCL_Public {
 
-    /**
-     * Change the respond/comments links
-     * 
-     * By default the respond links may be #respond.
-     * Incase Disqus is unable to do that,
-     * We will change that to #disqus_thread
-     * 
-     * @since 10.2.0
-     * 
-     * @return void
-     */
-    public function change_respond_link(){
+	/**
+	 * DCL plugin options.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 */
+	private $options;
 
-        return get_permalink() . '#disqus_thread';
-    }
+	/**
+	 * Define the public functionality of the plugin.
+	 *
+	 * Set the required properties of the core class.
+	 *
+	 * @param array $options Plugin options.
+	 *
+	 * @since  10.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function __construct( $options ) {
+
+		$this->options = $options;
+	}
+
 }
