@@ -1,0 +1,3 @@
+[submodule "vendor/disqus"]
+	path = vendor/disqus
+	url = git@github.com:ryanvalentin/disqus-wordpress-plugin.git
