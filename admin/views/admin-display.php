@@ -27,7 +27,6 @@ defined( 'ABSPATH' ) or exit;
 	<?php endif; ?>
 	<ul class="ui-tabs-nav">
 		<li class=""><a href="?page=dcl-settings" class="tab-orange tab-premium">DCL Settings <span class="newred_dot">&bull;</span></a></li>
-		<li class=""><a href="<?php echo DCL_DISQUS_PAGE; ?>#adv" class="tab-orange tab-premium">Disqus Settings <span class="newred_dot">&bull;</span></a></li>
 		<li class=""><a href="?page=dcl-settings&tab=pro" class="tab-orange tab-premium">DCL Pro & Info <span class="newred_dot">&bull;</span></a></li>
 	</ul>
 </div>

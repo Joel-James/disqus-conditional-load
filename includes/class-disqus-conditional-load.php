@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) or exit;
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class Disqus_Conditional_Load {
+class Disqus_Conditional_Load extends DCL_Helper  {
 
 	/**
 	 * DCL plugin options.
@@ -38,12 +38,15 @@ class Disqus_Conditional_Load {
 	 */
 	public function __construct() {
 
-		$this->options = get_option( 'dcl_gnrl_options', array() );
+		if ( $this->can_run() ) {
 
-		// Load all required files.
-		$this->load_dependencies();
-		// Set plugin locale.
-		//$this->locale();
+			$this->options = get_option( 'dcl_gnrl_options', array() );
+
+			// Load all required files.
+			$this->load_dependencies();
+			// Set plugin locale.
+			//$this->locale();
+		}
 	}
 
 	/**
@@ -58,6 +61,12 @@ class Disqus_Conditional_Load {
 	 * @return void
 	 */
 	private function load_dependencies() {
+
+		// If official Disqus plugin is active, we don't need to load Disqus again.
+		if ( ! $this->is_disqus_compatible() ) {
+			// Load disqus from our vendor directory.
+			require_once DCL_DIR . 'vendor/disqus/disqus/disqus.php';
+		}
 
 		include_once DCL_DIR . 'public/class-dcl-public.php';
 		include_once DCL_DIR . 'admin/class-dcl-admin.php';
@@ -77,8 +86,35 @@ class Disqus_Conditional_Load {
 	 */
 	public function run() {
 
-		$this->admin_hooks();
-		//$this->public_hooks();
+		if ( $this->can_run() ) {
+			$this->admin_hooks();
+			//$this->public_hooks();
+		}
+	}
+
+	/**
+	 * Check if it is safe to run DCL.
+	 *
+	 * If an incomopatible version of Disqus is active, show an error message
+	 * and stop DCL from execution.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return bool
+	 */
+	public function can_run() {
+
+		// Verify that Disqus is not active, or active version is compatible.
+		if ( $this->is_disqus_active() && ! $this->is_disqus_compatible() ) {
+
+			// If a incompatible version is active, show error.
+			add_action( 'admin_notices', array( $this, 'incompatible_alert' ) );
+
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -103,6 +139,10 @@ class Disqus_Conditional_Load {
 			add_action( 'admin_menu', array( $admin, 'create_menu' ) );
 			add_action( 'admin_init', array( $admin, 'register_settings' ) );
 			add_action( 'admin_enqueue_scripts', array( $admin, 'enqueue_styles' ) );
+
+			add_filter( 'admin_footer_text', array( $admin, 'footer_text' ) );
+			add_filter( 'plugin_action_links', array( $admin, 'action_links' ), 10, 5 );
+			add_filter( 'plugin_row_meta', array( $admin, 'plugin_row_meta' ), 10, 2 );
 		}
 	}
 
@@ -144,6 +184,34 @@ class Disqus_Conditional_Load {
 		$locale = new DCL_i18n();
 
 		add_action( 'plugins_loaded', array( $locale, 'set_textdomain' ) );
+	}
+
+	/**
+	 * Alert message if incompatible Disqus plugin is active.
+	 *
+	 * Alert use about the active incompatible plugin.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function incompatible_alert() {
+
+		$html = '<div class="notice notice-error">';
+        $html .= '<p>';
+		$html .= __( 'An incompatible version of Disqus plugin is already active. <strong>Disqus Conditional Load</strong> will not work, until you deactivate it or update your Disqus official plugin to latest version (3.0+). <strong>Disqus Conditional Load</strong> can work even if you deactivate official Disqus plugin.', DCL_DOMAIN );
+		$html .= '</p>';
+		$html .= '</div>';
+
+		/**
+		 * Filter hook to alter message content.
+		 *
+		 * @param string $html Message content.
+		 *
+		 * @since 11.0.0
+		 */
+		echo apply_filters( 'dcl_incompatible_alert_text', $html );
 	}
 
 }

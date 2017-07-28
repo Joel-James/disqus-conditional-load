@@ -35,51 +35,68 @@
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or exit;
 
-// Define required constants for the plugin.
-// These constants can be overwritten.
+// These are constants. Seriously!
 $constants = array(
-	'DCL_NAME' => '404-to-301',
-	'DCL_DOMAIN' => '404-to-301',
-	'DCL_DIR' => plugin_dir_path( __FILE__ ),
-	'DCL_PATH' => plugin_dir_url( __FILE__ ),
-	'DCL_BASE_FILE' => __FILE__,
-	'DCL_VERSION' => '11.0.0',
-	// Set who all can access plugin settings.
-	// You can change this if you want to give others access.
-	'DCL_ACCESS' => 'manage_options',
+	// Oh yeah, we decide these constants.
+	// These constants can not be overwritten.
+	'fixed' => array(
+		'DCL_NAME' => 'disqus-conditional-load',
+		'DCL_DOMAIN' => 'disqus-conditional-load',
+		'DCL_DIR' => plugin_dir_path( __FILE__ ),
+		'DCL_PATH' => plugin_dir_url( __FILE__ ),
+		'DCL_BASE_FILE' => __FILE__,
+		'DCL_VERSION' => '11.0.0',
+	),
+
+	// Aaaand, here is something for your choice.
+	// These constants can be overwritten.
+	'open' => array(
+		// Set who all can access plugin settings.
+		// You can change this if you want to give others access.
+		'DCL_ACCESS' => 'manage_options',
+	)
 );
 
-foreach ( $constants as $constant => $value ) {
+// Now, let the constants born.
+foreach ( $constants['fixed'] as $constant => $value ) {
+	define( $constant, $value );
+}
+
+// Let open constants born too.
+foreach ( $constants['open'] as $constant => $value ) {
+	// Check if it is defined already.
 	if ( ! defined( $constant ) ) {
 		define( $constant, $value );
 	}
 }
 
 /**
- * Plugin activation actions.
+ * Plugin activation actions. We are starting fellas!
  *
  * Actions to perform during plugin activation.
  * We will be registering default options in this function.
  *
  * @uses   register_activation_hook() To register activation hook.
- * @since  3.0.0
+ * @since  10.0.0
  * @access private
  *
  * @return void
  */
 function activate_dcl() {
 
-    //require_once DCL_DIR . 'includes/class-dcl-activator.php';
+    require_once DCL_DIR . 'includes/class-dcl-activator.php';
 
-    //DCL_Activator::activate();
+	// The very beginning!
+    DCL_Activator::activate();
 }
 
 // Make use of activation hook.
 register_activation_hook( DCL_BASE_FILE , 'activate_dcl' );
 
+// Our helper functions. Thanks for the help, helper.
+include_once DCL_DIR . 'includes/class-dcl-helper.php';
+
 // Load all required files for the plugin to work.
-// We are loading official DIsqus plugin from vendor.
-require_once DCL_DIR . 'vendor/disqus/disqus.php';
 require_once DCL_DIR . 'includes/class-disqus-conditional-load.php';
 
 /**
@@ -101,4 +118,4 @@ function run_dcl() {
 
 run_dcl();
 
-//*** Thank you for your interest in DCL - Developed and managed by Joel James ***// 
+/*** I will find you, and I will thank you! - Joel James ***/
