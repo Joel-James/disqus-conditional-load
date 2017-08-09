@@ -16,15 +16,7 @@ defined( 'ABSPATH' ) or exit;
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class DCL_Public {
-
-	/**
-	 * DCL plugin options.
-	 *
-	 * @since  11.0.0
-	 * @access public
-	 */
-	private $options;
+class DCL_Public extends DCL_Helper {
 
 	/**
 	 * Define the public functionality of the plugin.
@@ -35,12 +27,11 @@ class DCL_Public {
 	 *
 	 * @since  10.0.0
 	 * @access public
-	 *
-	 * @return void
 	 */
 	public function __construct( $options ) {
 
-		$this->options = $options;
+		// Initialize helper class.
+		parent::__construct( $options );
 	}
 
 }

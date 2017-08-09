@@ -19,6 +19,27 @@ defined( 'ABSPATH' ) or exit;
 class DCL_Helper {
 
 	/**
+	 * DCL plugin options.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 */
+	public $options;
+
+	/**
+	 * Set the required properties of the core class.
+	 *
+	 * @param array $options DCL options.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 */
+	public function __construct( $options = array() ) {
+
+		$this->options = $options;
+	}
+
+	/**
 	 * Check if current page is a DCL page.
 	 *
 	 * This function can be used to check if we are on a custom DCL page,
@@ -97,6 +118,9 @@ class DCL_Helper {
 	 *
 	 * @param string $plugin Plugin file.
 	 *
+	 * @since  11.0.0
+	 * @access private
+	 *
 	 * @return bool
 	 */
 	private function plugin_active( $plugin ) {
@@ -107,6 +131,49 @@ class DCL_Helper {
 		}
 
 		return is_plugin_active( $plugin );
+	}
+
+	/**
+	 * Get single DCL option value from options.
+	 *
+	 * @param string $key Option key.
+	 * @param bool $default Default value.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return mixed
+	 */
+	public function get_option( $key, $default = false ) {
+
+		// Return default value if not found or key is empty.
+		if ( empty( $key ) || ! isset( $this->options[ $key ] ) ) {
+			return $default;
+		}
+
+		return $this->options[ $key ];
+	}
+
+	/**
+	 * Check if any lazy load method is active.
+	 *
+	 * Check if any of the lazy load methods are enabled to
+	 * load Disqus comments.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return bool
+	 */
+	public function is_lazy() {
+
+		// Get loading method.
+		$type = $this->get_option( 'dcl_type' );
+
+		// Available lazy load methods.
+		$lazy_types = array( 'scroll', 'click' );
+
+		return in_array( $type, $lazy_types );
 	}
 
 }

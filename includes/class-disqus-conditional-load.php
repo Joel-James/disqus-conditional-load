@@ -19,28 +19,22 @@ defined( 'ABSPATH' ) or exit;
 class Disqus_Conditional_Load extends DCL_Helper  {
 
 	/**
-	 * DCL plugin options.
-	 *
-	 * @since  11.0.0
-	 * @access public
-	 */
-	private $options;
-
-	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the required properties of the core class.
 	 *
 	 * @since  10.0.0
 	 * @access public
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 
-		if ( $this->can_run() ) {
+		if ( $this->can_run( true ) ) {
 
-			$this->options = get_option( 'dcl_gnrl_options', array() );
+			// Get dcl settings.
+			$options = get_option( 'dcl_gnrl_options', array() );
+
+			// Initialize helper class.
+			parent::__construct( $options );
 
 			// Load all required files.
 			$this->load_dependencies();
@@ -65,7 +59,7 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 		// If official Disqus plugin is active, we don't need to load Disqus again.
 		if ( ! $this->is_disqus_compatible() ) {
 			// Load disqus from our vendor directory.
-			require_once DCL_DIR . 'vendor/disqus/disqus/disqus.php';
+			//require_once DCL_DIR . 'vendor/disqus/disqus/disqus.php';
 		}
 
 		include_once DCL_DIR . 'public/class-dcl-public.php';
@@ -95,21 +89,22 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 	/**
 	 * Check if it is safe to run DCL.
 	 *
-	 * If an incomopatible version of Disqus is active, show an error message
-	 * and stop DCL from execution.
+	 * @param bool $notice Should show admin warning notice?
 	 *
 	 * @since  11.0.0
 	 * @access public
 	 *
 	 * @return bool
 	 */
-	public function can_run() {
+	public function can_run( $notice = false ) {
 
 		// Verify that Disqus is not active, or active version is compatible.
 		if ( $this->is_disqus_active() && ! $this->is_disqus_compatible() ) {
 
-			// If a incompatible version is active, show error.
-			add_action( 'admin_notices', array( $this, 'incompatible_alert' ) );
+			if ( $notice ) {
+				// If a incompatible version is active, show error.
+				add_action( 'admin_notices', array( $this, 'incompatible_alert' ) );
+			}
 
 			return false;
 		}
@@ -136,7 +131,7 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 
 			$admin = new DCL_Admin( $this->options );
 
-			add_action( 'admin_menu', array( $admin, 'create_menu' ) );
+			add_action( 'admin_menu', array( $admin, 'create_menu' ), 15 );
 			add_action( 'admin_init', array( $admin, 'register_settings' ) );
 			add_action( 'admin_enqueue_scripts', array( $admin, 'enqueue_styles' ) );
 

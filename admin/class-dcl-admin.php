@@ -19,15 +19,7 @@ defined( 'ABSPATH' ) or exit;
 class DCL_Admin extends DCL_Helper {
 
 	/**
-	 * DCL plugin options.
-	 *
-	 * @since  11.0.0
-	 * @access public
-	 */
-	private $options;
-
-	/**
-	 * Define the admin functionality of the plugin.
+	 * Define the public functionality of the plugin.
 	 *
 	 * Set the required properties of the core class.
 	 *
@@ -38,7 +30,8 @@ class DCL_Admin extends DCL_Helper {
 	 */
 	public function __construct( $options ) {
 
-		$this->options = $options;
+		// Initialize helper class.
+		parent::__construct( $options );
 	}
 
 	/**
