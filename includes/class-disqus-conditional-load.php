@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) or exit;
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class Disqus_Conditional_Load extends DCL_Helper  {
+class Disqus_Conditional_Load  {
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -28,14 +28,16 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 	 */
 	public function __construct() {
 
+		global $dcl_helper;
+
 		// Get dcl settings.
 		$options = get_option( 'dcl_gnrl_options', array() );
 
-		// Initialize helper class.
-		parent::__construct( $options );
+		// DCL helper class instance.
+		$dcl_helper = new DCL_Helper( $options );
 
 		// Run dcl if ready.
-		if ( $this->dcl_ready ) {
+		if ( $dcl_helper->dcl_ready ) {
 
 			// Load all required files.
 			$this->load_dependencies();
@@ -62,11 +64,13 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 	 */
 	private function load_dependencies() {
 
+		global $dcl_helper;
+
 		// Internationalization.
 		include_once DCL_DIR . 'includes/class-dcl-i18n.php';
 
 		// If official Disqus plugin is active, we don't need to load Disqus again.
-		if ( ! $this->is_disqus_compatible() ) {
+		if ( ! $dcl_helper->is_disqus_compatible() ) {
 			// Load disqus from our vendor directory.
 			//require_once DCL_DIR . 'vendor/disqus/disqus/disqus.php';
 		}
@@ -92,7 +96,9 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 	 */
 	public function run() {
 
-		if ( $this->dcl_ready ) {
+		global $dcl_helper;
+
+		if ( $dcl_helper->dcl_ready ) {
 
 			$this->admin_hooks();
 
@@ -117,7 +123,7 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 		// Required only when admin.
 		if ( is_admin() ) {
 
-			$admin = new DCL_Admin( $this->options );
+			$admin = new DCL_Admin();
 
 			add_action( 'admin_menu', array( $admin, 'create_menu' ), 15 );
 			add_action( 'admin_init', array( $admin, 'register_settings' ) );
@@ -146,10 +152,13 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 		// Required only when public side of the site.
 		if ( ! is_admin() ) {
 
-			$public = new DCL_Public( $this->options );
+			$public = new DCL_Public();
 
 			add_action( 'wp_print_scripts', array( $public, 'dequeue_scripts' ), 100 );
 			add_action( 'wp_enqueue_scripts', array( $public, 'enqueue_scripts' ) );
+			add_action( 'comments_template', array( $public, 'dcl_comments_template' ), 15 );
+
+			add_filter( 'comments_template', array( $public, 'disqus_comments_template' ), 20 );
 
 			add_shortcode( 'js-disqus', array( $public, 'comment_shortcode' ) );
 		}

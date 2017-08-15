@@ -17,16 +17,23 @@ defined( 'ABSPATH' ) or exit;
  */
 ?>
 
-<div id="tabs" class="ui-tabs dcl-wrap">
+<div class="dcl-wrap">
 
 	<h2><?php printf( __( 'Disqus Conditional Load <span class="subtitle">by <a href="%s" target="_blank" title="Developed by Joel James">Joel James</a> ( v%d )</span>', DCL_DOMAIN ), 'https://duckdev.com', DCL_VERSION ); ?></h2>
 	<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
-		<div class="updated">
+		<div class="notice notice-success is-dismissible">
 			<p><strong><?php _e( 'DCL settings updated successfully', DCL_DOMAIN ); ?></strong></p>
 		</div>
 	<?php endif; ?>
-	<ul class="ui-tabs-nav">
-		<li class=""><a href="?page=dcl-settings" class="tab-orange tab-premium">DCL Settings <span class="newred_dot">&bull;</span></a></li>
-		<li class=""><a href="?page=dcl-settings&tab=pro" class="tab-orange tab-premium">DCL Pro & Info <span class="newred_dot">&bull;</span></a></li>
-	</ul>
+	<?php $tab = isset( $_GET['tab'] ) ? $_GET['tab'] : ''; ?>
+	<h2 class="nav-tab-wrapper">
+		<a href="?page=dcl-settings" class="nav-tab <?php echo $tab === '' ? 'nav-tab-active' : ''; ?>"><span class="dashicons dashicons-admin-generic"></span> <?php _e( 'Settings', DCL_DOMAIN ); ?></a>
+		<a href="?page=dcl-settings&tab=pro" class="nav-tab <?php echo $tab === 'pro' ? 'nav-tab-active' : ''; ?>"><span class="dashicons dashicons-cart"></span> <?php _e( 'DCL Pro & Info', DCL_DOMAIN ); ?></a>
+	</h2>
+
+	<?php if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'pro' ) : ?>
+		<?php require_once 'pro-details.php'; ?>
+	<?php else : ?>
+		<?php require_once 'general-settings.php'; ?>
+	<?php endif; ?>
 </div>

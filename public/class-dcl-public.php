@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) or exit;
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class DCL_Public extends DCL_Helper {
+class DCL_Public {
 
 	/**
 	 * Disqus public class instance.
@@ -26,19 +26,25 @@ class DCL_Public extends DCL_Helper {
 	private $disqus_public;
 
 	/**
+	 * DCL helper class.
+	 *
+	 * @var DCL_Helper
+	 */
+	private $helper;
+
+	/**
 	 * Define the public functionality of the plugin.
 	 *
 	 * Set the required properties of the core class.
 	 *
-	 * @param array $options Plugin options.
-	 *
 	 * @since  10.0.0
 	 * @access public
 	 */
-	public function __construct( $options ) {
+	public function __construct() {
 
-		// Initialize helper class.
-		parent::__construct( $options );
+		global $dcl_helper;
+
+		$this->helper = $dcl_helper;
 	}
 
 	/**
@@ -56,7 +62,7 @@ class DCL_Public extends DCL_Helper {
 	public function dequeue_scripts() {
 
 		// Check if lazy load enabled.
-		$is_lazy = $this->is_lazy();
+		$is_lazy = $this->helper->is_lazy();
 
 		// If lazy load enabled, remove embed script.
 		if ( $is_lazy ) {
@@ -89,11 +95,10 @@ class DCL_Public extends DCL_Helper {
 		}
 
 		// Create a disqus public class instance.
-		$this->disqus_public = new Disqus_Public( 'disqus', '3.0', $this->short_name );
+		$this->disqus_public = new Disqus_Public( 'disqus', '3.0', $this->helper->short_name );
 
-		// If a bot is the visitor, lets show default comments template.
-		if ( $this->is_bot() ) {
-			$this->remove_disqus_template();
+		// If a bot is the visitor, do not continue.
+		if ( $this->helper->is_bot() ) {
 			return;
 		}
 
@@ -151,15 +156,15 @@ class DCL_Public extends DCL_Helper {
 		$file = 'embed';
 
 		// Lazy load method.
-		$method = $this->get_option( 'dcl_type' );
+		$method = $this->helper->get_option( 'dcl_type' );
 
 		// If count is not disabled.
-		if ( ! boolval( $this->get_option( 'dcl_count_disable' ) ) ) {
+		if ( ! boolval( $this->helper->get_option( 'dcl_count_disable' ) ) ) {
 			$file .= '-count';
 		}
 
 		// If a valid lazy load method.
-		if ( in_array( $method, $this->methods ) ) {
+		if ( in_array( $method, $this->helper->methods ) ) {
 			$file .= '-' . $method;
 		}
 
@@ -223,6 +228,27 @@ class DCL_Public extends DCL_Helper {
 	}
 
 	/**
+	 * Customized disqus comments template.
+	 *
+	 * Get our customized Disqus comments template.
+	 *
+	 * @param string $template Comments template.
+	 *
+	 * @since 11.0.0
+	 * @access public
+	 *
+	 * @return string
+	 */
+	public function disqus_comments_template( $template ) {
+
+		if ( ! $this->helper->is_bot() ) {
+			return DCL_DIR . 'public/views/disqus-comments.php';
+		}
+
+		return $template;
+	}
+
+	/**
 	 * Remove Disqus comments template.
 	 *
 	 * We should show default WordPress comments to search engine
@@ -233,12 +259,9 @@ class DCL_Public extends DCL_Helper {
 	 *
 	 * @return void
 	 */
-	private function remove_disqus_template() {
+	public function dcl_comments_template() {
 
-		// Remove disqus comments template.
-		add_action( 'comments_template', function() {
-			// Remove comments template filter.
-			remove_filter( 'comments_template', array( $this->disqus_public, 'dsq_comments_template' ) );
-		}, 15 );
+		// Remove comments template filter.
+		remove_filter( 'comments_template', array( $this->disqus_public, 'dsq_comments_template' ) );
 	}
 }

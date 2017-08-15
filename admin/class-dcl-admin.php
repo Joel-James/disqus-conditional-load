@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) or exit;
  * Admin functionality for Disqus Conditional Load.
  *
  * A class definition that includes attributes and functions used across the dashboard.
- * We are extending our helper class to user common functions.
  *
  * @category   Core
  * @package    DCLAdmin
@@ -16,22 +15,30 @@ defined( 'ABSPATH' ) or exit;
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class DCL_Admin extends DCL_Helper {
+class DCL_Admin {
+
+	/**
+	 * DCL Helper instance.
+	 *
+	 * @var DCL_Helper
+	 */
+	private $helper;
 
 	/**
 	 * Define the public functionality of the plugin.
 	 *
 	 * Set the required properties of the core class.
 	 *
-	 * @param array $options Plugin options.
+	 * @param array $helper Plugin options.
 	 *
 	 * @since  10.0.0
 	 * @access public
 	 */
-	public function __construct( $options ) {
+	public function __construct() {
 
-		// Initialize helper class.
-		parent::__construct( $options );
+		global $dcl_helper;
+
+		$this->helper = $dcl_helper;
 	}
 
 	/**
@@ -114,7 +121,7 @@ class DCL_Admin extends DCL_Helper {
 	public function enqueue_styles() {
 
 		// No. We don't load our custom css all over the admin. We are not idiots!
-		if ( $this->is_dcl_page() ) {
+		if ( $this->helper->is_dcl_page() ) {
 
 			// Use minified assets if SCRIPT_DEBUG is turned off.
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -137,7 +144,7 @@ class DCL_Admin extends DCL_Helper {
 	 */
 	public function footer_text() {
 
-		if ( $this->is_dcl_page() ) {
+		if ( $this->helper->is_dcl_page() ) {
 
 			// Custom footer text with links to reviews and pro version.
 			printf(

@@ -248,7 +248,7 @@ class DCL_Helper {
 	 * Check if user agent string matches bots, spiders or crawlers.
 	 * If user agent is not set, consider visitor as bot.
 	 *
-	 * @since 11.0.0
+	 * @since  11.0.
 	 * @access private
 	 *
 	 * @return bool

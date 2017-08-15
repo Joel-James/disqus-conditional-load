@@ -8,6 +8,7 @@ var disqus_shortname = embedVars.disqusShortname;
 var disqus_title = embedVars.disqusTitle;
 var disqus_config_custom = window.disqus_config;
 var disqus_loaded = false;
+var disqus_button = document.getElementById('dcl_comment_btn');
 var disqus_config = function () {
     /**
      * All currently supported events:
@@ -53,8 +54,10 @@ var disqus_comments = function() {
  *
  * @since 11.0.0
  */
-document.getElementById('dcl_comment_btn').onclick = function() {
-    disqus_comments();
+if ( disqus_button ) {
+    disqus_button.onclick = function () {
+        disqus_comments();
+    }
 }
 
 /**
