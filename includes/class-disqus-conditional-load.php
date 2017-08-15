@@ -28,18 +28,24 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 	 */
 	public function __construct() {
 
-		if ( $this->can_run( true ) ) {
+		// Get dcl settings.
+		$options = get_option( 'dcl_gnrl_options', array() );
 
-			// Get dcl settings.
-			$options = get_option( 'dcl_gnrl_options', array() );
+		// Initialize helper class.
+		parent::__construct( $options );
 
-			// Initialize helper class.
-			parent::__construct( $options );
+		// Run dcl if ready.
+		if ( $this->dcl_ready ) {
 
 			// Load all required files.
 			$this->load_dependencies();
+
 			// Set plugin locale.
-			//$this->locale();
+			$this->locale();
+
+		} else {
+			// If a incompatible version is active, show error.
+			add_action( 'admin_notices', array( $this, 'incompatible_alert' ) );
 		}
 	}
 
@@ -56,13 +62,19 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 	 */
 	private function load_dependencies() {
 
+		// Internationalization.
+		include_once DCL_DIR . 'includes/class-dcl-i18n.php';
+
 		// If official Disqus plugin is active, we don't need to load Disqus again.
 		if ( ! $this->is_disqus_compatible() ) {
 			// Load disqus from our vendor directory.
 			//require_once DCL_DIR . 'vendor/disqus/disqus/disqus.php';
 		}
 
+		// Public functionality.
 		include_once DCL_DIR . 'public/class-dcl-public.php';
+
+		// Admin functionality.
 		include_once DCL_DIR . 'admin/class-dcl-admin.php';
 	}
 
@@ -80,36 +92,12 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 	 */
 	public function run() {
 
-		if ( $this->can_run() ) {
+		if ( $this->dcl_ready ) {
+
 			$this->admin_hooks();
-			//$this->public_hooks();
+
+			$this->public_hooks();
 		}
-	}
-
-	/**
-	 * Check if it is safe to run DCL.
-	 *
-	 * @param bool $notice Should show admin warning notice?
-	 *
-	 * @since  11.0.0
-	 * @access public
-	 *
-	 * @return bool
-	 */
-	public function can_run( $notice = false ) {
-
-		// Verify that Disqus is not active, or active version is compatible.
-		if ( $this->is_disqus_active() && ! $this->is_disqus_compatible() ) {
-
-			if ( $notice ) {
-				// If a incompatible version is active, show error.
-				add_action( 'admin_notices', array( $this, 'incompatible_alert' ) );
-			}
-
-			return false;
-		}
-
-		return true;
 	}
 
 	/**
@@ -160,7 +148,10 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 
 			$public = new DCL_Public( $this->options );
 
-			add_filter( 'respond_link', array( $public, 'respond_link' ), 99 );
+			add_action( 'wp_print_scripts', array( $public, 'dequeue_scripts' ), 100 );
+			add_action( 'wp_enqueue_scripts', array( $public, 'enqueue_scripts' ) );
+
+			add_shortcode( 'js-disqus', array( $public, 'comment_shortcode' ) );
 		}
 	}
 
