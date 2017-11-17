@@ -161,6 +161,8 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 			$public = new DCL_Public( $this->options );
 
 			add_filter( 'respond_link', array( $public, 'respond_link' ), 99 );
+
+			add_action( 'wp_print_scripts', array( $public, 'dequeue_script' ), 100 );
 		}
 	}
 

@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) or exit;
  * facing side of the plugin.
  *
  * @category   Core
- * @package    DCLAdmin
+ * @package    DCLPublic
  * @subpackage Public
  * @author     Joel James <mail@cjoel.com>
  * @license    http://www.gnu.org/licenses/ GNU General Public License
@@ -32,6 +32,30 @@ class DCL_Public extends DCL_Helper {
 
 		// Initialize helper class.
 		parent::__construct( $options );
+	}
+
+	/**
+	 * Dequeue scripts registered by Disqus.
+	 *
+	 * Unregister scripts added by Disqus and we will load them
+	 * later for optimising the speed.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function dequeue_script() {
+
+		// If lazy loading is enabled.
+		if ( $this->is_lazy() ) {
+			wp_dequeue_script( 'disqus_embed' );
+		}
+
+		// If comment count script was disabled.
+		if ( $this->get_option( 'dcl_count_disable' ) ) {
+			wp_dequeue_script( 'disqus_count' );
+		}
 	}
 
 }
