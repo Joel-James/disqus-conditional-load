@@ -39,7 +39,7 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 			// Load all required files.
 			$this->load_dependencies();
 			// Set plugin locale.
-			//$this->locale();
+			$this->locale();
 		}
 	}
 
@@ -58,10 +58,14 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 
 		// If official Disqus plugin is active, we don't need to load Disqus again.
 		if ( ! $this->is_disqus_compatible() ) {
+			global $DISQUSVERSION;
+			// Make sure global version no. is set
+			$DISQUSVERSION = '3.0.15';
 			// Load disqus from our vendor directory.
-			//require_once DCL_DIR . 'vendor/disqus/disqus/disqus.php';
+			require_once DCL_DIR . 'vendor/disqus-comment-system/disqus.php';
 		}
 
+		include_once DCL_DIR . 'includes/class-dcl-i18n.php';
 		include_once DCL_DIR . 'public/class-dcl-public.php';
 		include_once DCL_DIR . 'admin/class-dcl-admin.php';
 	}
@@ -82,7 +86,7 @@ class Disqus_Conditional_Load extends DCL_Helper  {
 
 		if ( $this->can_run() ) {
 			$this->admin_hooks();
-			//$this->public_hooks();
+			$this->public_hooks();
 		}
 	}
 
