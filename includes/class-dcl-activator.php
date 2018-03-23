@@ -41,7 +41,6 @@ class DCL_Activator {
 			'dcl_btn_class' => '',
 			'dcl_message' => __( 'Loading...', DCL_DOMAIN ),
 			'dcl_caching' => 0,
-			'dcl_cfasync' => 0,
 			'dcl_cpt_exclude' => ''
 		);
 

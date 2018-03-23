@@ -17,6 +17,7 @@ defined( 'ABSPATH' ) or exit;
  * @link       https://dclwp.com
  */
 class DCL_i18n  {
+
 	/**
 	 * Set the textdomain for the plugin.
 	 *
@@ -26,6 +27,7 @@ class DCL_i18n  {
 	 * @return void.
 	 */
 	public function set_textdomain() {
+
 		load_plugin_textdomain( DCL_DOMAIN, false, DCL_DIR . '/languages/' );
 	}
 }

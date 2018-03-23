@@ -21,10 +21,34 @@ class DCL_Helper {
 	/**
 	 * DCL plugin options.
 	 *
-	 * @since  11.0.0
+	 * @var array
 	 * @access public
 	 */
 	public $options;
+
+	/**
+	 * Available lazy load options.
+	 *
+	 * @var array
+	 * @access public
+	 */
+	public $methods;
+
+	/**
+	 * Disqus short name.
+	 *
+	 * @var string
+	 * @access public
+	 */
+	public $short_name;
+
+	/**
+	 * Check if DCL is ready to run.
+	 *
+	 * @var bool
+	 * @access public
+	 */
+	public $dcl_ready = false;
 
 	/**
 	 * Set the required properties of the core class.
@@ -37,6 +61,40 @@ class DCL_Helper {
 	public function __construct( $options = array() ) {
 
 		$this->options = $options;
+
+		// Disqus short name.
+		$this->short_name = strtolower( get_option( 'disqus_forum_url' ) );
+
+		// Check if DCL is ok to run.
+		$this->dcl_ready = $this->dcl_ready();
+
+		/**
+		 * Filter hook to alter lazy load methods.
+		 *
+		 * @param array Lazy load methods.
+		 *
+		 * @since 11.0.0
+		 */
+		$this->methods = apply_filters( 'dcl_lazy_load_methods', array( 'scroll', 'click' ) );
+	}
+
+	/**
+	 * Check if it is safe to run DCL.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return bool
+	 */
+	public function dcl_ready() {
+
+		// Verify that Disqus is not active, or active version is compatible.
+		if ( $this->is_disqus_active() && ! $this->is_disqus_compatible() ) {
+
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -172,10 +230,44 @@ class DCL_Helper {
 		// Get loading method.
 		$type = $this->get_option( 'dcl_type' );
 
-		// Available lazy load methods.
-		$lazy_types = array( 'scroll', 'click' );
+		// Is lazy loaded?
+		$is_lazy = in_array( $type, $this->methods );
 
-		return in_array( $type, $lazy_types );
+		/**
+		 * Filter hook to change lazy load check.
+		 *
+		 * @param bool $is_lazy Is lazy?
+		 * @param string $type Lazy load type.
+		 *
+		 * @since 11.0.0
+		 */
+		return apply_filters( 'dcl_is_lazy', $is_lazy, $type );
+	}
+
+	/**
+	 * Check if current visitor's user agent is a bot.
+	 *
+	 * Check if user agent string matches bots, spiders or crawlers.
+	 * If user agent is not set, consider visitor as bot.
+	 *
+	 * @since  11.0.
+	 * @access private
+	 *
+	 * @return bool
+	 */
+	public function is_bot() {
+
+		// If user agent is not set, flag them as bot.
+		if ( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+			return true;
+		}
+
+		// Check if any type of bot, spider or crawler is visiting.
+		if ( preg_match( '/bot|crawl|slurp|spider/i', $_SERVER['HTTP_USER_AGENT'] ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
