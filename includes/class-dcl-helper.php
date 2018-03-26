@@ -202,11 +202,13 @@ class DCL_Helper {
 	 *
 	 * @return mixed
 	 */
-	public function get_option( $key, $default = false ) {
+	public function get_option( $key = '', $default = false ) {
 
 		// Return default value if not found or key is empty.
-		if ( empty( $key ) || ! isset( $this->options[ $key ] ) ) {
+		if ( ! empty( $key ) && ! isset( $this->options[ $key ] ) ) {
 			return $default;
+		} elseif ( empty( $key ) ) {
+			return $this->options;
 		}
 
 		return $this->options[ $key ];

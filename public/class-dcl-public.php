@@ -94,16 +94,13 @@ class DCL_Public {
 			return;
 		}
 
-		// Create a disqus public class instance.
-		$this->disqus_public = new Disqus_Public( 'disqus', '3.0', $this->helper->short_name );
-
 		// If a bot is the visitor, do not continue.
 		if ( $this->helper->is_bot() ) {
 			return;
 		}
 
 		// Do not continue if comments can't be loaded.
-		if ( ! $this->disqus_public->dsq_embed_can_load_for_post( $post ) ) {
+		if ( ! $this->dcl_embed_can_load_for_post( $post ) ) {
 			return;
 		}
 
@@ -121,7 +118,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		$count_vars = apply_filters( 'dcl_script_file_name', array( 'disqusShortname' => $this->short_name ) );
+		$count_vars = apply_filters( 'dcl_script_file_name', array( 'disqusShortname' => $this->helper->short_name ) );
 
 		/**
 		 * Filter hook to alter comment embed vars.
@@ -131,7 +128,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		$embed_vars = apply_filters( 'dcl_script_file_name', $this->disqus_public->embed_vars_for_post( $post ) );
+		$embed_vars = apply_filters( 'dcl_script_file_name', Disqus_Public::embed_vars_for_post( $post ) );
 
 		// Localize and set all variables.
 		wp_localize_script( 'dcl_count', 'countVars', $count_vars );
@@ -263,5 +260,80 @@ class DCL_Public {
 
 		// Remove comments template filter.
 		remove_filter( 'comments_template', array( $this->disqus_public, 'dsq_comments_template' ) );
+	}
+
+	/**
+	 * Determines if Disqus is configured and can the comments embed on a given page.
+	 *
+	 * @since     3.0
+	 * @access    private
+	 * @param     WP_Post $post    The WordPress post used to determine if Disqus can be loaded.
+	 * @return    boolean          Whether Disqus is configured properly and can load on the current page.
+	 */
+	private function dcl_embed_can_load_for_post( $post ) {
+
+		// Checks if the plugin is configured properly
+		// and is a valid page.
+		if ( ! $this->dcl_can_load( 'embed' ) ) {
+			return false;
+		}
+
+		// Make sure we have a $post object.
+		if ( ! isset( $post ) ) {
+			return false;
+		}
+
+		// Don't load embed for certain types of non-public posts because these post types typically still have the
+		// ID-based URL structure, rather than a friendly permalink URL.
+		$illegal_post_statuses = array(
+			'draft',
+			'auto-draft',
+			'pending',
+			'future',
+			'trash',
+		);
+		if ( in_array( $post->post_status, $illegal_post_statuses ) ) {
+			return false;
+		}
+
+		// Don't load embed when comments are closed on a post.
+		if ( 'open' != $post->comment_status ) {
+			return false;
+		}
+
+		// Don't load embed if it's not a single post page.
+		if ( ! is_singular() ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Determines if Disqus is configured and can load on a given page.
+	 *
+	 * @since     3.0
+	 * @access    private
+	 * @param     string $script_name    The name of the script Disqus intends to load.
+	 * @return    boolean                Whether Disqus is configured properly and can load on the current page.
+	 */
+	private function dcl_can_load( $script_name ) {
+
+		// Don't load any Disqus scripts if there's no shortname.
+		if ( ! $this->helper->short_name ) {
+			return false;
+		}
+
+		// Don't load any Disqus scripts on feed pages.
+		if ( is_feed() ) {
+			return false;
+		}
+
+		$site_allows_load = apply_filters( 'dsq_can_load', $script_name );
+		if ( is_bool( $site_allows_load ) ) {
+			return $site_allows_load;
+		}
+
+		return true;
 	}
 }

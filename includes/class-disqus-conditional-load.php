@@ -71,8 +71,11 @@ class Disqus_Conditional_Load  {
 
 		// If official Disqus plugin is active, we don't need to load Disqus again.
 		if ( ! $dcl_helper->is_disqus_compatible() ) {
+			global $DISQUSVERSION;
+			// Make sure disqus version is set.
+			$DISQUSVERSION = '3.0.15';
 			// Load disqus from our vendor directory.
-			//require_once DCL_DIR . 'vendor/disqus/disqus/disqus.php';
+			require_once DCL_DIR . 'vendor/disqus-comment-system/disqus.php';
 		}
 
 		// Public functionality.
@@ -194,7 +197,7 @@ class Disqus_Conditional_Load  {
 	public function incompatible_alert() {
 
 		$html = '<div class="notice notice-error">';
-        $html .= '<p>';
+		$html .= '<p>';
 		$html .= __( 'An incompatible version of Disqus plugin is already active. <strong>Disqus Conditional Load</strong> will not work, until you deactivate it or update your Disqus official plugin to latest version (3.0+). <strong>Disqus Conditional Load</strong> can work even if you deactivate official Disqus plugin.', DCL_DOMAIN );
 		$html .= '</p>';
 		$html .= '</div>';
