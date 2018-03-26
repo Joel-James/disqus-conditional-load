@@ -243,6 +243,32 @@ class DCL_Helper {
 	}
 
 	/**
+	 * Get comments loading method.
+	 *
+	 * Get the lazy loading method name or if not lazy
+	 * load enabled, return normal.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return string
+	 */
+	public function get_load_method() {
+
+		// Get loading method.
+		$type = $this->get_option( 'dcl_type' );
+
+		/**
+		 * Filter hook to change load method.
+		 *
+		 * @param string $type Lazy load type.
+		 *
+		 * @since 11.0.0
+		 */
+		return apply_filters( 'dcl_load_method', $type );
+	}
+
+	/**
 	 * Check if current visitor's user agent is a bot.
 	 *
 	 * Check if user agent string matches bots, spiders or crawlers.

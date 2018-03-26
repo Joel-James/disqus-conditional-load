@@ -156,7 +156,7 @@ class DCL_Public {
 		$file = 'embed';
 
 		// Lazy load method.
-		$method = $this->helper->get_option( 'dcl_type' );
+		$method = $this->helper->get_load_method();
 
 		// If count is not disabled.
 		if ( ! boolval( $this->helper->get_option( 'dcl_count_disable' ) ) ) {
