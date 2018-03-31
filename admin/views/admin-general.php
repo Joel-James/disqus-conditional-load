@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) or exit;
                     <option disabled><?php _e( 'On Scroll Start (Pro only)', DCL_DOMAIN ); ?></option>
                 </select>
                 <br/>
-                <span class="description thin"><?php _e( 'This feature will let you prevent Disqus from automatically loading comments and scripts on pages, posts or whatever it is. If you choose "Normal" comments will be loaded normally and no lazy load effect will be there.', DCL_DOMAIN ); ?></span>
+                <span class="description thin"><?php _e( 'This feature will let you prevent Disqus from automatically loading comments and scripts on pages, posts or whatever it is. If you choose "Normal" comments will be loaded normally and no lazy load effect will be there. Also please note that, with "Click" option, we will add a very small inline style to adjust the button alignment.', DCL_DOMAIN ); ?></span>
             </td>
         </tr>
 
@@ -49,7 +49,7 @@ defined( 'ABSPATH' ) or exit;
                 <input placeholder="Default" type="number" name="dcl_gnrl_options[dcl_div_width]" value="<?php echo $options['dcl_div_width']; ?>" size="20">
                 <input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked( $options['dcl_div_width_type'], '%' ); ?> value="%">%
                 <input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked( $options['dcl_div_width_type'], 'px' ); ?> value="px">px<br/>
-                <span class="description thin"><?php _e( 'If Disqus comments are not looking good because of the large or smaller width, you can adjust the width of comments division here. Just enter the width size. Leave empty if not required.', DCL_DOMAIN ); ?></span>
+                <span class="description thin"><?php _e( 'If Disqus comments are not looking good because of the large or smaller width, you can adjust the width of comments division here. Just enter the width size. Leave empty if not required. Please note that we will add a very small inline CSS to adjust this width if you enable this.', DCL_DOMAIN ); ?></span>
             </td>
         </tr>
 

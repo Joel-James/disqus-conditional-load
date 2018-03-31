@@ -159,9 +159,11 @@ class Disqus_Conditional_Load  {
 
 			add_action( 'wp_print_scripts', array( $public, 'dequeue_scripts' ), 100 );
 			add_action( 'wp_enqueue_scripts', array( $public, 'enqueue_scripts' ) );
+			add_action( 'wp_enqueue_scripts', array( $public, 'add_inline_styles' )  );
 			add_action( 'comments_template', array( $public, 'dcl_comments_template' ), 15 );
 
 			add_filter( 'comments_template', array( $public, 'disqus_comments_template' ), 20 );
+			add_filter( 'script_loader_tag', array( $public, 'add_additional_attrs' ), 10, 3 );
 
 			add_shortcode( 'js-disqus', array( $public, 'comment_shortcode' ) );
 		}

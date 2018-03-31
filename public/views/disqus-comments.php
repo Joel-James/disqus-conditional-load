@@ -17,12 +17,12 @@ defined( 'ABSPATH' ) or exit;
  */
 ?>
 <div id="disqus_thread">
-
 	<?php global $dcl_helper; ?>
-	<?php $btn_class = $dcl_helper->get_option( 'dcl_btn_class', '' ); ?>
-	<?php $btn_text = $dcl_helper->get_option( 'dcl_btn_txt', __( 'Load Comments', DCL_DOMAIN ) ); ?>
-	<?php $lazy_method = $dcl_helper->get_option( 'dcl_type', 'normal' ); ?>
-	<?php if ( $lazy_method === 'click' ) : ?>
-		<button id='dcl_comment_btn' class="<?php echo $btn_class; ?>"><?php echo $btn_text; ?></button>
+	<?php if ( $dcl_helper->get_load_method() === 'click' ) : ?>
+		<div id="dcl_btn_container">
+			<button id='dcl_comment_btn' class="<?= apply_filters( 'dcl_button_class', $dcl_helper->get_option( 'dcl_btn_class', '' ) ); ?>">
+				<?= apply_filters( 'dcl_button_text', $dcl_helper->get_option( 'dcl_btn_txt', __( 'Load Comments', DCL_DOMAIN ) ) ); ?>
+			</button>
+		</div>
 	<?php endif; ?>
 </div>

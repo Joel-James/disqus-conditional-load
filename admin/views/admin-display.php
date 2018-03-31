@@ -27,8 +27,8 @@ defined( 'ABSPATH' ) or exit;
         </div>
 	<?php endif; ?>
     <ul class="ui-tabs-nav">
-        <li class="<?= $current_tab === 'general' ? 'ui-state-active' : ''; ?>"><a href="?page=dcl-settings" class="tab-orange tab-premium"><?php _e( 'DCL Settings', DCL_DOMAIN ); ?> <span class="newred_dot">&bull;</span></a></li>
-        <li class="<?= $current_tab === 'pro' ? 'ui-state-active' : ''; ?>"><a href="?page=dcl-settings&tab=pro" class="tab-orange tab-premium"><?php _e( 'DCL Pro & Info', DCL_DOMAIN ); ?> <span class="newred_dot">&bull;</span></a></li>
+        <li class="<?= $current_tab === 'general' ? 'ui-state-active' : ''; ?>"><a href="?page=dcl-settings" class="tab-premium"><?php _e( 'DCL Settings', DCL_DOMAIN ); ?> <span class="newred_dot">&bull;</span></a></li>
+        <li class="<?= $current_tab === 'pro' ? 'ui-state-active' : ''; ?>"><a href="?page=dcl-settings&tab=pro" class="tab-premium"><?php _e( 'DCL Pro & Info', DCL_DOMAIN ); ?> <span class="newred_dot">&bull;</span></a></li>
     </ul>
 
 	<?php if ( $current_tab === 'pro' ) : ?>

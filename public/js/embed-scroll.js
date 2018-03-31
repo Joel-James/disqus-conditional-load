@@ -54,10 +54,10 @@ var disqus_comments = function() {
  *
  * @since 11.0.0
  */
-if(document.body.scrollHeight < window.innerHeight) {
+if ( document.body.scrollHeight < window.innerHeight ) {
     // If no scroll bar found, load comments.
     disqus_comments();
-} else if (document.getElementById('disqus_thread') !== null) {
+} else if ( document.getElementById('disqus_thread') !== null ) {
     // Start loading the comments when user scroll down.
     window.onscroll = function() {
         disqus_comments();

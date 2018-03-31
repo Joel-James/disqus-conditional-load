@@ -57,6 +57,18 @@ var disqus_comments = function() {
  */
 if ( disqus_button ) {
     disqus_button.onclick = function () {
+        // Show progress if not already shown.
+        if ( document.getElementById( 'dcl_progress' ) === null ) {
+            // Show one temporary loading message.
+            var tmp_p = document.createElement( 'p' ),
+                tmp_text = document.createTextNode( dclCustomVars.dcl_progress_text );
+            tmp_p.appendChild( tmp_text );
+            tmp_p.setAttribute( 'id', 'dcl_progress' );
+            // Append temporary message to comments div.
+            document.getElementById( 'dcl_btn_container' ).appendChild( tmp_p );
+        }
+        // Remove button.
+        this.remove();
         disqus_comments();
     }
 }

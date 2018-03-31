@@ -60,6 +60,7 @@ if(document.body.scrollHeight < window.innerHeight) {
 } else if (document.getElementById('disqus_thread') !== null) {
     // Start loading the comments when user scroll down.
     window.onscroll = function() {
+        // Remove button.
         disqus_comments();
     }
 }

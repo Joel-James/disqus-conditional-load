@@ -125,9 +125,11 @@ class DCL_Admin {
 
 			// Use minified assets if SCRIPT_DEBUG is turned off.
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+			// Use minified assets if SCRIPT_DEBUG is turned off.
+			$dir = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : 'min/';
 
 			// Register DCL admin page styles.
-			wp_enqueue_style( DCL_NAME, DCL_PATH . 'admin/assets/css/admin' . $suffix . '.css', array(), DCL_VERSION, 'all' );
+			wp_enqueue_style( DCL_NAME, DCL_PATH . 'admin/assets/css/' . $dir . 'admin' . $suffix . '.css', array(), DCL_VERSION, 'all' );
 		}
 	}
 

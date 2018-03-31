@@ -61,6 +61,11 @@ class DCL_Public {
 	 */
 	public function dequeue_scripts() {
 
+		// Continue only if all worked fine.
+		if ( ! $this->dcl_can_load( 'embed' ) ) {
+			return;
+		}
+
 		// Check if lazy load enabled.
 		$is_lazy = $this->helper->is_lazy();
 
@@ -70,7 +75,10 @@ class DCL_Public {
 		}
 
 		// We don't need an extra script for count.
+		// We will include them in one file.
 		wp_dequeue_script( 'disqus_count' );
+		// We don't need comment-reply js.
+		wp_dequeue_script( 'comment-reply' );
 	}
 
 	/**
@@ -87,18 +95,16 @@ class DCL_Public {
 	 */
 	public function enqueue_scripts() {
 
-		global $post;
+		global $post, $dcl_helper;
 
 		// We need Disqus_Public class.
 		if ( ! class_exists( 'Disqus_Public' ) ) {
 			return;
 		}
-
 		// If a bot is the visitor, do not continue.
 		if ( $this->helper->is_bot() ) {
 			return;
 		}
-
 		// Do not continue if comments can't be loaded.
 		if ( ! $this->dcl_embed_can_load_for_post( $post ) ) {
 			return;
@@ -106,9 +112,17 @@ class DCL_Public {
 
 		// Get the file name.
 		$file = $this->get_script_name();
+		// Use minified assets if SCRIPT_DEBUG is turned off.
+		$dir = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : 'min/';
 
 		// Enqueue the file.
-		wp_enqueue_script( 'dcl_count', DCL_PATH . 'public/js/' . $file, array(), DCL_VERSION, true );
+		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'public/js/' . $dir . $file, array(), DCL_VERSION, true );
+		// Custom vars for dcl.
+		$custom_vars = array(
+			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', __( 'Loading Comments....', DCL_DOMAIN ) ),
+		);
+
+		$custom_vars = apply_filters( 'dcl_custom_vars', $custom_vars );
 
 		/**
 		 * Filter hook to alter count vars.
@@ -118,7 +132,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		$count_vars = apply_filters( 'dcl_script_file_name', array( 'disqusShortname' => $this->helper->short_name ) );
+		$count_vars = apply_filters( 'dcl_count_vars', array( 'disqusShortname' => $this->helper->short_name ) );
 
 		/**
 		 * Filter hook to alter comment embed vars.
@@ -131,8 +145,33 @@ class DCL_Public {
 		$embed_vars = apply_filters( 'dcl_script_file_name', Disqus_Public::embed_vars_for_post( $post ) );
 
 		// Localize and set all variables.
-		wp_localize_script( 'dcl_count', 'countVars', $count_vars );
-		wp_localize_script( 'dcl_count', 'embedVars', $embed_vars );
+		wp_localize_script( 'dcl_comments', 'countVars', $count_vars );
+		wp_localize_script( 'dcl_comments', 'embedVars', $embed_vars );
+		wp_localize_script( 'dcl_comments', 'dclCustomVars', $custom_vars );
+	}
+
+	/**
+	 * Add additional script tags for rocket loader.
+	 *
+	 * For rocket loader support we need to add an additional tag to the
+	 * script tag. Otherwise rocket loader will not ignore our script.
+	 *
+	 * @param string $tag Script tag.
+	 * @param string $handle Script handle.
+	 * @param string $src Script src.
+	 *
+	 * @return string
+	 */
+	public function add_additional_attrs( $tag, $handle, $src ) {
+
+		global $dcl_helper;
+
+		// Add only to our script.
+		if ( $handle === 'dcl_comments' && (bool) $dcl_helper->get_option( 'dcl_cfasync', 0 ) ) {
+			$tag = '<script type="text/javascript" src="' . $src . '" data-cfasync="false"></script>';
+		}
+
+		return $tag;
 	}
 
 	/**
@@ -156,7 +195,7 @@ class DCL_Public {
 		$method = $this->helper->get_load_method();
 
 		// If count is not disabled.
-		if ( ! boolval( $this->helper->get_option( 'dcl_count_disable' ) ) ) {
+		if ( (bool) $this->helper->get_option( 'dcl_count_disable', 1 ) ) {
 			$file .= '-count';
 		}
 
@@ -164,6 +203,9 @@ class DCL_Public {
 		if ( in_array( $method, $this->helper->methods ) ) {
 			$file .= '-' . $method;
 		}
+
+		// Use minified assets if SCRIPT_DEBUG is turned off.
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		/**
 		 * Filter hook to alter file name.
@@ -173,7 +215,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		return apply_filters( 'dcl_script_file_name', $file . '.js', $method );
+		return apply_filters( 'dcl_script_file_name', $file . $suffix .'.js', $method );
 	}
 
 	/**
@@ -189,8 +231,10 @@ class DCL_Public {
 	 */
 	public function comment_shortcode() {
 
+		global $post;
+
 		// Don't load embed if it's not a single post page.
-		if ( ! is_singular() ) {
+		if ( ! is_singular() || ! $this->dcl_embed_can_load_for_post( $post ) ) {
 			return;
 		}
 
@@ -238,7 +282,9 @@ class DCL_Public {
 	 */
 	public function disqus_comments_template( $template ) {
 
-		if ( ! $this->helper->is_bot() ) {
+		global $post;
+
+		if ( ! $this->helper->is_bot() && $this->dcl_embed_can_load_for_post( $post ) ) {
 			return DCL_DIR . 'public/views/disqus-comments.php';
 		}
 
@@ -263,12 +309,57 @@ class DCL_Public {
 	}
 
 	/**
+	 * Add inline style to adjust comments width.
+	 *
+	 * We need just one line of style to adjust the width. So adding
+	 * a separate css file just for this is not a good idea.
+	 *
+	 * @since 3.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function add_inline_styles() {
+
+		global $dcl_helper;
+
+		$custom_css = '';
+
+		$load_method = $dcl_helper->get_load_method();
+		// Get the assigned width.
+		$width = ( int) $dcl_helper->get_option( 'dcl_div_width', 0 );
+		// Get the width type.
+		$width_type = $dcl_helper->get_option( 'dcl_div_width_type', '%' );
+		// Add width style if required.
+		if ( $width > 0  && in_array( $width_type, array( '%', 'px' ) ) ) {
+			$custom_css .= "#disqus_thread{width: {$width}{$width_type};margin: 0 auto;}";
+		}
+		// Add button style if required.
+		if ( $load_method === 'click' ) {
+			$custom_css .= '#dcl_btn_container{text-align: center;margin-top:10px;margin-bottom:10px}';
+		}
+
+		// Make sure we need to add inline style.
+		if ( ! empty( $custom_css ) ) {
+			// Register a dummy stylesheet for inline styles.
+			wp_register_style( 'dcl-front-style-dummy', false );
+			wp_enqueue_style( 'dcl-front-style-dummy' );
+			// Add inline.
+			wp_add_inline_style( 'dcl-front-style-dummy', $custom_css );
+		}
+	}
+
+	/**
 	 * Determines if Disqus is configured and can the comments embed on a given page.
 	 *
-	 * @since     3.0
-	 * @access    private
-	 * @param     WP_Post $post    The WordPress post used to determine if Disqus can be loaded.
-	 * @return    boolean          Whether Disqus is configured properly and can load on the current page.
+	 *  This function is taken from Disqus official plugin.
+	 *
+	 * @param WP_Post $post The WordPress post used to determine if Disqus can be loaded.
+	 *
+	 * @since 3.0
+	 * @access private
+	 *
+	 * @return boolean Whether Disqus is configured properly and can load on the current page.
 	 */
 	private function dcl_embed_can_load_for_post( $post ) {
 
@@ -277,12 +368,10 @@ class DCL_Public {
 		if ( ! $this->dcl_can_load( 'embed' ) ) {
 			return false;
 		}
-
 		// Make sure we have a $post object.
 		if ( ! isset( $post ) ) {
 			return false;
 		}
-
 		// Don't load embed for certain types of non-public posts because these post types typically still have the
 		// ID-based URL structure, rather than a friendly permalink URL.
 		$illegal_post_statuses = array(
@@ -292,6 +381,7 @@ class DCL_Public {
 			'future',
 			'trash',
 		);
+
 		if ( in_array( $post->post_status, $illegal_post_statuses ) ) {
 			return false;
 		}
@@ -312,10 +402,14 @@ class DCL_Public {
 	/**
 	 * Determines if Disqus is configured and can load on a given page.
 	 *
-	 * @since     3.0
-	 * @access    private
-	 * @param     string $script_name    The name of the script Disqus intends to load.
-	 * @return    boolean                Whether Disqus is configured properly and can load on the current page.
+	 * This function is taken from Disqus official plugin.
+	 *
+	 * @param string $script_name The name of the script Disqus intends to load.
+	 *
+	 * @since 3.0
+	 * @access private
+	 *
+	 * @return boolean Whether Disqus is configured properly and can load on the current page.
 	 */
 	private function dcl_can_load( $script_name ) {
 
@@ -330,6 +424,7 @@ class DCL_Public {
 		}
 
 		$site_allows_load = apply_filters( 'dsq_can_load', $script_name );
+
 		if ( is_bool( $site_allows_load ) ) {
 			return $site_allows_load;
 		}
