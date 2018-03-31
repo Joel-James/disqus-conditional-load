@@ -1,109 +1,68 @@
 <?php
 
 // If this file is called directly, abort.
-if (!defined('WPINC')) {
-    die('Damn it.! Dude you are looking for what?');
-}
+defined( 'ABSPATH' ) or exit;
 
 /**
- * Fired during plugin activation.
+ * Fired during plugin activation. Hmm, yeah. The beginning!
  *
  * This class defines all code necessary to run during the plugin's activation.
+ * We will register our default settings here if not exists already.
  *
- * @link		http://dclwp.com
- * @since		10.0.0
- * @package		DCL
- * @subpackage	DCL/includes
- * @author		Joel James <me@joelsays.com>
+ * @category   Core
+ * @package    DCL
+ * @subpackage Activator
+ * @author     Joel James <mail@cjoel.com>
+ * @license    http://www.gnu.org/licenses/ GNU General Public License
+ * @link       https://dclwp.com
  */
 class DCL_Activator {
 
-    /**
-     * Function to run during activation
-     * Transfering old options to new - DCL
-     *
-     * DCL Coding sturucture and options are changed to new sturcture.
-     * So we need to transfer old values to new structure. This file will 
-     * be used once. After transferring, we will never use these functions.
-     *
-     * @uses		update_option	To create/update the DCL settings.
-     * @since    10.0.0
-     * @author 	Joel James
-     */
-    public static function activate() {
+	/**
+	 * Perform actions required during activation.
+	 *
+	 * We register default options to the WordPress if not exists already.
+	 * We will keep the old values if already exist.
+	 *
+	 * @since  10.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public static function activate() {
 
-        // Set default values for the plugin
+		// Default settings for our plugin.
+		$options = array(
+			'dcl_type' => 'scroll',
+			'dcl_div_width' => '',
+			'dcl_div_width_type' => 'px',
+			'dcl_count_disable' => 1,
+			'dcl_btn_txt' => __( 'Load Comments', DCL_DOMAIN ),
+			'dcl_btn_class' => '',
+			'dcl_message' => __( 'Loading...', DCL_DOMAIN ),
+			'dcl_caching' => 0,
+			'dcl_cpt_exclude' => '',
+			'dcl_cfasync' => 0,
+		);
 
-        $dcl_type = self::transfer('js_type', 'dcl_type', 'scroll');
-        $dcl_width = self::transfer('', 'dcl_div_width', '');
-        $dcl_div_width_type = self::transfer('dcl_div_width_type', 'dcl_div_width_type', 'px');
-        $dcl_button = self::transfer('js_button', 'dcl_btn_txt', 'Load Comments');
-        $dcl_class = self::transfer('js_class', 'dcl_btn_class', '');
-        $dcl_message = self::transfer('js_message', 'dcl_message', 'Loading...');
-        $dcl_count_old = self::transfer('js_count_disable', 'dcl_count_disable', 'yes');
-        $dcl_caching = self::transfer('dcl_caching', 'dcl_caching', 0);
-        $dcl_cfasync = self::transfer('dcl_cfasync', 'dcl_cfasync', 0);
-        $dcl_cpt_exclude = self::transfer('dcl_cpt_exclude', 'dcl_cpt_exclude', '');
+		// Get existing options if exists.
+		$existing = get_option( 'dcl_gnrl_options' );
 
+		// Check if valid dcl settings exist.
+		if ( $existing && is_array( $existing ) ) {
+			foreach ( $options as $key => $value ) {
+				// If value exist for a key, keep them.
+				if ( array_key_exists( $key, $existing ) ) {
+					$options[ $key ] = $existing[ $key ];
+				}
+			}
+		}
 
-        // Count disable value structure changed. So we are transfering to new structure
-        $dcl_count_new = ( $dcl_count_old == 'yes' ) ? 0 : 1;
+		// Update the plugin options.
+		update_option( 'dcl_gnrl_options', $options );
 
-        // New general settings array to be added
-        $newGnrlOptions = array(
-            'dcl_type' => $dcl_type,
-            'dcl_div_width' => $dcl_width,
-            'dcl_div_width_type' => $dcl_div_width_type,
-            'dcl_count_disable' => $dcl_count_new,
-            'dcl_btn_txt' => $dcl_button,
-            'dcl_btn_class' => $dcl_class,
-            'dcl_message' => $dcl_message,
-            'dcl_caching' => $dcl_caching,
-            'dcl_cfasync' => $dcl_cfasync,
-            'dcl_cpt_exclude' => $dcl_cpt_exclude
-        );
-
-        update_option('dcl_gnrl_options', $newGnrlOptions);
-
-        // Add new option that checks for redirect after activation.
-        add_option('dcl_do_activation_redirect', true);
-    }
-
-    /**
-     * Function to get existing settings
-     *
-     * This function used to check if the new setting is already available
-     * in datatabse, then consider that. Otherwise check for the old one 
-     * and if available, takes that.
-     * If both the values are not available, then creates new default setting.
-     *
-     * @var		string		Transferred settings value.
-     * @since    10.0.0
-     * @author 	Joel James
-     * @return	$fresh		New value after transfer
-     */
-    public static function transfer($old, $new, $fresh) {
-
-        // let us check if new options already exists
-        if (get_option('dcl_gnrl_options')) {
-            $dcl_option = get_option('dcl_gnrl_options');
-            // If exists, then take that option value
-            $fresh = (!empty($dcl_option[$new])) ? $dcl_option[$new] : $fresh;
-            // Check if old value is available for the same option
-            if (get_option($old)) {
-                // If available delete it, as we are moving to new settings
-                delete_option($old);
-            }
-        }
-        // Fine, new options doesn't exist, then let us search for old
-        else if (get_option($old)) {
-            // Take old value and set it to new
-            $fresh = get_option($old);
-            // Delete it, as we are moving to new settings
-            delete_option($old);
-        }
-
-        return $fresh;
-    }
+		// Plugin activated date (inaccurate for old activations, but just don't care).
+		add_option( 'dcl_activated_time', time() );
+	}
 
 }
