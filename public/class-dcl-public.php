@@ -61,8 +61,10 @@ class DCL_Public {
 	 */
 	public function dequeue_scripts() {
 
-		// Continue only if all worked fine.
-		if ( ! $this->dcl_can_load( 'embed' ) ) {
+		global $post;
+		
+		// Do not continue if comments can't be loaded.
+		if ( ! $this->dcl_embed_can_load_for_post( $post ) ) {
 			return;
 		}
 
@@ -314,14 +316,19 @@ class DCL_Public {
 	 * We need just one line of style to adjust the width. So adding
 	 * a separate css file just for this is not a good idea.
 	 *
-	 * @since 3.0
+	 * @since 11.0.0
 	 * @access public
 	 *
 	 * @return void
 	 */
 	public function add_inline_styles() {
 
-		global $dcl_helper;
+		global $dcl_helper, $post;
+
+		// Don't load embed if it's not a single post page.
+		if ( ! $this->dcl_embed_can_load_for_post( $post ) ) {
+			return;
+		}
 
 		$custom_css = '';
 
@@ -356,7 +363,7 @@ class DCL_Public {
 	 *
 	 * @param WP_Post $post The WordPress post used to determine if Disqus can be loaded.
 	 *
-	 * @since 3.0
+	 * @since 11.0.0
 	 * @access private
 	 *
 	 * @return boolean Whether Disqus is configured properly and can load on the current page.
@@ -386,6 +393,12 @@ class DCL_Public {
 			return false;
 		}
 
+		// Do not load if current post type is skipped.
+		$excluded_cpts = $this->excluded_cpts();
+		if ( ! empty( $excluded_cpts ) && in_array( $post->post_type, $excluded_cpts ) ) {
+			return false;
+		}
+
 		// Don't load embed when comments are closed on a post.
 		if ( 'open' != $post->comment_status ) {
 			return false;
@@ -406,7 +419,7 @@ class DCL_Public {
 	 *
 	 * @param string $script_name The name of the script Disqus intends to load.
 	 *
-	 * @since 3.0
+	 * @since 11.0.0
 	 * @access private
 	 *
 	 * @return boolean Whether Disqus is configured properly and can load on the current page.
@@ -430,5 +443,29 @@ class DCL_Public {
 		}
 
 		return true;
+	}
+
+	/** Get the excluded CPTs in settings.
+	 *
+	 * If user excluded any cpts in setting, get the
+	 * array of cpts.
+	 *
+	 * @since 10.0.0
+	 *
+	 * @return array|bool
+	 */
+	private function excluded_cpts() {
+
+		global $dcl_helper;
+
+		$cpts = $dcl_helper->get_option( 'dcl_cpt_exclude' );
+
+		if ( empty( $cpts ) ) {
+			return false;
+		}
+
+		$cpts = explode( ',', $cpts );
+
+		return array_map( 'trim', $cpts );
 	}
 }
