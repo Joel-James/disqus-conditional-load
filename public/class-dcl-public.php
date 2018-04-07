@@ -248,7 +248,7 @@ class DCL_Public {
 		ob_end_clean();
 
 		// Now set the comments template as an empty file.
-		add_filter( 'comments_template', array( $this, 'empty_comments' ) );
+		add_filter( 'comments_template', array( $this, 'empty_comments' ), 30 );
 
 		return $output;
 	}
