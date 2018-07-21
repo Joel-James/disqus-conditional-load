@@ -84,6 +84,14 @@ foreach ( $constants['open'] as $constant => $value ) {
  */
 function activate_dcl() {
 
+	// If incase Pro version is already active, do not activate.
+	if ( is_plugin_active( 'disqus-conditional-load-pro/disqus-conditional-load-pro.php' ) ) {
+		// Hmmm, sacrifice.
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+		// Suicide with a suicide note.
+		wp_die( __( 'More powerful Pro version of this plugin is already active. Just relax.', DCL_DOMAIN ) );
+	}
+
     require_once DCL_DIR . 'includes/class-dcl-activator.php';
 
 	// The very beginning!
@@ -91,7 +99,7 @@ function activate_dcl() {
 }
 
 // Make use of activation hook.
-register_activation_hook( DCL_BASE_FILE , 'activate_dcl' );
+register_activation_hook( __FILE__, 'activate_dcl' );
 
 // Our helper functions. Thanks for the help, helper.
 include_once DCL_DIR . 'includes/class-dcl-helper.php';
