@@ -293,7 +293,7 @@ class DCL_Helper {
 			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 }
