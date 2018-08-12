@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * Admin functionality for Disqus Conditional Load.
@@ -57,8 +57,8 @@ class DCL_Admin {
 
 		$hook = add_submenu_page(
 			'disqus',
-			__( 'Disqus Conditional Load - Settings', DCL_DOMAIN ),
-			__( 'DCL Settings', DCL_DOMAIN ),
+			__( 'Disqus Conditional Load - Settings', 'disqus-conditional-load' ),
+			__( 'DCL Settings', 'disqus-conditional-load' ),
 			DCL_ACCESS,
 			'dcl-settings',
 			array( $this, 'admin_page' )
@@ -150,7 +150,8 @@ class DCL_Admin {
 
 			// Custom footer text with links to reviews and pro version.
 			printf(
-				__( 'Thank you for choosing this DCL | <a href="%s">Upgrade to DCL Pro</a> | <a href="%s">Rate it %s</a>', DCL_DOMAIN ),
+				// translators: These are the links to upgrade and leave a review.
+				__( 'Thank you for choosing this DCL | <a href="%1$s">Upgrade to DCL Pro</a> | <a href="%2$s">Rate it %3$s</a>', 'disqus-conditional-load' ),
 				esc_url( 'https://dclwp.com' ),
 				esc_url( 'https://wordpress.org/support/plugin/disqus-conditional-load/reviews/?filter=5#postform' ),
 				'&#9733; &#9733; &#9733; &#9733; &#9733;'
@@ -185,7 +186,8 @@ class DCL_Admin {
 		if ( basename( $file ) === basename( DCL_BASE_FILE ) ) {
 
 			// Prepare our custom link.
-			$link = sprintf ( __( '<a href="%s">Settings</a>', DCL_DOMAIN ), 'admin.php?page=dcl-settings' );
+			// Translators: Link to DCL settings.
+			$link = sprintf( __( '<a href="%s">Settings</a>', 'disqus-conditional-load' ), 'admin.php?page=dcl-settings' );
 			// Insert our custom link at the beginning.
 			array_unshift( $links, $link );
 
@@ -205,8 +207,8 @@ class DCL_Admin {
 	/**
 	 * Plugin row meta links for DCL.
 	 *
-	 * @param array $input Already defined meta links
-	 * @param string $file Plugin file path and name being processed
+	 * @param array  $input Already defined meta links.
+	 * @param string $file Plugin file path and name being processed.
 	 *
 	 * @since  10.0.0
 	 * @access public
@@ -222,7 +224,8 @@ class DCL_Admin {
 		if ( $dcl_file === $file ) {
 
 			// Our custom link to Pro.
-			$link = array( sprintf( __( '<a href="%s">Upgrade to Pro</a>', DCL_DOMAIN ), 'https://dclwp.com' ) );
+			// Translators: Link to pro.
+			$link = array( sprintf( __( '<a href="%s">Upgrade to Pro</a>', 'disqus-conditional-load' ), 'https://dclwp.com' ) );
 			// Merge them to existing links.
 			$input = array_merge( $input, $link );
 

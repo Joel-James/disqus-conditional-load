@@ -33,28 +33,28 @@
  */
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 // These are constants. Seriously!
 $constants = array(
 	// Oh yeah, we decide these constants.
 	// These constants can not be overwritten.
 	'fixed' => array(
-		'DCL_NAME' => 'disqus-conditional-load',
-		'DCL_DOMAIN' => 'disqus-conditional-load',
-		'DCL_DIR' => plugin_dir_path( __FILE__ ),
-		'DCL_PATH' => plugin_dir_url( __FILE__ ),
+		'DCL_NAME'      => 'disqus-conditional-load',
+		'DCL_DOMAIN'    => 'disqus-conditional-load',
+		'DCL_DIR'       => plugin_dir_path( __FILE__ ),
+		'DCL_PATH'      => plugin_dir_url( __FILE__ ),
 		'DCL_BASE_FILE' => __FILE__,
-		'DCL_VERSION' => '11.0.0',
+		'DCL_VERSION'   => '11.0.0',
 	),
 
 	// Aaaand, here is something for your choice.
 	// These constants can be overwritten.
-	'open' => array(
+	'open'  => array(
 		// Set who all can access plugin settings.
 		// You can change this if you want to give others access.
 		'DCL_ACCESS' => 'manage_options',
-	)
+	),
 );
 
 // Now, let the constants born.
@@ -89,13 +89,13 @@ function activate_dcl() {
 		// Hmmm, sacrifice.
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 		// Suicide with a suicide note.
-		wp_die( __( 'More powerful Pro version of this plugin is already active. Just relax.', DCL_DOMAIN ) );
+		wp_die( esc_html__( 'More powerful Pro version of this plugin is already active. Just relax.', 'disqus-conditional-load' ) );
 	}
 
-    require_once DCL_DIR . 'includes/class-dcl-activator.php';
+	require_once DCL_DIR . 'includes/class-dcl-activator.php';
 
 	// The very beginning!
-    DCL_Activator::activate();
+	DCL_Activator::activate();
 }
 
 // Make use of activation hook.
@@ -126,4 +126,4 @@ function run_dcl() {
 
 run_dcl();
 
-/*** I will find you, and I will thank you! - Joel James ***/
+// I will find you, and I will thank you! - Joel James.

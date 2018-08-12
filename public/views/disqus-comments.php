@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * Disqus comments template.
@@ -20,8 +20,8 @@ defined( 'ABSPATH' ) or exit;
 	<?php global $dcl_helper; ?>
 	<?php if ( $dcl_helper->get_load_method() === 'click' ) : ?>
 		<div id="dcl_btn_container">
-			<button id='dcl_comment_btn' class="<?= apply_filters( 'dcl_button_class', $dcl_helper->get_option( 'dcl_btn_class', '' ) ); ?>">
-				<?= apply_filters( 'dcl_button_text', $dcl_helper->get_option( 'dcl_btn_txt', __( 'Load Comments', DCL_DOMAIN ) ) ); ?>
+			<button id='dcl_comment_btn' class="<?php echo esc_html( apply_filters( 'dcl_button_class', $dcl_helper->get_option( 'dcl_btn_class', '' ) ) ); ?>">
+				<?php echo esc_html( apply_filters( 'dcl_button_text', $dcl_helper->get_option( 'dcl_btn_txt', __( 'Load Comments', 'disqus-conditional-load' ) ) ) ); ?>
 			</button>
 		</div>
 	<?php endif; ?>

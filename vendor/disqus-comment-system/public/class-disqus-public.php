@@ -58,7 +58,7 @@ class Disqus_Public {
 		if ( $user->ID ) {
 			$payload_user['id'] = $user->ID;
 			$payload_user['username'] = $user->display_name;
-			$payload_user['avatar'] = get_avatar( $user->ID, 92 );
+			$payload_user['avatar'] = get_avatar_url( $user->ID, 92 );
 			$payload_user['email'] = $user->user_email;
 			$payload_user['url'] = $user->user_url;
 		}
@@ -298,6 +298,11 @@ class Disqus_Public {
 
 		// Don't load embed when comments are closed on a post.
 		if ( 'open' != $post->comment_status ) {
+			return false;
+		}
+
+		// Don't load embed when comments are closed on a post. These lines can solve a conflict with plugin Public Post Preview.
+		if ( ! comments_open() ) {
 			return false;
 		}
 

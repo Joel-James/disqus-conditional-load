@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * Provide a dashboard view for the plugin.
@@ -20,20 +20,24 @@ defined( 'ABSPATH' ) or exit;
 <?php $options = $this->helper->get_option(); ?>
 <div id="tabs" class="ui-tabs dcl-wrap">
 
-    <h2><?php printf( __( 'Disqus Conditional Load <span class="subtitle">by <a href="%s" target="_blank" title="Developed by Joel James">Joel James</a> ( v%d )</span>', DCL_DOMAIN ), 'https://duckdev.com', DCL_VERSION ); ?></h2>
+	<h2><?php printf( __( 'Disqus Conditional Load <span class="subtitle">by <a href="%s" target="_blank" title="Developed by Joel James">Joel James</a> ( v%d )</span>', 'disqus-conditional-load' ), 'https://duckdev.com', DCL_VERSION ); ?></h2>
 	<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
-        <div class="notice notice-success is-dismissible">
-            <p><strong><?php _e( 'DCL settings updated successfully', DCL_DOMAIN ); ?></strong></p>
-        </div>
+		<div class="notice notice-success is-dismissible">
+			<p><strong><?php _e( 'DCL settings updated successfully', 'disqus-conditional-load' ); ?></strong></p>
+		</div>
 	<?php endif; ?>
-    <ul class="ui-tabs-nav">
-        <li class="<?= $current_tab === 'general' ? 'ui-state-active' : ''; ?>"><a href="?page=dcl-settings" class="tab-premium"><?php _e( 'DCL Settings', DCL_DOMAIN ); ?> <span class="newred_dot">&bull;</span></a></li>
-        <li class="<?= $current_tab === 'pro' ? 'ui-state-active' : ''; ?>"><a href="?page=dcl-settings&tab=pro" class="tab-premium"><?php _e( 'DCL Pro & Info', DCL_DOMAIN ); ?> <span class="newred_dot">&bull;</span></a></li>
-    </ul>
+	<ul class="ui-tabs-nav">
+		<li class="<?php echo 'general' === $current_tab ? 'ui-state-active' : ''; ?>">
+			<a href="?page=dcl-settings" class="tab-premium"><?php _e( 'DCL Settings', 'disqus-conditional-load' ); ?><span class="newred_dot">&bull;</span></a>
+		</li>
+		<li class="<?php echo 'pro' === $current_tab ? 'ui-state-active' : ''; ?>">
+			<a href="?page=dcl-settings&tab=pro" class="tab-premium"><?php _e( 'DCL Pro & Info', 'disqus-conditional-load' ); ?><span class="newred_dot">&bull;</span></a>
+		</li>
+	</ul>
 
-	<?php if ( $current_tab === 'pro' ) : ?>
-		<?php include_once( 'admin-pro.php' ); ?>
+	<?php if ( 'pro' === $current_tab ) : ?>
+		<?php include_once 'admin-pro.php'; ?>
 	<?php else : ?>
-		<?php include_once( 'admin-general.php' ); ?>
+		<?php include_once 'admin-general.php'; ?>
 	<?php endif; ?>
 </div>

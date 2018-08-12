@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * Helper functions for Disqus Conditional Load.
@@ -119,7 +119,7 @@ class DCL_Helper {
 		$dcl_pages = array( 'dcl-settings' );
 
 		// Check current page slug and compare with our slugs. Yeah, we ignore other guys.
-		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && in_array( $_GET['page'], $dcl_pages ) ) {
+		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && in_array( $_GET['page'], $dcl_pages, true ) ) {
 			$is_it = true;
 		}
 
@@ -185,7 +185,7 @@ class DCL_Helper {
 
 		// If in case helper function does not exist.
 		if ( ! function_exists( 'is_plugin_active' ) ) {
-			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
 		return is_plugin_active( $plugin );
@@ -195,7 +195,7 @@ class DCL_Helper {
 	 * Get single DCL option value from options.
 	 *
 	 * @param string $key Option key.
-	 * @param bool $default Default value.
+	 * @param bool   $default Default value.
 	 *
 	 * @since  11.0.0
 	 * @access public
@@ -231,7 +231,7 @@ class DCL_Helper {
 		$type = $this->get_option( 'dcl_type' );
 
 		// Is lazy loaded?
-		$is_lazy = in_array( $type, $this->methods );
+		$is_lazy = in_array( $type, $this->methods, true );
 
 		/**
 		 * Filter hook to change lazy load check.
@@ -293,7 +293,7 @@ class DCL_Helper {
 			return true;
 		}
 
-		return false;
+		return true;
 	}
 
 }

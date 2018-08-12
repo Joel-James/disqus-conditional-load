@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * Public facing functionality for Disqus Conditional Load.
@@ -62,11 +62,6 @@ class DCL_Public {
 	public function dequeue_scripts() {
 
 		global $post;
-		
-		// Do not continue if comments can't be loaded.
-		if ( ! $this->dcl_embed_can_load_for_post( $post ) ) {
-			return;
-		}
 
 		// Check if lazy load enabled.
 		$is_lazy = $this->helper->is_lazy();
@@ -79,8 +74,12 @@ class DCL_Public {
 		// We don't need an extra script for count.
 		// We will include them in one file.
 		wp_dequeue_script( 'disqus_count' );
-		// We don't need comment-reply js.
-		wp_dequeue_script( 'comment-reply' );
+
+		// Do not continue if comments can't be loaded.
+		if ( $this->dcl_embed_can_load_for_post( $post ) ) {
+			// We don't need comment-reply js.
+			wp_dequeue_script( 'comment-reply' );
+		}
 	}
 
 	/**
@@ -103,10 +102,7 @@ class DCL_Public {
 		if ( ! class_exists( 'Disqus_Public' ) ) {
 			return;
 		}
-		// If a bot is the visitor, do not continue.
-		if ( $this->helper->is_bot() ) {
-			return;
-		}
+
 		// Do not continue if comments can't be loaded.
 		if ( ! $this->dcl_embed_can_load_for_post( $post ) ) {
 			return;
@@ -121,7 +117,7 @@ class DCL_Public {
 		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'public/js/' . $dir . $file, array(), DCL_VERSION, true );
 		// Custom vars for dcl.
 		$custom_vars = array(
-			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', __( 'Loading Comments....', DCL_DOMAIN ) ),
+			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', __( 'Loading Comments....', 'disqus-conditional-load' ) ),
 		);
 
 		$custom_vars = apply_filters( 'dcl_custom_vars', $custom_vars );
@@ -286,7 +282,7 @@ class DCL_Public {
 
 		global $post;
 
-		if ( ! $this->helper->is_bot() && $this->dcl_embed_can_load_for_post( $post ) ) {
+		if ( $this->dcl_embed_can_load_for_post( $post ) ) {
 			return DCL_DIR . 'public/views/disqus-comments.php';
 		}
 
@@ -400,12 +396,17 @@ class DCL_Public {
 		}
 
 		// Don't load embed when comments are closed on a post.
-		if ( 'open' != $post->comment_status ) {
+		if ( 'open' !== $post->comment_status ) {
 			return false;
 		}
 
 		// Don't load embed if it's not a single post page.
 		if ( ! is_singular() ) {
+			return false;
+		}
+
+		// Do not continue if bot and caching support enabled.
+		if ( $this->helper->is_bot() && ! (bool) $this->helper->get_option( 'dcl_caching', false ) ) {
 			return false;
 		}
 
@@ -456,9 +457,7 @@ class DCL_Public {
 	 */
 	private function excluded_cpts() {
 
-		global $dcl_helper;
-
-		$cpts = $dcl_helper->get_option( 'dcl_cpt_exclude' );
+		$cpts = $this->helper->get_option( 'dcl_cpt_exclude' );
 
 		if ( empty( $cpts ) ) {
 			return false;

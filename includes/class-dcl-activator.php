@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * Fired during plugin activation. Hmm, yeah. The beginning!
@@ -33,16 +33,16 @@ class DCL_Activator {
 
 		// Default settings for our plugin.
 		$options = array(
-			'dcl_type' => 'scroll',
-			'dcl_div_width' => '',
+			'dcl_type'           => 'scroll',
+			'dcl_div_width'      => '',
 			'dcl_div_width_type' => 'px',
-			'dcl_count_disable' => 1,
-			'dcl_btn_txt' => __( 'Load Comments', DCL_DOMAIN ),
-			'dcl_btn_class' => '',
-			'dcl_message' => __( 'Loading...', DCL_DOMAIN ),
-			'dcl_caching' => 0,
-			'dcl_cpt_exclude' => '',
-			'dcl_cfasync' => 0,
+			'dcl_count_disable'  => 1,
+			'dcl_btn_txt'        => __( 'Load Comments', 'disqus-conditional-load' ),
+			'dcl_btn_class'      => '',
+			'dcl_message'        => __( 'Loading...', 'disqus-conditional-load' ),
+			'dcl_caching'        => 0,
+			'dcl_cpt_exclude'    => '',
+			'dcl_cfasync'        => 0,
 		);
 
 		// Get existing options if exists.

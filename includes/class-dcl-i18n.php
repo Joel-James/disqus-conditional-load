@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * DCL internationalization class.
@@ -28,6 +28,6 @@ class DCL_i18n  {
 	 */
 	public function set_textdomain() {
 
-		load_plugin_textdomain( DCL_DOMAIN, false, DCL_DIR . '/languages/' );
+		load_plugin_textdomain( 'disqus-conditional-load', false, DCL_DIR . '/languages/' );
 	}
 }

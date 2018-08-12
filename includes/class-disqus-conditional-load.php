@@ -1,7 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-defined( 'ABSPATH' ) or exit;
+defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
  * Main Disqus Conditional Load plugin class
@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) or exit;
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class Disqus_Conditional_Load  {
+class Disqus_Conditional_Load {
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -73,7 +73,7 @@ class Disqus_Conditional_Load  {
 		if ( ! $dcl_helper->is_disqus_compatible() ) {
 			global $DISQUSVERSION;
 			// Make sure disqus version is set.
-			$DISQUSVERSION = '3.0.15';
+			$DISQUSVERSION = '3.0.16';
 			// Load disqus from our vendor directory.
 			require_once DCL_DIR . 'vendor/disqus-comment-system/disqus.php';
 		}
@@ -159,7 +159,7 @@ class Disqus_Conditional_Load  {
 
 			add_action( 'wp_print_scripts', array( $public, 'dequeue_scripts' ), 100 );
 			add_action( 'wp_enqueue_scripts', array( $public, 'enqueue_scripts' ) );
-			add_action( 'wp_enqueue_scripts', array( $public, 'add_inline_styles' )  );
+			add_action( 'wp_enqueue_scripts', array( $public, 'add_inline_styles' ) );
 			add_action( 'comments_template', array( $public, 'dcl_comments_template' ), 15 );
 
 			add_filter( 'comments_template', array( $public, 'disqus_comments_template' ), 20 );
@@ -198,9 +198,9 @@ class Disqus_Conditional_Load  {
 	 */
 	public function incompatible_alert() {
 
-		$html = '<div class="notice notice-error">';
+		$html  = '<div class="notice notice-error">';
 		$html .= '<p>';
-		$html .= __( 'An incompatible version of Disqus plugin is already active. <strong>Disqus Conditional Load</strong> will not work, until you deactivate it or update your Disqus official plugin to latest version (3.0+). <strong>Disqus Conditional Load</strong> can work even if you deactivate official Disqus plugin.', DCL_DOMAIN );
+		$html .= __( 'An incompatible version of Disqus plugin is already active. <strong>Disqus Conditional Load</strong> will not work, until you deactivate it or update your Disqus official plugin to latest version (3.0+). <strong>Disqus Conditional Load</strong> can work even if you deactivate official Disqus plugin.', 'disqus-conditional-load' );
 		$html .= '</p>';
 		$html .= '</div>';
 
