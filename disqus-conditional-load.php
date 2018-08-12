@@ -3,7 +3,7 @@
  * Plugin Name:     Disqus Conditional Load
  * Plugin URI:      https://dclwp.com
  * Description:     Disqus commenting system for WordPress with advanced features like like <strong>lazy load, shortcode</strong> etc.
- * Version:         11.0.0
+ * Version:         11.0.0-beta
  * Author:          Joel James
  * Author URI:      https://duckdev.com/
  * Donate link:     https://paypal.me/JoelCJ
