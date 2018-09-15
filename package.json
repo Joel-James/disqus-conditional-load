@@ -1,0 +1,59 @@
+{
+  "name": "disqus-conditional-load",
+  "version": "11.0.0",
+  "private": true,
+  "description": "Disqus commenting system for WordPress with advanced features like like <strong>lazy load, shortcode</strong> etc.",
+  "keywords": [
+    "disqus",
+    "disqus conditional load",
+    "comment hide",
+    "hide disqus",
+    "disqus comments",
+    "disqus on click",
+    "disqus auto load",
+    "disqus",
+    "woocommerce comments",
+    "edd comments"
+  ],
+  "homepage": "https://dclwp.com/",
+  "license": "GPL-2.0",
+  "author": {
+    "name": "Joel James",
+    "url": "https://dclwp.com"
+  },
+  "main": "disqus-conditional-load.php",
+  "repository": "git+https://github.com/Joel-James/disqus-conditional-load.git",
+  "scripts": {
+    "compile": "clear && grunt clean && webpack -p --progress",
+    "translate": "clear && grunt translate",
+    "build": "npm run compile && grunt prepare && grunt build"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-checktextdomain": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-compress": "^1.4.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-wp-i18n": "^1.0.2",
+    "load-grunt-tasks": "^4.0.0",
+    "grunt-po2mo": "^0.1.2",
+    "ajv": "6.5.2",
+    "ajv-keywords": "^3.2.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "to-string-loader": "^1.1.4",
+    "file-loader": "^1.1.11",
+    "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.2",
+    "postcss-loader": "^2.1.5",
+    "resolve-url-loader": "^2.3.0",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.16.2",
+    "webpack-command": "^0.3.1"
+  }
+}
