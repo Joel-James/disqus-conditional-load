@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fired only when the DCL is uninstalled.
+ * Fired only when the DCL is uninstalled 😞.
  *
  * Removes everything that DCL added to your db.
  * Please note that we are not deleting Disqus core settings from database.

@@ -35,95 +35,102 @@
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
-// These are constants. Seriously!
-$constants = array(
-	// Oh yeah, we decide these constants.
-	// These constants can not be overwritten.
-	'fixed' => array(
-		'DCL_NAME'      => 'disqus-conditional-load',
-		'DCL_DOMAIN'    => 'disqus-conditional-load',
-		'DCL_DIR'       => plugin_dir_path( __FILE__ ),
-		'DCL_PATH'      => plugin_dir_url( __FILE__ ),
-		'DCL_BASE_FILE' => __FILE__,
-		'DCL_VERSION'   => '11.0.0',
-	),
+// Stay lazy if our class is already there.
+if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 
-	// Aaaand, here is something for your choice.
-	// These constants can be overwritten.
-	'open'  => array(
-		// Set who all can access plugin settings.
-		// You can change this if you want to give others access.
-		'DCL_ACCESS' => 'manage_options',
-	),
-);
+	// These are constants. Seriously!
+	$constants = array(
+		// Oh yeah, we decide these constants.
+		// These constants can not be overwritten.
+		'fixed' => array(
+			'DCL_NAME'      => 'disqus-conditional-load',
+			'DCL_DOMAIN'    => 'disqus-conditional-load',
+			'DCL_DIR'       => plugin_dir_path( __FILE__ ),
+			'DCL_PATH'      => plugin_dir_url( __FILE__ ),
+			'DCL_BASE_FILE' => __FILE__,
+			'DCL_VERSION'   => '11.0.0',
+		),
 
-// Now, let the constants born.
-foreach ( $constants['fixed'] as $constant => $value ) {
-	define( $constant, $value );
-}
+		// Aaaand, here is something for your choice.
+		// These constants can be overwritten.
+		'open'  => array(
+			// Set who all can access plugin settings.
+			// You can change this if you want to give others access.
+			'DCL_ACCESS' => 'manage_options',
+		),
+	);
 
-// Let open constants born too.
-foreach ( $constants['open'] as $constant => $value ) {
-	// Check if it is defined already.
-	if ( ! defined( $constant ) ) {
+	// Now, let the constants born.
+	foreach ( $constants['fixed'] as $constant => $value ) {
 		define( $constant, $value );
 	}
-}
 
-/**
- * Plugin activation actions. We are starting fellas!
- *
- * Actions to perform during plugin activation.
- * We will be registering default options in this function.
- *
- * @uses   register_activation_hook() To register activation hook.
- * @since  10.0.0
- * @access private
- *
- * @return void
- */
-function activate_dcl() {
-
-	// If incase Pro version is already active, do not activate.
-	if ( is_plugin_active( 'disqus-conditional-load-pro/disqus-conditional-load-pro.php' ) ) {
-		// Hmmm, sacrifice.
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-		// Suicide with a suicide note.
-		wp_die( esc_html__( 'More powerful Pro version of this plugin is already active. Just relax.', 'disqus-conditional-load' ) );
+	// Let open constants born too.
+	foreach ( $constants['open'] as $constant => $value ) {
+		// Check if it is defined already.
+		if ( ! defined( $constant ) ) {
+			define( $constant, $value );
+		}
 	}
 
-	require_once DCL_DIR . 'includes/class-dcl-activator.php';
+	// Activation, deactivation and un-installation.
+	require_once DCL_DIR . 'includes/class-dcl-activator-deactivator-uninstaller.php';
 
-	// The very beginning!
-	DCL_Activator::activate();
-}
+	/**
+	 * Plugin activation actions. We are starting fellas!
+	 *
+	 * Actions to perform during plugin activation.
+	 * We will be registering default options in this function.
+	 *
+	 * @uses   register_activation_hook() To register activation hook.
+	 * @since  10.0.0
+	 * @access private
+	 *
+	 * @return void
+	 */
+	function dcl_activate() {
 
-// Make use of activation hook.
-register_activation_hook( __FILE__, 'activate_dcl' );
+		// If incase Pro version is already active, do not activate.
+		if ( is_plugin_active( 'disqus-conditional-load-pro/disqus-conditional-load-pro.php' ) ) {
+			// Hmmm, sacrifice.
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+			// Suicide with a suicide note.
+			wp_die( esc_html__( 'More powerful Pro version of this plugin is already active. Just relax.', 'disqus-conditional-load' ) );
+		}
 
-// Our helper functions. Thanks for the help, helper.
-include_once DCL_DIR . 'includes/class-dcl-helper.php';
+		// The very beginning!
+		DCL_Activator_Deactivator_Uninstaller::activate();
+	}
 
-// Load all required files for the plugin to work.
-require_once DCL_DIR . 'includes/class-disqus-conditional-load.php';
+	// Make use of activation hook.
+	register_activation_hook( __FILE__, 'dcl_activate' );
 
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since 10.0.0
- * @access public
- *
- * @return void
- */
-function run_dcl() {
+	// Our helper functions. Thanks for the help, helper.
+	include_once DCL_DIR . 'includes/class-dcl-helper.php';
 
-	( new Disqus_Conditional_Load() )->run();
-}
+	// Load all required files for the plugin to work.
+	require_once DCL_DIR . 'includes/class-disqus-conditional-load.php';
 
-run_dcl();
+	/**
+	 * Begins execution of the plugin.
+	 *
+	 * Since everything within the plugin is registered via hooks,
+	 * then kicking off the plugin from this point in the file does
+	 * not affect the page life cycle.
+	 *
+	 * @since 10.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	function dcl_run() {
+
+		( new Disqus_Conditional_Load() )->run();
+	}
+
+	// Initialize DCL.
+	dcl_run();
+
+endif; // End if class_exists check.
 
 // I will find you, and I will thank you! - Joel James.

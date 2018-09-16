@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || die( 'K. Bye.' );
 
 /**
- * Fired during plugin activation. Hmm, yeah. The beginning!
+ * Fired during plugin activation, deactivation or uninstallation.
  *
  * This class defines all code necessary to run during the plugin's activation.
  * We will register our default settings here if not exists already.
@@ -16,10 +16,10 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class DCL_Activator {
+class DCL_Activator_Deactivator_Uninstaller {
 
 	/**
-	 * Perform actions required during activation.
+	 * Perform actions required during activation. Hmm, yeah. The beginning! 😀.
 	 *
 	 * We register default options to the WordPress if not exists already.
 	 * We will keep the old values if already exist.
@@ -64,5 +64,4 @@ class DCL_Activator {
 		// Plugin activated date (inaccurate for old activations, but just don't care).
 		add_option( 'dcl_activated_time', time() );
 	}
-
 }
