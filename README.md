@@ -1,4 +1,4 @@
-# [Disqus Conditional Load](https://wordpress.org/plugins/404-to-301) - WordPress Disqus comments with advanced features!
+# [Disqus Conditional Load](https://wordpress.org/plugins/disqus-conditional-load) - for WordPress
 
 Disqus commenting system for WordPress with advanced features like like <strong>lazy load, shortcode</strong> etc.
 <hr/>
