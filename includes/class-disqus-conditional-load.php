@@ -106,6 +106,13 @@ class Disqus_Conditional_Load {
 			$this->admin_hooks();
 
 			$this->public_hooks();
+
+			/**
+			 * Action hook to run after DCL starts running.
+			 *
+			 * @since 11.0.0
+			 */
+			do_action( 'dcl_running' );
 		}
 	}
 
@@ -213,5 +220,4 @@ class Disqus_Conditional_Load {
 		 */
 		echo apply_filters( 'dcl_incompatible_alert_text', $html );
 	}
-
 }

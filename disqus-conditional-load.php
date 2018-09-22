@@ -74,7 +74,7 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 	}
 
 	// Activation, deactivation and un-installation.
-	require_once DCL_DIR . 'includes/class-dcl-activator-deactivator-uninstaller.php';
+	require_once DCL_DIR . 'includes/class-dcl-activator-deactivator.php';
 
 	/**
 	 * Plugin activation actions. We are starting fellas!
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 		}
 
 		// The very beginning!
-		DCL_Activator_Deactivator_Uninstaller::activate();
+		DCL_Activator_Deactivator::activate();
 	}
 
 	// Make use of activation hook.
@@ -125,7 +125,8 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 	 */
 	function dcl_run() {
 
-		( new Disqus_Conditional_Load() )->run();
+		$dcl = new Disqus_Conditional_Load();
+		$dcl->run();
 	}
 
 	// Initialize DCL.

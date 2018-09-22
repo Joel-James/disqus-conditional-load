@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Disqus Conditional Load 11.0.0-beta\n"
 "Report-Msgid-Bugs-To: https://dclwp.com/\n"
-"POT-Creation-Date: 2018-09-15 06:18:14+00:00\n"
+"POT-Creation-Date: 2018-09-17 05:29:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Disqus Conditional Load - Settings"
 msgstr ""
 
-#: admin/class-dcl-admin.php:61 admin/views/admin-display.php:31
+#: admin/class-dcl-admin.php:61
 msgid "DCL Settings"
 msgstr ""
 
@@ -49,50 +49,39 @@ msgstr ""
 msgid "<a href=\"%s\">Upgrade to Pro</a>"
 msgstr ""
 
-#: admin/views/admin-display.php:23
-msgid ""
-"Disqus Conditional Load <span class=\"subtitle\">by <a href=\"%s\" "
-"target=\"_blank\" title=\"Developed by Joel James\">Joel James</a> ( v%d "
-")</span>"
+#: admin/views/admin-display.php:24
+msgid "Disqus Conditional Load %1$sby %2$sJoel James%3$s"
 msgstr ""
 
-#: admin/views/admin-display.php:26
-msgid "DCL settings updated successfully"
+#: admin/views/admin-display.php:30
+msgid "Settings"
 msgstr ""
 
-#: admin/views/admin-display.php:34
-msgid "DCL Pro & Info"
+#: admin/views/admin-display.php:31
+msgid "Pro & Info"
 msgstr ""
 
-#: admin/views/admin-general.php:19
-msgid "Conditional Load Settings"
-msgstr ""
-
-#: admin/views/admin-general.php:26
+#: admin/views/admin-general.php:25
 msgid "How to Load Disqus"
 msgstr ""
 
-#: admin/views/admin-general.php:27
-msgid "to improve performance"
-msgstr ""
-
-#: admin/views/admin-general.php:32
+#: admin/views/admin-general.php:29
 msgid "On Click"
 msgstr ""
 
-#: admin/views/admin-general.php:33
+#: admin/views/admin-general.php:30
 msgid "On Scroll"
 msgstr ""
 
-#: admin/views/admin-general.php:34
+#: admin/views/admin-general.php:31
 msgid "Normal (no lazy load)"
 msgstr ""
 
-#: admin/views/admin-general.php:35
+#: admin/views/admin-general.php:32
 msgid "On Scroll Start (Pro only)"
 msgstr ""
 
-#: admin/views/admin-general.php:38
+#: admin/views/admin-general.php:35
 msgid ""
 "This feature will let you prevent Disqus from automatically loading "
 "comments and scripts on pages, posts or whatever it is. If you choose "
@@ -101,15 +90,11 @@ msgid ""
 "small inline style to adjust the button alignment."
 msgstr ""
 
-#: admin/views/admin-general.php:44
+#: admin/views/admin-general.php:42
 msgid "Disqus Comments Width"
 msgstr ""
 
-#: admin/views/admin-general.php:45
-msgid "to match your theme"
-msgstr ""
-
-#: admin/views/admin-general.php:52
+#: admin/views/admin-general.php:49
 msgid ""
 "If Disqus comments are not looking good because of the large or smaller "
 "width, you can adjust the width of comments division here. Just enter the "
@@ -117,40 +102,38 @@ msgid ""
 "very small inline CSS to adjust this width if you enable this."
 msgstr ""
 
-#: admin/views/admin-general.php:58
+#: admin/views/admin-general.php:56
 msgid "Count Script"
 msgstr ""
 
-#: admin/views/admin-general.php:59
-msgid "only load if needed"
-msgstr ""
-
-#: admin/views/admin-general.php:64 admin/views/admin-general.php:123
-#: admin/views/admin-general.php:138
+#: admin/views/admin-general.php:60 admin/views/admin-general.php:118
+#: admin/views/admin-general.php:130
 msgid "Enable"
 msgstr ""
 
-#: admin/views/admin-general.php:65 admin/views/admin-general.php:124
-#: admin/views/admin-general.php:139
+#: admin/views/admin-general.php:61 admin/views/admin-general.php:119
+#: admin/views/admin-general.php:131
 msgid "Disable"
 msgstr ""
 
-#: admin/views/admin-general.php:68
+#: admin/views/admin-general.php:65
 msgid ""
 "By default Disqus may load a script (count.js) to get the comments count to "
 "show somewhere on your pages. Disabling this feature can improve your page "
 "loading speed but may conflict with some themes."
 msgstr ""
 
-#: admin/views/admin-general.php:73
+#: admin/views/admin-general.php:71
 msgid "Button Text"
 msgstr ""
 
 #: admin/views/admin-general.php:74
-msgid "to attract visitors"
+#: includes/class-dcl-activator-deactivator-uninstaller.php:40
+#: public/views/disqus-comments.php:24
+msgid "Load Comments"
 msgstr ""
 
-#: admin/views/admin-general.php:79
+#: admin/views/admin-general.php:76
 msgid ""
 "If you are loading Disqus using On Click feature, then there will be a "
 "button to load comments. If you want to use custom text on the button, "
@@ -158,34 +141,26 @@ msgid ""
 "\"On Click\" option)."
 msgstr ""
 
-#: admin/views/admin-general.php:84
+#: admin/views/admin-general.php:82
 msgid "Custom Button Class"
 msgstr ""
 
-#: admin/views/admin-general.php:85
-msgid "to customize the button"
-msgstr ""
-
-#: admin/views/admin-general.php:90
+#: admin/views/admin-general.php:87
 msgid ""
 "Here you can add any custom class to the button. By using custom class you "
 "can use your own style for comment button. Leave empty if you do not care. "
 "(Works only with \"On Click\" option)"
 msgstr ""
 
-#: admin/views/admin-general.php:95
+#: admin/views/admin-general.php:93
 msgid "Loading Message"
 msgstr ""
 
 #: admin/views/admin-general.php:96
-msgid "to impress visitors"
-msgstr ""
-
-#: admin/views/admin-general.php:100
 msgid "Loading.."
 msgstr ""
 
-#: admin/views/admin-general.php:101
+#: admin/views/admin-general.php:98
 msgid ""
 "There may be few milliseconds delay before Disqus starts loading when "
 "visitors clicks on the button. Enter something here, and we will show that "
@@ -193,100 +168,220 @@ msgid ""
 "tags like <p><b><h2> (Works only with \"On Click\" option)"
 msgstr ""
 
-#: admin/views/admin-general.php:106
+#: admin/views/admin-general.php:104
 msgid "Disable on CPTs"
 msgstr ""
 
-#: admin/views/admin-general.php:107
-msgid "to skip custom post types"
-msgstr ""
-
-#: admin/views/admin-general.php:112
+#: admin/views/admin-general.php:109
 msgid ""
 "If Disqus adds its scripts on custom post types, and you dont like it, "
 "enter the custom post type here. Separate with comma."
 msgstr ""
 
-#: admin/views/admin-general.php:117
+#: admin/views/admin-general.php:115
 msgid "Caching Support"
 msgstr ""
 
-#: admin/views/admin-general.php:118
-msgid "to work with caching plugins"
-msgstr ""
-
-#: admin/views/admin-general.php:127
+#: admin/views/admin-general.php:121
 msgid ""
 "If you are having issues loading Disqus comments when caching is enabled, "
 "please enable this."
 msgstr ""
 
-#: admin/views/admin-general.php:132
+#: admin/views/admin-general.php:127
 msgid "Rocker Loader Support"
 msgstr ""
 
 #: admin/views/admin-general.php:133
-msgid "to ignore the Disqus script"
-msgstr ""
-
-#: admin/views/admin-general.php:142
 msgid ""
 "If you are using Cloudflare Rocker Loader, enable this to have %1$sRocket "
 "Loader ignore%2$s the Disqus scripts by adding the "
 "%3$sdata-cfasync=\"false\"%4$s attribute to the script tag."
 msgstr ""
 
-#: admin/views/admin-general.php:147
+#: admin/views/admin-general.php:139
 msgid "Save All Changes"
 msgstr ""
 
-#: admin/views/admin-pro.php:21
-msgid "Additional Features Available in DCL Pro %1$sUpgrade%2$s"
-msgstr ""
-
-#: admin/views/admin-pro.php:25 admin/views/admin-pro.php:28
+#: admin/views/admin-pro.php:24 admin/views/admin-pro.php:33
 msgid "Buy DCL Pro"
 msgstr ""
 
-#: admin/views/admin-pro.php:26
+#: admin/views/admin-pro.php:28
 msgid ""
 "Get all these additional and upcoming features + to help my development and "
 "other efforts. Assured %1$smoney back%2$s if you are not satisfied."
 msgstr ""
 
-#: admin/views/admin-pro.php:27
+#: admin/views/admin-pro.php:29
 msgid "Immediate download after purchase."
 msgstr ""
 
-#: admin/views/admin-pro.php:28
+#: admin/views/admin-pro.php:33
 msgid "Buy Now"
 msgstr ""
 
-#: admin/views/admin-pro.php:32
+#: admin/views/admin-pro.php:41
 msgid "Load on \"Scroll Start\""
 msgstr ""
 
-#: admin/views/admin-pro.php:33
-msgid ""
-"This is a <strong>MOST WANTED</strong> feature! Seriously.<br/>\n"
-"\t\t\t\tUsing this feature your Disqus comments will start loading right "
-"after visitor starts scrolling the page. That means <strong>no waiting for "
-"visitors, but not loading on page load</strong>. Cool feature, isn't it?"
+#: admin/views/admin-pro.php:45
+msgid "This is a %1$sMOST WANTED%2$s feature! Seriously."
 msgstr ""
 
-#: admin/views/admin-pro.php:38
+#: admin/views/admin-pro.php:46
+msgid ""
+"Using this feature your Disqus comments will start loading right after "
+"visitor starts scrolling the page. That means %1$sno waiting for visitors, "
+"but not loading on page load.%2$s Cool feature, isn't it?"
+msgstr ""
+
+#: admin/views/admin-pro.php:55
 msgid "Disqus Comments Widget"
 msgstr ""
 
-#: disqus-conditional-load.php:92
+#: admin/views/admin-pro.php:59
+msgid ""
+"This feature will give you a new widget called \"DCL Disqus Comments\". You "
+"will be able to %1$sshow Disqus comments on your sidebar or any other "
+"widgets!%2$s Very useful because WordPress shortcode doesn't work in "
+"widgets by default."
+msgstr ""
+
+#: admin/views/admin-pro.php:68
+msgid "Popular Comments Widget"
+msgstr ""
+
+#: admin/views/admin-pro.php:72
+msgid ""
+"And here is another one! This will add a new widget called \"DCL Popular "
+"Comments\"."
+msgstr ""
+
+#: admin/views/admin-pro.php:73
+msgid ""
+"You will be able to %1$sshow popular Disqus comments%2$s from your website "
+"on your sidebar or any other widget areas! Helping you to boost the user "
+"engagement"
+msgstr ""
+
+#: admin/views/admin-pro.php:82
+msgid "Beautiful Button Styles"
+msgstr ""
+
+#: admin/views/admin-pro.php:86
+msgid ""
+"With DCL Pro, you will get many %1$sbeautiful inbuilt button styles%2$s. "
+"You don't have to write CSS to style your button. Choose from the awesome "
+"buttons that we have already included in DCL Pro. Don't worry you will be "
+"still able to use your custom class too."
+msgstr ""
+
+#: admin/views/admin-pro.php:95
+msgid "Count on Button"
+msgstr ""
+
+#: admin/views/admin-pro.php:99
+msgid ""
+"Want to show the total comments count for each articles on the button? Yes, "
+"it is possible when you use DCL Pro. If you have comments already, it will "
+"%1$sdisaply the count of the comments on your button%2$s just after the "
+"button text."
+msgstr ""
+
+#: admin/views/admin-pro.php:108
+msgid "Woocommerce & Easy Digital Downloads"
+msgstr ""
+
+#: admin/views/admin-pro.php:112
+msgid ""
+"How about showing comments for Woocommerce products and EDD? Normally if "
+"you use Disqus, you won't be able to show Woocommerce review. But now you "
+"can %1$sshow comments in new tab%2$s as well as %1$sinside product "
+"description%2$s. And you are ready to integrate Disqus comments with EDD "
+"products too!"
+msgstr ""
+
+#: admin/views/admin-pro.php:121
+msgid "Separate Options for Desktop and Mobile"
+msgstr ""
+
+#: admin/views/admin-pro.php:125
+msgid ""
+"DCL Pro will allow you to use separate lazy loading options in %1$smobile "
+"and desktop%2$s devices. For example, you can use On Scroll load in mobile "
+"devices while using On Click on desktop devices. You may enable or disable "
+"lazy loading only on mobile/desktop"
+msgstr ""
+
+#: admin/views/admin-pro.php:134
+msgid "Priority Email Support"
+msgstr ""
+
+#: admin/views/admin-pro.php:138
+msgid ""
+"Own a Pro license to always be at the front of the queue and get support "
+"rapidly. All you have to do is to enter your valid license key when you "
+"contact us. You will be provided with an option for that. We will try our "
+"best to resolve any issues %1$swithin 24 hours%2$s"
+msgstr ""
+
+#: admin/views/admin-pro.php:151
+msgid "Like this plugin?"
+msgstr ""
+
+#: admin/views/admin-pro.php:155
+msgid ""
+"This plugin is being developed and managed by %1$sJoel James%2$s and not "
+"affiliated with Disqus. That being said, the commenting system is "
+"completely maintained by %3$sDisqus%4$s"
+msgstr ""
+
+#: admin/views/admin-pro.php:158
+msgid "Upgrade now"
+msgstr ""
+
+#: admin/views/admin-pro.php:158
+msgid "Upgrade to DCL Pro"
+msgstr ""
+
+#: admin/views/admin-pro.php:159
+msgid "Rate now"
+msgstr ""
+
+#: admin/views/admin-pro.php:159
+msgid "Rate this on WordPress"
+msgstr ""
+
+#: admin/views/admin-pro.php:160
+msgid "Donate now"
+msgstr ""
+
+#: admin/views/admin-pro.php:160
+msgid "Make a small donation"
+msgstr ""
+
+#: admin/views/admin-pro.php:161
+msgid "Contribute now"
+msgstr ""
+
+#: admin/views/admin-pro.php:161
+msgid "Contribute to the Plugin"
+msgstr ""
+
+#: admin/views/admin-pro.php:162
+msgid "Tweet now"
+msgstr ""
+
+#: admin/views/admin-pro.php:162
+msgid "Tweet about the Plugin"
+msgstr ""
+
+#: disqus-conditional-load.php:98
 msgid "More powerful Pro version of this plugin is already active. Just relax."
 msgstr ""
 
-#: includes/class-dcl-activator.php:40 public/views/disqus-comments.php:24
-msgid "Load Comments"
-msgstr ""
-
-#: includes/class-dcl-activator.php:42
+#: includes/class-dcl-activator-deactivator-uninstaller.php:42
 msgid "Loading..."
 msgstr ""
 

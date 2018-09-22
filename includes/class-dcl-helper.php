@@ -43,6 +43,14 @@ class DCL_Helper {
 	public $short_name;
 
 	/**
+	 * Disqus public key.
+	 *
+	 * @var string
+	 * @access public
+	 */
+	public $public_key = false;
+
+	/**
 	 * Check if DCL is ready to run.
 	 *
 	 * @var bool
@@ -64,6 +72,9 @@ class DCL_Helper {
 
 		// Disqus short name.
 		$this->short_name = strtolower( get_option( 'disqus_forum_url' ) );
+
+		// Disqus public key.
+		$this->public_key = esc_attr( get_option( 'disqus_public_key' ) );
 
 		// Check if DCL is ok to run.
 		$this->dcl_ready = $this->dcl_ready();
