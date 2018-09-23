@@ -31,7 +31,9 @@ class Disqus_Conditional_Load {
 		global $dcl_helper;
 
 		// Get dcl settings.
-		$options = get_option( 'dcl_gnrl_options', array() );
+		$options = array(
+			'dcl_gnrl_options' => get_option( 'dcl_gnrl_options', array() ),
+		);
 
 		// DCL helper class instance.
 		$dcl_helper = new DCL_Helper( $options );

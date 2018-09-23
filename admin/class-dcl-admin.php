@@ -103,7 +103,7 @@ class DCL_Admin {
 	 */
 	public function register_settings() {
 
-		register_setting( 'dcl_gnrl_options', 'dcl_gnrl_options' );
+		register_setting( 'dcl_general', 'dcl_gnrl_options' );
 	}
 
 	/**

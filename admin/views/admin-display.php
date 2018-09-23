@@ -16,9 +16,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
  * @link       https://dclwp.com
  */
 ?>
-<?php $tab     = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general'; ?>
-<?php $options = $this->helper->get_option(); ?>
-
+<?php $tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general'; ?>
 <div class="wrap dcl-wrap">
 
 	<h1><?php printf( __( 'Disqus Conditional Load %1$sby %2$sJoel James%3$s', 'disqus-conditional-load' ), '<span class="subtitle">', '<a href="https://duckdev.com" target="_blank">', '</a> ( v'. DCL_VERSION . ' )</span>' ); ?></h1>

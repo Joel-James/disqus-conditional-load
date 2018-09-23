@@ -205,24 +205,55 @@ class DCL_Helper {
 	/**
 	 * Get single DCL option value from options.
 	 *
-	 * @param string $key Option key.
-	 * @param bool   $default Default value.
+	 * @param string      $key Option key.
+	 * @param bool|string $group Settings group.
+	 * @param bool        $default Default value.
 	 *
 	 * @since  11.0.0
 	 * @access public
 	 *
 	 * @return mixed
 	 */
-	public function get_option( $key = '', $default = false ) {
+	public function get_option( $key = '', $group = false, $default = false ) {
 
 		// Return default value if not found or key is empty.
-		if ( ! empty( $key ) && ! isset( $this->options[ $key ] ) ) {
-			return $default;
-		} elseif ( empty( $key ) ) {
+		if ( empty( $key ) && empty( $group ) ) {
 			return $this->options;
+		} elseif ( ! empty( $key ) && empty( $group ) ) {
+			// This is for free version to get options.
+			return $this->get_option_group( 'dcl_gnrl_options', $key, $default );
+		} elseif ( empty( $key ) && ! empty( $group ) ) {
+			// This can be used as alias for `get_option_group` method.
+			return $this->get_option_group( $group, false, $default );
 		}
 
-		return $this->options[ $key ];
+		return $default;
+	}
+
+	/**
+	 * Get DCL options group value from options.
+	 *
+	 * @param bool|string $group Settings group.
+	 * @param string      $key Option key.
+	 * @param bool        $default Default value.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return mixed
+	 */
+	public function get_option_group( $group, $key = false, $default = false ) {
+
+		// Return default value if not found or key is empty.
+		if ( empty( $group ) ) {
+			return $this->options;
+		} elseif ( ! empty( $key ) && ! empty( $group ) && isset( $this->options[ $group ] ) && isset( $this->options[ $group ][ $key ] ) ) {
+			return $this->options[ $group ][ $key ];
+		} elseif ( ! empty( $group ) && isset( $this->options[ $group ] ) ) {
+			return $this->options[ $group ];
+		}
+
+		return $default;
 	}
 
 	/**

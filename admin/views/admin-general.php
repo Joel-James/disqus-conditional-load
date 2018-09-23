@@ -16,8 +16,9 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
  * @link       https://dclwp.com
  */
 ?>
+<?php $options = $this->helper->get_option_group( 'dcl_gnrl_options' ); ?>
 <form method="post" action="options.php">
-	<?php settings_fields( 'dcl_gnrl_options' ); ?>
+	<?php settings_fields( 'dcl_general' ); ?>
 	<table class="form-table">
 		<tbody>
 		<tr>
@@ -25,11 +26,11 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 				<?php esc_html_e( 'How to Load Disqus', 'disqus-conditional-load' ); ?>
 			</th>
 			<td>
-				<select id="dcl_type" class="select" typle="select" name="dcl_gnrl_options[dcl_type]" required>
+				<select id="dcl_type" class="select" typle="select" name="dcl_gnrl_options[dcl_type]" required="required">
 					<option value="click" <?php selected( $options['dcl_type'], 'click' ); ?>><?php esc_html_e( 'On Click', 'disqus-conditional-load' ); ?></option>
 					<option value="scroll" <?php selected( $options['dcl_type'], 'scroll' ); ?>><?php esc_html_e( 'On Scroll', 'disqus-conditional-load' ); ?></option>
 					<option value="normal" <?php selected( $options['dcl_type'], 'normal' ); ?>><?php esc_html_e( 'Normal (no lazy load)', 'disqus-conditional-load' ); ?></option>
-					<option disabled><?php esc_html_e( 'On Scroll Start (Pro only)', 'disqus-conditional-load' ); ?></option>
+					<option disabled="disabled"><?php esc_html_e( 'On Scroll Start (Pro only)', 'disqus-conditional-load' ); ?></option>
 				</select>
 				<p class="description">
 					<?php esc_html_e( 'This feature will let you prevent Disqus from automatically loading comments and scripts on pages, posts or whatever it is. If you choose "Normal" comments will be loaded normally and no lazy load effect will be there. Also please note that, with "Click" option, we will add a very small inline style to adjust the button alignment.', 'disqus-conditional-load' ); ?>
@@ -42,7 +43,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 				<?php esc_html_e( 'Disqus Comments Width', 'disqus-conditional-load' ); ?>
 			</th>
 			<td>
-				<input placeholder="Default" type="number" name="dcl_gnrl_options[dcl_div_width]" value="<?php echo $options['dcl_div_width']; ?>" size="20">
+				<input placeholder="<?php esc_html_e( 'Default', 'disqus-conditional-load' ); ?>" type="number" name="dcl_gnrl_options[dcl_div_width]" value="<?php echo $options['dcl_div_width']; ?>" size="20">
 				<input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked( $options['dcl_div_width_type'], '%' ); ?> value="%">%
 				<input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked( $options['dcl_div_width_type'], 'px' ); ?> value="px">px
 				<p class="description">
@@ -56,11 +57,8 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 				<?php esc_html_e( 'Count Script', 'disqus-conditional-load' ); ?>
 			</th>
 			<td>
-				<select id="dcl_count_disable" class="select" typle="select" name="dcl_gnrl_options[dcl_count_disable]">
-					<option value="1" <?php selected( $options['dcl_count_disable'], 1 ); ?>><?php esc_html_e( 'Enable', 'disqus-conditional-load' ); ?></option>
-					<option value="0" <?php selected( $options['dcl_count_disable'], 0 ); ?>><?php esc_html_e( 'Disable', 'disqus-conditional-load' ); ?></option>
-				</select>
-				<br/>
+				<input type="radio" name="dcl_gnrl_options[dcl_count_disable]" <?php checked( $options['dcl_count_disable'], 1 ); ?> value="1"><?php esc_html_e( 'Enable', 'disqus-conditional-load' ); ?>
+				<input type="radio" name="dcl_gnrl_options[dcl_count_disable]" <?php checked( $options['dcl_count_disable'], 0 ); ?> value="0"><?php esc_html_e( 'Disable', 'disqus-conditional-load' ); ?>
 				<p class="description">
 					<?php esc_html_e( 'By default Disqus may load a script (count.js) to get the comments count to show somewhere on your pages. Disabling this feature can improve your page loading speed but may conflict with some themes.', 'disqus-conditional-load' ); ?>
 				</p>
