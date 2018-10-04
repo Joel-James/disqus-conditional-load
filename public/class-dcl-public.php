@@ -52,6 +52,8 @@ class DCL_Public {
 		global $dcl_helper;
 
 		$this->helper = $dcl_helper;
+
+		$this->disqus_public = new Disqus_Public( 'disqus', '3.0.16', strtolower( get_option( 'disqus_forum_url' ) ));
 	}
 
 	/**
@@ -112,6 +114,11 @@ class DCL_Public {
 
 		// Do not continue if comments can't be loaded.
 		if ( ! $this->dcl_embed_can_load_for_post( $post ) ) {
+			return;
+		}
+
+		// If already enqueued, do not continue.
+		if ( $this->enqueued ) {
 			return;
 		}
 
@@ -243,14 +250,7 @@ class DCL_Public {
 			return;
 		}
 
-		ob_start();
-
-		// Load the comments template.
-		comments_template();
-
-		$output = ob_get_contents();
-
-		ob_end_clean();
+		$output = $this->get_comments_template_data();
 
 		// Now set the comments template as an empty file.
 		add_filter( 'comments_template', array( $this, 'empty_comments' ), 30 );
@@ -279,6 +279,29 @@ class DCL_Public {
 	}
 
 	/**
+	 * Get comments template data as string.
+	 *
+	 * This method can be used to show comments templates
+	 * somewhere.
+	 *
+	 * @since 11.0.0
+	 *
+	 * @return string
+	 */
+	public function get_comments_template_data() {
+
+		ob_start();
+
+		require_once DCL_DIR . 'public/views/disqus-comments.php';
+
+		$output = ob_get_contents();
+
+		ob_end_clean();
+
+		return $output;
+	}
+
+	/**
 	 * Customized disqus comments template.
 	 *
 	 * Get our customized Disqus comments template.
@@ -294,7 +317,20 @@ class DCL_Public {
 
 		global $post;
 
-		if ( $this->dcl_embed_can_load_for_post( $post ) ) {
+		/**
+		 * Filter to disable Woocommerce review support.
+		 *
+		 * This makes sure Disqus is not overriding Woocommerce
+		 * review tab to show comments.
+		 * If you still need Disqus to override, you can use below
+		 * filter hook and return false.
+		 */
+		$review_support = apply_filters( 'dcl_woocommerce_review_support', true );
+
+		// Now load Woo review template.
+		if ( $review_support && 'product' === $post->post_type && class_exists( 'WC_Template_Loader' ) ) {
+			return WC_Template_Loader::comments_template_loader( $template );
+		} elseif ( $this->dcl_embed_can_load_for_post( $post ) ) {
 			return DCL_DIR . 'public/views/disqus-comments.php';
 		}
 
@@ -471,12 +507,26 @@ class DCL_Public {
 
 		$cpts = $this->helper->get_option( 'dcl_cpt_exclude' );
 
-		if ( empty( $cpts ) ) {
-			return false;
-		}
-
 		$cpts = explode( ',', $cpts );
 
-		return array_map( 'trim', $cpts );
+		/**
+		 * Filter to disable Woocommerce review support.
+		 *
+		 * This filter is documented in disqus_comments_template.
+		 */
+		if ( apply_filters( 'dcl_woocommerce_review_support', true ) ) {
+			$cpts[] = 'product';
+		}
+
+		/**
+		 * Filter to add/remove cpts from comments.
+		 *
+		 * @param array $cpts Excluded cpts.
+		 *
+		 * @since 11.0.0
+		 */
+		$cpts = apply_filters( 'dcl_excluded_cpts', array_map( 'trim', $cpts ) );
+
+		return empty( $cpts ) ? false : $cpts;
 	}
 }
