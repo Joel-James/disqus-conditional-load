@@ -16,7 +16,34 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class Disqus_Conditional_Load {
+final class Disqus_Conditional_Load {
+
+	/**
+	 * Single instance of DCL main class.
+	 *
+	 * @var Disqus_Conditional_Load
+	 *
+	 * @since 11.0.0
+	 */
+	public static $instance;
+
+	/**
+	 * Admin class instance.
+	 *
+	 * @var DCL_Admin
+	 *
+	 * @since 11.0.0
+	 */
+	public $admin;
+
+	/**
+	 * Public class instance.
+	 *
+	 * @var DCL_Public
+	 *
+	 * @since 11.0.0
+	 */
+	public $public;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -26,7 +53,7 @@ class Disqus_Conditional_Load {
 	 * @since  10.0.0
 	 * @access public
 	 */
-	public function __construct() {
+	private function __construct() {
 
 		global $dcl_helper;
 
@@ -51,6 +78,34 @@ class Disqus_Conditional_Load {
 			// If a incompatible version is active, show error.
 			add_action( 'admin_notices', array( $this, 'incompatible_alert' ) );
 		}
+	}
+
+	/**
+	 * Main Disqus_Conditional_Load instance.
+	 *
+	 * Insures that only one instance of Disqus_Conditional_Load exists in memory.
+	 * Also prevents needing to define globals all over the place.
+	 *
+	 * @since 11.0.0
+	 *
+	 * @return Disqus_Conditional_Load
+	 */
+	public static function instance() {
+
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Disqus_Conditional_Load ) ) {
+			// Main plugin class.
+			self::$instance = new Disqus_Conditional_Load();
+
+			// Public class instance.
+			self::$instance->public = new DCL_Public();
+
+			// Admin class instance.
+			self::$instance->admin = new DCL_Admin();
+
+			self::$instance->run();
+		}
+
+		return self::$instance;
 	}
 
 	/**
@@ -134,8 +189,7 @@ class Disqus_Conditional_Load {
 
 		// Required only when admin.
 		if ( is_admin() ) {
-
-			$admin = new DCL_Admin();
+			$admin = self::$instance->admin;
 
 			add_action( 'admin_menu', array( $admin, 'create_menu' ), 15 );
 			add_action( 'admin_init', array( $admin, 'register_settings' ) );
@@ -163,8 +217,7 @@ class Disqus_Conditional_Load {
 
 		// Required only when public side of the site.
 		if ( ! is_admin() ) {
-
-			$public = new DCL_Public();
+			$public = self::$instance->public;
 
 			add_action( 'wp_print_scripts', array( $public, 'dequeue_scripts' ), 100 );
 			add_action( 'wp_enqueue_scripts', array( $public, 'enqueue_scripts' ) );
@@ -174,6 +227,9 @@ class Disqus_Conditional_Load {
 			add_filter( 'comments_template', array( $public, 'disqus_comments_template' ), 20 );
 			add_filter( 'script_loader_tag', array( $public, 'add_additional_attrs' ), 10, 3 );
 
+			// DCL comments shortcode.
+			add_shortcode( 'dcl-comments', array( $public, 'comment_shortcode' ) );
+			// Backward compatibility for shortcode.
 			add_shortcode( 'js-disqus', array( $public, 'comment_shortcode' ) );
 		}
 	}

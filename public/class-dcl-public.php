@@ -33,6 +33,13 @@ class DCL_Public {
 	private $helper;
 
 	/**
+	 * Flag to check if scripts are enqueued already.
+	 *
+	 * @var bool
+	 */
+	private $enqueued = false;
+
+	/**
 	 * Define the public functionality of the plugin.
 	 *
 	 * Set the required properties of the core class.
@@ -241,12 +248,17 @@ class DCL_Public {
 		// Load the comments template.
 		comments_template();
 
-		$output = ob_get_contents();;
+		$output = ob_get_contents();
 
 		ob_end_clean();
 
 		// Now set the comments template as an empty file.
 		add_filter( 'comments_template', array( $this, 'empty_comments' ), 30 );
+
+		// If scripts not enqueued, enqueue.
+		if ( ! $this->enqueued ) {
+			$this->enqueue_scripts();
+		}
 
 		return $output;
 	}

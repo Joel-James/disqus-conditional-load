@@ -118,19 +118,18 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 	 * then kicking off the plugin from this point in the file does
 	 * not affect the page life cycle.
 	 *
-	 * @since 10.0.0
+	 * @since  10.0.0
 	 * @access public
 	 *
-	 * @return void
+	 * @return Disqus_Conditional_Load
 	 */
-	function dcl_run() {
+	function dcl_instance() {
 
-		$dcl = new Disqus_Conditional_Load();
-		$dcl->run();
+		return Disqus_Conditional_Load::instance();
 	}
 
 	// Initialize DCL.
-	dcl_run();
+	dcl_instance();
 
 endif; // End if class_exists check.
 
