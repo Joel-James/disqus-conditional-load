@@ -43,12 +43,13 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 		// Oh yeah, we decide these constants.
 		// These constants can not be overwritten.
 		'fixed' => array(
-			'DCL_NAME'      => 'disqus-conditional-load',
-			'DCL_DOMAIN'    => 'disqus-conditional-load',
-			'DCL_DIR'       => plugin_dir_path( __FILE__ ),
-			'DCL_PATH'      => plugin_dir_url( __FILE__ ),
-			'DCL_BASE_FILE' => __FILE__,
-			'DCL_VERSION'   => '11.0.0',
+			'DCL_NAME'           => 'disqus-conditional-load',
+			'DCL_DOMAIN'         => 'disqus-conditional-load',
+			'DCL_DIR'            => plugin_dir_path( __FILE__ ),
+			'DCL_PATH'           => plugin_dir_url( __FILE__ ),
+			'DCL_BASE_FILE'      => __FILE__,
+			'DCL_VERSION'        => '11.0.0',
+			'DCL_DISQUS_VERSION' => '3.0.16',
 		),
 
 		// Aaaand, here is something for your choice.

@@ -19,13 +19,6 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 class DCL_Public {
 
 	/**
-	 * Disqus public class instance.
-	 *
-	 * @var Disqus_Public
-	 */
-	private $disqus_public;
-
-	/**
 	 * DCL helper class.
 	 *
 	 * @var DCL_Helper
@@ -52,8 +45,6 @@ class DCL_Public {
 		global $dcl_helper;
 
 		$this->helper = $dcl_helper;
-
-		$this->disqus_public = new Disqus_Public( 'disqus', '3.0.16', strtolower( get_option( 'disqus_forum_url' ) ));
 	}
 
 	/**
@@ -227,7 +218,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		return apply_filters( 'dcl_script_file_name', $file . $suffix .'.js', $method );
+		return apply_filters( 'dcl_script_file_name', $file . $suffix . '.js', $method );
 	}
 
 	/**
@@ -264,9 +255,9 @@ class DCL_Public {
 	}
 
 	/**
-	 * Set and empty file as comments template.
+	 * Get empty file comments template.
 	 *
-	 * Get the empty file to replace the comments template with.
+	 * Get the template file to replace the comments template with.
 	 *
 	 * @since 11.0.0
 	 * @access public
@@ -279,20 +270,48 @@ class DCL_Public {
 	}
 
 	/**
+	 * Get dcl comments template.
+	 *
+	 * Get the empty file to replace the comments template with.
+	 *
+	 * @since 11.0.0
+	 * @access public
+	 *
+	 * @return string
+	 */
+	public function dcl_comments() {
+
+		return DCL_DIR . 'public/views/disqus-comments.php';
+	}
+
+	/**
 	 * Get comments template data as string.
 	 *
 	 * This method can be used to show comments templates
 	 * somewhere.
 	 *
+	 * @param bool $bot_check Should check for bots?.
+	 * @param bool $dcl Directly load DCL template?.
+	 *
 	 * @since 11.0.0
 	 *
 	 * @return string
 	 */
-	public function get_comments_template_data() {
+	public function get_comments_template_data( $bot_check = false, $dcl = false ) {
+
+		if ( $bot_check && $this->helper->is_bot() ) {
+			return;
+		}
 
 		ob_start();
 
-		require_once DCL_DIR . 'public/views/disqus-comments.php';
+		// Load dcl template directly.
+		if ( $dcl ) {
+			require_once $this->dcl_comments();
+		} else {
+			// Load current comments template.
+			comments_template();
+		}
 
 		$output = ob_get_contents();
 
@@ -313,7 +332,7 @@ class DCL_Public {
 	 *
 	 * @return string
 	 */
-	public function disqus_comments_template( $template ) {
+	public function comments_template( $template ) {
 
 		global $post;
 
@@ -331,7 +350,7 @@ class DCL_Public {
 		if ( $review_support && 'product' === $post->post_type && class_exists( 'WC_Template_Loader' ) ) {
 			return WC_Template_Loader::comments_template_loader( $template );
 		} elseif ( $this->dcl_embed_can_load_for_post( $post ) ) {
-			return DCL_DIR . 'public/views/disqus-comments.php';
+			return $this->dcl_comments();
 		}
 
 		return $template;
@@ -348,10 +367,14 @@ class DCL_Public {
 	 *
 	 * @return void
 	 */
-	public function dcl_comments_template() {
+	public function remove_disqus_template() {
+
+		global $dcl_helper;
+
+		$disqus_public = new Disqus_Public( 'disqus', DCL_DISQUS_VERSION, $dcl_helper->short_name );
 
 		// Remove comments template filter.
-		remove_filter( 'comments_template', array( $this->disqus_public, 'dsq_comments_template' ) );
+		remove_filter( 'comments_template', array( $disqus_public, 'dsq_comments_template' ) );
 	}
 
 	/**
@@ -382,7 +405,7 @@ class DCL_Public {
 		// Get the width type.
 		$width_type = $dcl_helper->get_option( 'dcl_div_width_type', '%' );
 		// Add width style if required.
-		if ( $width > 0  && in_array( $width_type, array( '%', 'px' ) ) ) {
+		if ( $width > 0 && in_array( $width_type, array( '%', 'px' ) ) ) {
 			$custom_css .= "#disqus_thread{width: {$width}{$width_type};margin: 0 auto;}";
 		}
 		// Add button style if required.
