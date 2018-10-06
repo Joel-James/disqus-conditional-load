@@ -101,7 +101,6 @@ class DCL_Helper {
 
 		// Verify that Disqus is not active, or active version is compatible.
 		if ( $this->is_disqus_active() && ! $this->is_disqus_compatible() ) {
-
 			return false;
 		}
 
@@ -179,7 +178,7 @@ class DCL_Helper {
 	 */
 	public function is_disqus_compatible() {
 
-		return $this->is_disqus_active() && class_exists( 'Disqus' );
+		return $this->is_disqus_active() && function_exists( 'run_disqus' );
 	}
 
 	/**
@@ -337,5 +336,4 @@ class DCL_Helper {
 
 		return false;
 	}
-
 }

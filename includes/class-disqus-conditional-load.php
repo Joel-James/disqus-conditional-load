@@ -96,13 +96,18 @@ final class Disqus_Conditional_Load {
 			// Main plugin class.
 			self::$instance = new Disqus_Conditional_Load();
 
-			// Public class instance.
-			self::$instance->public = new DCL_Public();
+			global $dcl_helper;
 
-			// Admin class instance.
-			self::$instance->admin = new DCL_Admin();
+			if ( $dcl_helper->dcl_ready ) {
 
-			self::$instance->run();
+				// Public class instance.
+				self::$instance->public = new DCL_Public();
+
+				// Admin class instance.
+				self::$instance->admin = new DCL_Admin();
+
+				self::$instance->run();
+			}
 		}
 
 		return self::$instance;
@@ -198,6 +203,9 @@ final class Disqus_Conditional_Load {
 			add_filter( 'admin_footer_text', array( $admin, 'footer_text' ) );
 			add_filter( 'plugin_action_links', array( $admin, 'action_links' ), 10, 5 );
 			add_filter( 'plugin_row_meta', array( $admin, 'plugin_row_meta' ), 10, 2 );
+
+			// Show alert if Disqus is not configured.
+			add_action( 'admin_notices', array( $admin, 'not_configured_alert' ) );
 		}
 	}
 
@@ -265,7 +273,7 @@ final class Disqus_Conditional_Load {
 
 		$html  = '<div class="notice notice-error">';
 		$html .= '<p>';
-		$html .= __( 'An incompatible version of Disqus plugin is already active. <strong>Disqus Conditional Load</strong> will not work, until you deactivate it or update your Disqus official plugin to latest version (3.0+). <strong>Disqus Conditional Load</strong> can work even if you deactivate official Disqus plugin.', 'disqus-conditional-load' );
+		$html .= sprintf( __( 'An incompatible version of Disqus plugin is already active. %1$sDisqus Conditional Load%2$s will not work, until you %1$sdeactivate%2$s it or update your Disqus official plugin to latest version (3.0+).', 'disqus-conditional-load' ), '<strong>', '</strong>' );
 		$html .= '</p>';
 		$html .= '</div>';
 

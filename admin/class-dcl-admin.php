@@ -242,4 +242,33 @@ class DCL_Admin {
 		return $input;
 	}
 
+	/**
+	 * Show alert if Disqus is not configured.
+	 *
+	 * @since 11.0.0
+	 *
+	 * @return void
+	 */
+	public function not_configured_alert() {
+
+		global $dcl_helper;
+
+		// If not configured.
+		if ( empty( $dcl_helper->short_name ) && $dcl_helper->is_dcl_page() ) {
+			$html = '<div class="notice notice-warning">';
+			$html .= '<p>';
+			$html .= sprintf( __( '%1$sDisqus Conditional Load%2$s will not work, unless you %3$sfinish Disqus setup%4$s.', 'disqus-conditional-load' ), '<strong>', '</strong>', '<a href="' . admin_url( 'admin.php?page=disqus' ) . '">', '</a>' );
+			$html .= '</p>';
+			$html .= '</div>';
+
+			/**
+			 * Filter hook to alter message content.
+			 *
+			 * @param string $html Message content.
+			 *
+			 * @since 11.0.0
+			 */
+			echo apply_filters( 'dcl_not_configured_alert_text', $html );
+		}
+	}
 }
