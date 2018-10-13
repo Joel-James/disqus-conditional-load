@@ -115,11 +115,9 @@ class DCL_Public {
 
 		// Get the file name.
 		$file = $this->get_script_name();
-		// Use minified assets if SCRIPT_DEBUG is turned off.
-		$dir = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : 'min/';
 
 		// Enqueue the file.
-		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'public/js/' . $dir . $file, array(), DCL_VERSION, true );
+		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'assets/js/public/' . $file, array(), DCL_VERSION, true );
 		// Custom vars for dcl.
 		$custom_vars = array(
 			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', __( 'Loading Comments....', 'disqus-conditional-load' ) ),
@@ -207,9 +205,6 @@ class DCL_Public {
 			$file .= '-' . $method;
 		}
 
-		// Use minified assets if SCRIPT_DEBUG is turned off.
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 		/**
 		 * Filter hook to alter file name.
 		 *
@@ -218,7 +213,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		return apply_filters( 'dcl_script_file_name', $file . $suffix . '.js', $method );
+		return apply_filters( 'dcl_script_file_name', $file . '.js', $method );
 	}
 
 	/**

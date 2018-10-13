@@ -1,0 +1,62 @@
+.dcl-wrap {
+
+  @media (min-width: 1281px) {
+
+    .metabox-holder {
+
+      .columns-2 {
+        width: 80%;
+        float: left;
+
+        .postbox-container {
+          max-width: 30%;
+          margin: 5px;
+
+          .postbox {
+            min-height: 205px;
+          }
+        }
+      }
+
+      .columns-1 {
+        width: 20%;
+        float: right;
+      }
+    }
+
+    .form-table {
+      width: 75%;
+    }
+  }
+
+  .dcl-buy-btn {
+    text-align: center;
+  }
+
+  .dcl-credits-box {
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  h1 {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .dashicons {
+
+    &.dcl-inactive {
+      color: #ff0000;
+    }
+
+    &.dcl-active {
+      color: #26b928;
+    }
+  }
+}

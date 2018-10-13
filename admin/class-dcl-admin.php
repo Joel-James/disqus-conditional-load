@@ -123,13 +123,8 @@ class DCL_Admin {
 		// No. We don't load our custom css all over the admin. We are not idiots!
 		if ( $this->helper->is_dcl_page() ) {
 
-			// Use minified assets if SCRIPT_DEBUG is turned off.
-			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-			// Use minified assets if SCRIPT_DEBUG is turned off.
-			$dir = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : 'min/';
-
 			// Register DCL admin page styles.
-			wp_enqueue_style( DCL_NAME, DCL_PATH . 'admin/assets/css/' . $dir . 'admin' . $suffix . '.css', array(), DCL_VERSION, 'all' );
+			wp_enqueue_style( DCL_NAME, DCL_PATH . 'assets/css/admin.min.css', array(), DCL_VERSION, 'all' );
 		}
 	}
 
