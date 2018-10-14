@@ -21,8 +21,9 @@ var disqus_config = function () {
     this.sso = dsqConfig.sso;
     this.language = dsqConfig.language;
 
-    if (disqus_config_custom)
-        disqus_config_custom.call(this);
+    if ( disqus_config_custom ) {
+        disqus_config_custom.call( this );
+    }
 };
 
 /**
@@ -34,9 +35,9 @@ var disqus_config = function () {
  * @since 11.0.0
  */
 (function () {
-    var dsq = document.createElement('script');
+    var dsq = document.createElement( 'script' );
     dsq.type = 'text/javascript';
     dsq.async = true;
     dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    (document.getElementsByTagName( 'head' )[0] || document.getElementsByTagName( 'body' )[0]).appendChild( dsq );
 })();
