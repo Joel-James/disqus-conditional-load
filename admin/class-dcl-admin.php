@@ -181,7 +181,7 @@ class DCL_Admin {
 
 			// Prepare our custom link.
 			// Translators: Link to DCL settings.
-			$link = sprintf( __( '<a href="%s">Settings</a>', 'disqus-conditional-load' ), 'admin.php?page=dcl-settings' );
+			$link = sprintf( __( '%1$sSettings%2$s', 'disqus-conditional-load' ), '<a href="admin.php?page=dcl-settings">', '</a>' );
 			// Insert our custom link at the beginning.
 			array_unshift( $links, $link );
 
@@ -219,7 +219,7 @@ class DCL_Admin {
 
 			// Our custom link to Pro.
 			// Translators: Link to pro.
-			$link = array( sprintf( __( '<a href="%s">Upgrade to Pro</a>', 'disqus-conditional-load' ), 'https://dclwp.com' ) );
+			$link = array( sprintf( __( '%1$sUpgrade to Pro%2$s', 'disqus-conditional-load' ), '<a href="https://dclwp.com">', '</a>' ) );
 			// Merge them to existing links.
 			$input = array_merge( $input, $link );
 
