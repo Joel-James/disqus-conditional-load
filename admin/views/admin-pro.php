@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 					</span>
 				</p>
 				<p class="dcl-buy-btn">
-					<a href="https://dclwp.com/" title="<?php esc_html_e( 'Buy Now', 'disqus-conditional-load' ); ?>"><img src="<?php echo DCL_PATH; ?>admin/assets/img/buy-now-dcl.png" alt="<?php esc_html_e( 'Buy DCL Pro', 'disqus-conditional-load' ); ?>"></a>
+					<a href="https://dclwp.com/" title="<?php esc_html_e( 'Buy Now', 'disqus-conditional-load' ); ?>"><img src="<?php echo DCL_PATH; ?>assets/img/buy-now-dcl.png" alt="<?php esc_html_e( 'Buy DCL Pro', 'disqus-conditional-load' ); ?>"></a>
 				</p>
 			</div>
 		</div>
