@@ -22,8 +22,9 @@ var disqus_config = function () {
     this.sso = dsqConfig.sso;
     this.language = dsqConfig.language;
 
-    if (disqus_config_custom)
-        disqus_config_custom.call(this);
+    if ( disqus_config_custom ) {
+        disqus_config_custom.call( this );
+    }
 };
 
 /**
@@ -36,13 +37,13 @@ var disqus_config = function () {
  */
 var disqus_comments = function () {
 
-    if (!disqus_loaded) {
+    if ( !disqus_loaded ) {
         disqus_loaded = true;
-        var dsq = document.createElement('script');
+        var dsq = document.createElement( 'script' );
         dsq.type = 'text/javascript';
         dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        (document.getElementsByTagName( 'head' )[0] || document.getElementsByTagName( 'body' )[0]).appendChild( dsq );
     }
 };
 
@@ -54,10 +55,10 @@ var disqus_comments = function () {
  *
  * @since 11.0.0
  */
-if (document.body.scrollHeight < window.innerHeight) {
+if ( document.body.scrollHeight < window.innerHeight ) {
     // If no scroll bar found, load comments.
     disqus_comments();
-} else if (document.getElementById('disqus_thread') !== null) {
+} else if ( document.getElementById( 'disqus_thread' ) !== null ) {
     // Start loading the comments when user scroll down.
     window.onscroll = function () {
         disqus_comments();
