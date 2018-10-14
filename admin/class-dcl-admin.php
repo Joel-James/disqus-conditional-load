@@ -103,7 +103,7 @@ class DCL_Admin {
 	 */
 	public function register_settings() {
 
-		register_setting( 'dcl_gnrl_options', 'dcl_gnrl_options' );
+		register_setting( 'dcl_general', 'dcl_gnrl_options' );
 	}
 
 	/**
@@ -123,13 +123,8 @@ class DCL_Admin {
 		// No. We don't load our custom css all over the admin. We are not idiots!
 		if ( $this->helper->is_dcl_page() ) {
 
-			// Use minified assets if SCRIPT_DEBUG is turned off.
-			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-			// Use minified assets if SCRIPT_DEBUG is turned off.
-			$dir = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : 'min/';
-
 			// Register DCL admin page styles.
-			wp_enqueue_style( DCL_NAME, DCL_PATH . 'admin/assets/css/' . $dir . 'admin' . $suffix . '.css', array(), DCL_VERSION, 'all' );
+			wp_enqueue_style( DCL_NAME, DCL_PATH . 'assets/css/admin.min.css', array(), DCL_VERSION, 'all' );
 		}
 	}
 
@@ -242,4 +237,33 @@ class DCL_Admin {
 		return $input;
 	}
 
+	/**
+	 * Show alert if Disqus is not configured.
+	 *
+	 * @since 11.0.0
+	 *
+	 * @return void
+	 */
+	public function not_configured_alert() {
+
+		global $dcl_helper;
+
+		// If not configured.
+		if ( empty( $dcl_helper->short_name ) && $dcl_helper->is_dcl_page() ) {
+			$html = '<div class="notice notice-warning">';
+			$html .= '<p>';
+			$html .= sprintf( __( '%1$sDisqus Conditional Load%2$s will not work, unless you %3$sfinish Disqus setup%4$s.', 'disqus-conditional-load' ), '<strong>', '</strong>', '<a href="' . admin_url( 'admin.php?page=disqus' ) . '">', '</a>' );
+			$html .= '</p>';
+			$html .= '</div>';
+
+			/**
+			 * Filter hook to alter message content.
+			 *
+			 * @param string $html Message content.
+			 *
+			 * @since 11.0.0
+			 */
+			echo apply_filters( 'dcl_not_configured_alert_text', $html );
+		}
+	}
 }

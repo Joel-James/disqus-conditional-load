@@ -43,12 +43,13 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 		// Oh yeah, we decide these constants.
 		// These constants can not be overwritten.
 		'fixed' => array(
-			'DCL_NAME'      => 'disqus-conditional-load',
-			'DCL_DOMAIN'    => 'disqus-conditional-load',
-			'DCL_DIR'       => plugin_dir_path( __FILE__ ),
-			'DCL_PATH'      => plugin_dir_url( __FILE__ ),
-			'DCL_BASE_FILE' => __FILE__,
-			'DCL_VERSION'   => '11.0.0',
+			'DCL_NAME'           => 'disqus-conditional-load',
+			'DCL_DOMAIN'         => 'disqus-conditional-load',
+			'DCL_DIR'            => plugin_dir_path( __FILE__ ),
+			'DCL_PATH'           => plugin_dir_url( __FILE__ ),
+			'DCL_BASE_FILE'      => __FILE__,
+			'DCL_VERSION'        => '11.0.0',
+			'DCL_DISQUS_VERSION' => '3.0.16',
 		),
 
 		// Aaaand, here is something for your choice.
@@ -74,7 +75,7 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 	}
 
 	// Activation, deactivation and un-installation.
-	require_once DCL_DIR . 'includes/class-dcl-activator-deactivator-uninstaller.php';
+	require_once DCL_DIR . 'includes/class-dcl-activator-deactivator.php';
 
 	/**
 	 * Plugin activation actions. We are starting fellas!
@@ -99,7 +100,7 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 		}
 
 		// The very beginning!
-		DCL_Activator_Deactivator_Uninstaller::activate();
+		DCL_Activator_Deactivator::activate();
 	}
 
 	// Make use of activation hook.
@@ -118,18 +119,18 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 	 * then kicking off the plugin from this point in the file does
 	 * not affect the page life cycle.
 	 *
-	 * @since 10.0.0
+	 * @since  10.0.0
 	 * @access public
 	 *
-	 * @return void
+	 * @return Disqus_Conditional_Load
 	 */
-	function dcl_run() {
+	function dcl_instance() {
 
-		( new Disqus_Conditional_Load() )->run();
+		return Disqus_Conditional_Load::instance();
 	}
 
 	// Initialize DCL.
-	dcl_run();
+	dcl_instance();
 
 endif; // End if class_exists check.
 

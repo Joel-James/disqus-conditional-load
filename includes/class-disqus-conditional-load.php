@@ -16,7 +16,34 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
  * @license    http://www.gnu.org/licenses/ GNU General Public License
  * @link       https://dclwp.com
  */
-class Disqus_Conditional_Load {
+final class Disqus_Conditional_Load {
+
+	/**
+	 * Single instance of DCL main class.
+	 *
+	 * @var Disqus_Conditional_Load
+	 *
+	 * @since 11.0.0
+	 */
+	public static $instance;
+
+	/**
+	 * Admin class instance.
+	 *
+	 * @var DCL_Admin
+	 *
+	 * @since 11.0.0
+	 */
+	public $admin;
+
+	/**
+	 * Public class instance.
+	 *
+	 * @var DCL_Public
+	 *
+	 * @since 11.0.0
+	 */
+	public $public;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -26,12 +53,14 @@ class Disqus_Conditional_Load {
 	 * @since  10.0.0
 	 * @access public
 	 */
-	public function __construct() {
+	private function __construct() {
 
 		global $dcl_helper;
 
 		// Get dcl settings.
-		$options = get_option( 'dcl_gnrl_options', array() );
+		$options = array(
+			'dcl_gnrl_options' => get_option( 'dcl_gnrl_options', array() ),
+		);
 
 		// DCL helper class instance.
 		$dcl_helper = new DCL_Helper( $options );
@@ -49,6 +78,39 @@ class Disqus_Conditional_Load {
 			// If a incompatible version is active, show error.
 			add_action( 'admin_notices', array( $this, 'incompatible_alert' ) );
 		}
+	}
+
+	/**
+	 * Main Disqus_Conditional_Load instance.
+	 *
+	 * Insures that only one instance of Disqus_Conditional_Load exists in memory.
+	 * Also prevents needing to define globals all over the place.
+	 *
+	 * @since 11.0.0
+	 *
+	 * @return Disqus_Conditional_Load
+	 */
+	public static function instance() {
+
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Disqus_Conditional_Load ) ) {
+			// Main plugin class.
+			self::$instance = new Disqus_Conditional_Load();
+
+			global $dcl_helper;
+
+			if ( $dcl_helper->dcl_ready ) {
+
+				// Public class instance.
+				self::$instance->public = new DCL_Public();
+
+				// Admin class instance.
+				self::$instance->admin = new DCL_Admin();
+
+				self::$instance->run();
+			}
+		}
+
+		return self::$instance;
 	}
 
 	/**
@@ -73,7 +135,7 @@ class Disqus_Conditional_Load {
 		if ( ! $dcl_helper->is_disqus_compatible() ) {
 			global $DISQUSVERSION;
 			// Make sure disqus version is set.
-			$DISQUSVERSION = '3.0.16';
+			$DISQUSVERSION = DCL_DISQUS_VERSION;
 			// Load disqus from our vendor directory.
 			require_once DCL_DIR . 'vendor/disqus-comment-system/disqus.php';
 		}
@@ -106,6 +168,13 @@ class Disqus_Conditional_Load {
 			$this->admin_hooks();
 
 			$this->public_hooks();
+
+			/**
+			 * Action hook to run after DCL starts running.
+			 *
+			 * @since 11.0.0
+			 */
+			do_action( 'dcl_running' );
 		}
 	}
 
@@ -125,8 +194,7 @@ class Disqus_Conditional_Load {
 
 		// Required only when admin.
 		if ( is_admin() ) {
-
-			$admin = new DCL_Admin();
+			$admin = self::$instance->admin;
 
 			add_action( 'admin_menu', array( $admin, 'create_menu' ), 15 );
 			add_action( 'admin_init', array( $admin, 'register_settings' ) );
@@ -135,6 +203,9 @@ class Disqus_Conditional_Load {
 			add_filter( 'admin_footer_text', array( $admin, 'footer_text' ) );
 			add_filter( 'plugin_action_links', array( $admin, 'action_links' ), 10, 5 );
 			add_filter( 'plugin_row_meta', array( $admin, 'plugin_row_meta' ), 10, 2 );
+
+			// Show alert if Disqus is not configured.
+			add_action( 'admin_notices', array( $admin, 'not_configured_alert' ) );
 		}
 	}
 
@@ -154,17 +225,19 @@ class Disqus_Conditional_Load {
 
 		// Required only when public side of the site.
 		if ( ! is_admin() ) {
-
-			$public = new DCL_Public();
+			$public = self::$instance->public;
 
 			add_action( 'wp_print_scripts', array( $public, 'dequeue_scripts' ), 100 );
 			add_action( 'wp_enqueue_scripts', array( $public, 'enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $public, 'add_inline_styles' ) );
-			add_action( 'comments_template', array( $public, 'dcl_comments_template' ), 15 );
+			add_action( 'comments_template', array( $public, 'remove_disqus_template' ), 15 );
 
-			add_filter( 'comments_template', array( $public, 'disqus_comments_template' ), 20 );
+			add_filter( 'comments_template', array( $public, 'comments_template' ), 100 );
 			add_filter( 'script_loader_tag', array( $public, 'add_additional_attrs' ), 10, 3 );
 
+			// DCL comments shortcode.
+			add_shortcode( 'dcl-comments', array( $public, 'comment_shortcode' ) );
+			// Backward compatibility for shortcode.
 			add_shortcode( 'js-disqus', array( $public, 'comment_shortcode' ) );
 		}
 	}
@@ -200,7 +273,7 @@ class Disqus_Conditional_Load {
 
 		$html  = '<div class="notice notice-error">';
 		$html .= '<p>';
-		$html .= __( 'An incompatible version of Disqus plugin is already active. <strong>Disqus Conditional Load</strong> will not work, until you deactivate it or update your Disqus official plugin to latest version (3.0+). <strong>Disqus Conditional Load</strong> can work even if you deactivate official Disqus plugin.', 'disqus-conditional-load' );
+		$html .= sprintf( __( 'An incompatible version of Disqus plugin is already active. %1$sDisqus Conditional Load%2$s will not work, until you %1$sdeactivate%2$s it or update your Disqus official plugin to latest version (3.0+).', 'disqus-conditional-load' ), '<strong>', '</strong>' );
 		$html .= '</p>';
 		$html .= '</div>';
 
@@ -213,5 +286,4 @@ class Disqus_Conditional_Load {
 		 */
 		echo apply_filters( 'dcl_incompatible_alert_text', $html );
 	}
-
 }

@@ -19,18 +19,18 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 class DCL_Public {
 
 	/**
-	 * Disqus public class instance.
-	 *
-	 * @var Disqus_Public
-	 */
-	private $disqus_public;
-
-	/**
 	 * DCL helper class.
 	 *
 	 * @var DCL_Helper
 	 */
 	private $helper;
+
+	/**
+	 * Flag to check if scripts are enqueued already.
+	 *
+	 * @var bool
+	 */
+	private $enqueued = false;
 
 	/**
 	 * Define the public functionality of the plugin.
@@ -108,13 +108,16 @@ class DCL_Public {
 			return;
 		}
 
+		// If already enqueued, do not continue.
+		if ( $this->enqueued ) {
+			return;
+		}
+
 		// Get the file name.
 		$file = $this->get_script_name();
-		// Use minified assets if SCRIPT_DEBUG is turned off.
-		$dir = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : 'min/';
 
 		// Enqueue the file.
-		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'public/js/' . $dir . $file, array(), DCL_VERSION, true );
+		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'assets/js/public/' . $file, array(), DCL_VERSION, true );
 		// Custom vars for dcl.
 		$custom_vars = array(
 			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', __( 'Loading Comments....', 'disqus-conditional-load' ) ),
@@ -202,9 +205,6 @@ class DCL_Public {
 			$file .= '-' . $method;
 		}
 
-		// Use minified assets if SCRIPT_DEBUG is turned off.
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 		/**
 		 * Filter hook to alter file name.
 		 *
@@ -213,7 +213,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		return apply_filters( 'dcl_script_file_name', $file . $suffix .'.js', $method );
+		return apply_filters( 'dcl_script_file_name', $file . '.js', $method );
 	}
 
 	/**
@@ -236,25 +236,23 @@ class DCL_Public {
 			return;
 		}
 
-		ob_start();
-
-		// Load the comments template.
-		comments_template();
-
-		$output = ob_get_contents();;
-
-		ob_end_clean();
+		$output = $this->get_comments_template_data();
 
 		// Now set the comments template as an empty file.
 		add_filter( 'comments_template', array( $this, 'empty_comments' ), 30 );
+
+		// If scripts not enqueued, enqueue.
+		if ( ! $this->enqueued ) {
+			$this->enqueue_scripts();
+		}
 
 		return $output;
 	}
 
 	/**
-	 * Set and empty file as comments template.
+	 * Get empty file comments template.
 	 *
-	 * Get the empty file to replace the comments template with.
+	 * Get the template file to replace the comments template with.
 	 *
 	 * @since 11.0.0
 	 * @access public
@@ -264,6 +262,57 @@ class DCL_Public {
 	public function empty_comments() {
 
 		return DCL_DIR . 'public/views/empty-comments.php';
+	}
+
+	/**
+	 * Get dcl comments template.
+	 *
+	 * Get the empty file to replace the comments template with.
+	 *
+	 * @since 11.0.0
+	 * @access public
+	 *
+	 * @return string
+	 */
+	public function dcl_comments() {
+
+		return DCL_DIR . 'public/views/disqus-comments.php';
+	}
+
+	/**
+	 * Get comments template data as string.
+	 *
+	 * This method can be used to show comments templates
+	 * somewhere.
+	 *
+	 * @param bool $bot_check Should check for bots?.
+	 * @param bool $dcl Directly load DCL template?.
+	 *
+	 * @since 11.0.0
+	 *
+	 * @return string
+	 */
+	public function get_comments_template_data( $bot_check = false, $dcl = false ) {
+
+		if ( $bot_check && $this->helper->is_bot() ) {
+			return;
+		}
+
+		ob_start();
+
+		// Load dcl template directly.
+		if ( $dcl ) {
+			require_once $this->dcl_comments();
+		} else {
+			// Load current comments template.
+			comments_template();
+		}
+
+		$output = ob_get_contents();
+
+		ob_end_clean();
+
+		return $output;
 	}
 
 	/**
@@ -278,12 +327,25 @@ class DCL_Public {
 	 *
 	 * @return string
 	 */
-	public function disqus_comments_template( $template ) {
+	public function comments_template( $template ) {
 
 		global $post;
 
-		if ( $this->dcl_embed_can_load_for_post( $post ) ) {
-			return DCL_DIR . 'public/views/disqus-comments.php';
+		/**
+		 * Filter to disable Woocommerce review support.
+		 *
+		 * This makes sure Disqus is not overriding Woocommerce
+		 * review tab to show comments.
+		 * If you still need Disqus to override, you can use below
+		 * filter hook and return false.
+		 */
+		$review_support = apply_filters( 'dcl_woocommerce_review_support', true );
+
+		// Now load Woo review template.
+		if ( $review_support && 'product' === $post->post_type && class_exists( 'WC_Template_Loader' ) ) {
+			return WC_Template_Loader::comments_template_loader( $template );
+		} elseif ( $this->dcl_embed_can_load_for_post( $post ) ) {
+			return $this->dcl_comments();
 		}
 
 		return $template;
@@ -300,10 +362,14 @@ class DCL_Public {
 	 *
 	 * @return void
 	 */
-	public function dcl_comments_template() {
+	public function remove_disqus_template() {
+
+		global $dcl_helper;
+
+		$disqus_public = new Disqus_Public( 'disqus', DCL_DISQUS_VERSION, $dcl_helper->short_name );
 
 		// Remove comments template filter.
-		remove_filter( 'comments_template', array( $this->disqus_public, 'dsq_comments_template' ) );
+		remove_filter( 'comments_template', array( $disqus_public, 'dsq_comments_template' ) );
 	}
 
 	/**
@@ -334,7 +400,7 @@ class DCL_Public {
 		// Get the width type.
 		$width_type = $dcl_helper->get_option( 'dcl_div_width_type', '%' );
 		// Add width style if required.
-		if ( $width > 0  && in_array( $width_type, array( '%', 'px' ) ) ) {
+		if ( $width > 0 && in_array( $width_type, array( '%', 'px' ) ) ) {
 			$custom_css .= "#disqus_thread{width: {$width}{$width_type};margin: 0 auto;}";
 		}
 		// Add button style if required.
@@ -459,12 +525,26 @@ class DCL_Public {
 
 		$cpts = $this->helper->get_option( 'dcl_cpt_exclude' );
 
-		if ( empty( $cpts ) ) {
-			return false;
-		}
-
 		$cpts = explode( ',', $cpts );
 
-		return array_map( 'trim', $cpts );
+		/**
+		 * Filter to disable Woocommerce review support.
+		 *
+		 * This filter is documented in disqus_comments_template.
+		 */
+		if ( apply_filters( 'dcl_woocommerce_review_support', true ) ) {
+			$cpts[] = 'product';
+		}
+
+		/**
+		 * Filter to add/remove cpts from comments.
+		 *
+		 * @param array $cpts Excluded cpts.
+		 *
+		 * @since 11.0.0
+		 */
+		$cpts = apply_filters( 'dcl_excluded_cpts', array_map( 'trim', $cpts ) );
+
+		return empty( $cpts ) ? false : $cpts;
 	}
 }

@@ -43,6 +43,14 @@ class DCL_Helper {
 	public $short_name;
 
 	/**
+	 * Disqus public key.
+	 *
+	 * @var string
+	 * @access public
+	 */
+	public $public_key = false;
+
+	/**
 	 * Check if DCL is ready to run.
 	 *
 	 * @var bool
@@ -64,6 +72,9 @@ class DCL_Helper {
 
 		// Disqus short name.
 		$this->short_name = strtolower( get_option( 'disqus_forum_url' ) );
+
+		// Disqus public key.
+		$this->public_key = esc_attr( get_option( 'disqus_public_key' ) );
 
 		// Check if DCL is ok to run.
 		$this->dcl_ready = $this->dcl_ready();
@@ -90,7 +101,6 @@ class DCL_Helper {
 
 		// Verify that Disqus is not active, or active version is compatible.
 		if ( $this->is_disqus_active() && ! $this->is_disqus_compatible() ) {
-
 			return false;
 		}
 
@@ -168,7 +178,7 @@ class DCL_Helper {
 	 */
 	public function is_disqus_compatible() {
 
-		return $this->is_disqus_active() && class_exists( 'Disqus' );
+		return $this->is_disqus_active() && function_exists( 'run_disqus' );
 	}
 
 	/**
@@ -194,24 +204,55 @@ class DCL_Helper {
 	/**
 	 * Get single DCL option value from options.
 	 *
-	 * @param string $key Option key.
-	 * @param bool   $default Default value.
+	 * @param string      $key Option key.
+	 * @param bool|string $group Settings group.
+	 * @param bool        $default Default value.
 	 *
 	 * @since  11.0.0
 	 * @access public
 	 *
 	 * @return mixed
 	 */
-	public function get_option( $key = '', $default = false ) {
+	public function get_option( $key = '', $group = false, $default = false ) {
 
 		// Return default value if not found or key is empty.
-		if ( ! empty( $key ) && ! isset( $this->options[ $key ] ) ) {
-			return $default;
-		} elseif ( empty( $key ) ) {
+		if ( empty( $key ) && empty( $group ) ) {
 			return $this->options;
+		} elseif ( ! empty( $key ) && empty( $group ) ) {
+			// This is for free version to get options.
+			return $this->get_option_group( 'dcl_gnrl_options', $key, $default );
+		} elseif ( empty( $key ) && ! empty( $group ) ) {
+			// This can be used as alias for `get_option_group` method.
+			return $this->get_option_group( $group, false, $default );
 		}
 
-		return $this->options[ $key ];
+		return $default;
+	}
+
+	/**
+	 * Get DCL options group value from options.
+	 *
+	 * @param bool|string $group Settings group.
+	 * @param string      $key Option key.
+	 * @param bool        $default Default value.
+	 *
+	 * @since  11.0.0
+	 * @access public
+	 *
+	 * @return mixed
+	 */
+	public function get_option_group( $group, $key = false, $default = false ) {
+
+		// Return default value if not found or key is empty.
+		if ( empty( $group ) ) {
+			return $this->options;
+		} elseif ( ! empty( $key ) && ! empty( $group ) && isset( $this->options[ $group ] ) && isset( $this->options[ $group ][ $key ] ) ) {
+			return $this->options[ $group ][ $key ];
+		} elseif ( ! empty( $group ) && isset( $this->options[ $group ] ) ) {
+			return $this->options[ $group ];
+		}
+
+		return $default;
 	}
 
 	/**
@@ -295,5 +336,4 @@ class DCL_Helper {
 
 		return false;
 	}
-
 }
