@@ -33,7 +33,7 @@ var disqus_config = function () {
  *
  * @since 11.0.0
  */
-(function() {
+(function () {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
@@ -56,8 +56,12 @@ var disqus_config = function () {
         if (nodes[i].className.indexOf('dsq-postid') != -1 && nodes[i].parentNode.tagName == 'A') {
             nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('data-dsqidentifier'));
             url = nodes[i].parentNode.href.split('#', 1);
-            if (url.length == 1) { url = url[0]; }
-            else { url = url[1]; }
+            if (url.length == 1) {
+                url = url[0];
+            }
+            else {
+                url = url[1];
+            }
             nodes[i].parentNode.href = url + '#disqus_thread';
         }
     }
