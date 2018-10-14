@@ -29,8 +29,6 @@ class DCL_Admin {
 	 *
 	 * Set the required properties of the core class.
 	 *
-	 * @param array $helper Plugin options.
-	 *
 	 * @since  10.0.0
 	 * @access public
 	 */
@@ -146,10 +144,11 @@ class DCL_Admin {
 			// Custom footer text with links to reviews and pro version.
 			printf(
 				// translators: These are the links to upgrade and leave a review.
-				__( 'Thank you for choosing this DCL | <a href="%1$s">Upgrade to DCL Pro</a> | <a href="%2$s">Rate it %3$s</a>', 'disqus-conditional-load' ),
-				esc_url( 'https://dclwp.com' ),
-				esc_url( 'https://wordpress.org/support/plugin/disqus-conditional-load/reviews/?filter=5#postform' ),
-				'&#9733; &#9733; &#9733; &#9733; &#9733;'
+				esc_html__( 'Thank you for choosing this DCL | %1$sUpgrade to DCL Pro%4$s | %2$sRate it %3$s%4$s', 'disqus-conditional-load' ),
+				'<a href="https://dclwp.com" target="_blank">',
+				'<a href="https://wordpress.org/support/plugin/disqus-conditional-load/reviews/?filter=5#postform" target="_blank">',
+				'&#9733; &#9733; &#9733; &#9733; &#9733;',
+				'</a>'
 			);
 
 			/**
