@@ -1,5 +1,6 @@
 .dcl-wrap {
 
+  // Make small screens responsive.
   @media (min-width: 1281px) {
 
     .metabox-holder {
@@ -29,6 +30,7 @@
     }
   }
 
+  // Pro buy button alignment.
   .dcl-buy-btn {
     text-align: center;
   }
@@ -45,6 +47,7 @@
     margin-bottom: 10px;
   }
 
+  // Override description.
   .description {
     font-size: 13px;
   }
