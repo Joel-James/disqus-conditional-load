@@ -25,34 +25,20 @@
   "repository": "git+https://github.com/Joel-James/disqus-conditional-load.git",
   "scripts": {
     "translate": "clear && grunt translate",
+    "compile": "clear && grunt compile",
     "build": "clear && grunt prepare && grunt build"
   },
   "devDependencies": {
-    "ajv": "6.5.2",
-    "ajv-keywords": "^3.2.0",
-    "autoprefixer": "^9.1.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.19",
-    "css-loader": "^1.0.0",
-    "file-loader": "^1.1.11",
     "grunt": "^1.0.3",
     "grunt-checktextdomain": "^1.0.1",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-compress": "^1.4.3",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-wp-i18n": "^1.0.2",
+    "grunt-po2mo": "^0.1.2",
     "load-grunt-tasks": "^4.0.0",
-    "mini-css-extract-plugin": "^0.4.1",
-    "node-sass": "^4.9.2",
-    "postcss-loader": "^2.1.6",
-    "resolve-url-loader": "^2.3.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.21.0",
-    "url-loader": "^1.0.1",
-    "webpack": "^4.16.5",
-    "webpack-command": "^0.4.1"
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.0"
   }
 }

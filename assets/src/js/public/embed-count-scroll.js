@@ -62,7 +62,7 @@ if (document.body.scrollHeight < window.innerHeight) {
     window.onscroll = function () {
         // Remove button.
         disqus_comments();
-    }
+    };
 }
 
 /**

@@ -61,5 +61,5 @@ if (document.body.scrollHeight < window.innerHeight) {
     // Start loading the comments when user scroll down.
     window.onscroll = function () {
         disqus_comments();
-    }
+    };
 }

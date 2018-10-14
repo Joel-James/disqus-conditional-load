@@ -70,5 +70,5 @@ if (disqus_button) {
         // Remove button.
         this.remove();
         disqus_comments();
-    }
+    };
 }

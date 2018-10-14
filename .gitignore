@@ -63,6 +63,8 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
+# Caches
+.sass-cache
 
 # Releases folder
 releases/
