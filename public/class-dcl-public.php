@@ -213,7 +213,7 @@ class DCL_Public {
 		 *
 		 * @since 11.0.0
 		 */
-		return apply_filters( 'dcl_script_file_name', $file . '.js', $method );
+		return apply_filters( 'dcl_script_file_name', $file . '.min.js', $method );
 	}
 
 	/**
