@@ -52,6 +52,7 @@ Everything (except unit tests) should be handled by npm. Note that you don't nee
 Command | Action
 ------- | ------
 `npm run translate` | Build pot and mo file inside /languages/ folder
+`npm run compile` | Compile and then generates assets (js & css)
 `npm run build` | Build release version, useful to provide for testing
 
 ## Versioning

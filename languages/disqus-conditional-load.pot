@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Disqus Conditional Load 11.0.0-beta\n"
 "Report-Msgid-Bugs-To: https://dclwp.com/\n"
-"POT-Creation-Date: 2018-09-17 05:29:10+00:00\n"
+"POT-Creation-Date: 2018-10-14 16:23:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,64 +24,70 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.2\n"
 
-#: admin/class-dcl-admin.php:60
+#: admin/class-dcl-admin.php:58
 msgid "Disqus Conditional Load - Settings"
 msgstr ""
 
-#: admin/class-dcl-admin.php:61
+#: admin/class-dcl-admin.php:59
 msgid "DCL Settings"
 msgstr ""
 
-#: admin/class-dcl-admin.php:154
+#: admin/class-dcl-admin.php:147
 #. translators: These are the links to upgrade and leave a review.
 msgid ""
-"Thank you for choosing this DCL | <a href=\"%1$s\">Upgrade to DCL Pro</a> | "
-"<a href=\"%2$s\">Rate it %3$s</a>"
+"Thank you for choosing this DCL | %1$sUpgrade to DCL Pro%4$s | %2$sRate it "
+"%3$s%4$s"
 msgstr ""
 
-#: admin/class-dcl-admin.php:190
+#: admin/class-dcl-admin.php:184
 #. Translators: Link to DCL settings.
-msgid "<a href=\"%s\">Settings</a>"
+msgid "%1$sSettings%2$s"
 msgstr ""
 
-#: admin/class-dcl-admin.php:228
+#: admin/class-dcl-admin.php:222
 #. Translators: Link to pro.
-msgid "<a href=\"%s\">Upgrade to Pro</a>"
+msgid "%1$sUpgrade to Pro%2$s"
 msgstr ""
 
-#: admin/views/admin-display.php:24
+#: admin/class-dcl-admin.php:254
+msgid ""
+"%1$sDisqus Conditional Load%2$s will not work, unless you %3$sfinish Disqus "
+"setup%4$s."
+msgstr ""
+
+#: admin/views/admin-display.php:22
 msgid "Disqus Conditional Load %1$sby %2$sJoel James%3$s"
 msgstr ""
 
-#: admin/views/admin-display.php:30
+#: admin/views/admin-display.php:28
 msgid "Settings"
 msgstr ""
 
-#: admin/views/admin-display.php:31
+#: admin/views/admin-display.php:29
 msgid "Pro & Info"
 msgstr ""
 
-#: admin/views/admin-general.php:25
+#: admin/views/admin-general.php:27
 msgid "How to Load Disqus"
 msgstr ""
 
-#: admin/views/admin-general.php:29
+#: admin/views/admin-general.php:31
 msgid "On Click"
 msgstr ""
 
-#: admin/views/admin-general.php:30
+#: admin/views/admin-general.php:32
 msgid "On Scroll"
 msgstr ""
 
-#: admin/views/admin-general.php:31
+#: admin/views/admin-general.php:33
 msgid "Normal (no lazy load)"
 msgstr ""
 
-#: admin/views/admin-general.php:32
+#: admin/views/admin-general.php:34
 msgid "On Scroll Start (Pro only)"
 msgstr ""
 
-#: admin/views/admin-general.php:35
+#: admin/views/admin-general.php:37
 msgid ""
 "This feature will let you prevent Disqus from automatically loading "
 "comments and scripts on pages, posts or whatever it is. If you choose "
@@ -90,11 +96,15 @@ msgid ""
 "small inline style to adjust the button alignment."
 msgstr ""
 
-#: admin/views/admin-general.php:42
+#: admin/views/admin-general.php:44
 msgid "Disqus Comments Width"
 msgstr ""
 
-#: admin/views/admin-general.php:49
+#: admin/views/admin-general.php:47
+msgid "Default"
+msgstr ""
+
+#: admin/views/admin-general.php:51
 msgid ""
 "If Disqus comments are not looking good because of the large or smaller "
 "width, you can adjust the width of comments division here. Just enter the "
@@ -102,38 +112,38 @@ msgid ""
 "very small inline CSS to adjust this width if you enable this."
 msgstr ""
 
-#: admin/views/admin-general.php:56
+#: admin/views/admin-general.php:58
 msgid "Count Script"
 msgstr ""
 
-#: admin/views/admin-general.php:60 admin/views/admin-general.php:118
-#: admin/views/admin-general.php:130
+#: admin/views/admin-general.php:61 admin/views/admin-general.php:117
+#: admin/views/admin-general.php:129
 msgid "Enable"
 msgstr ""
 
-#: admin/views/admin-general.php:61 admin/views/admin-general.php:119
-#: admin/views/admin-general.php:131
+#: admin/views/admin-general.php:62 admin/views/admin-general.php:118
+#: admin/views/admin-general.php:130
 msgid "Disable"
 msgstr ""
 
-#: admin/views/admin-general.php:65
+#: admin/views/admin-general.php:64
 msgid ""
 "By default Disqus may load a script (count.js) to get the comments count to "
 "show somewhere on your pages. Disabling this feature can improve your page "
 "loading speed but may conflict with some themes."
 msgstr ""
 
-#: admin/views/admin-general.php:71
+#: admin/views/admin-general.php:70
 msgid "Button Text"
 msgstr ""
 
-#: admin/views/admin-general.php:74
-#: includes/class-dcl-activator-deactivator-uninstaller.php:40
+#: admin/views/admin-general.php:73
+#: includes/class-dcl-activator-deactivator.php:40
 #: public/views/disqus-comments.php:24
 msgid "Load Comments"
 msgstr ""
 
-#: admin/views/admin-general.php:76
+#: admin/views/admin-general.php:75
 msgid ""
 "If you are loading Disqus using On Click feature, then there will be a "
 "button to load comments. If you want to use custom text on the button, "
@@ -141,26 +151,26 @@ msgid ""
 "\"On Click\" option)."
 msgstr ""
 
-#: admin/views/admin-general.php:82
+#: admin/views/admin-general.php:81
 msgid "Custom Button Class"
 msgstr ""
 
-#: admin/views/admin-general.php:87
+#: admin/views/admin-general.php:86
 msgid ""
 "Here you can add any custom class to the button. By using custom class you "
 "can use your own style for comment button. Leave empty if you do not care. "
 "(Works only with \"On Click\" option)"
 msgstr ""
 
-#: admin/views/admin-general.php:93
+#: admin/views/admin-general.php:92
 msgid "Loading Message"
 msgstr ""
 
-#: admin/views/admin-general.php:96
+#: admin/views/admin-general.php:95
 msgid "Loading.."
 msgstr ""
 
-#: admin/views/admin-general.php:98
+#: admin/views/admin-general.php:97
 msgid ""
 "There may be few milliseconds delay before Disqus starts loading when "
 "visitors clicks on the button. Enter something here, and we will show that "
@@ -168,38 +178,38 @@ msgid ""
 "tags like <p><b><h2> (Works only with \"On Click\" option)"
 msgstr ""
 
-#: admin/views/admin-general.php:104
+#: admin/views/admin-general.php:103
 msgid "Disable on CPTs"
 msgstr ""
 
-#: admin/views/admin-general.php:109
+#: admin/views/admin-general.php:108
 msgid ""
 "If Disqus adds its scripts on custom post types, and you dont like it, "
 "enter the custom post type here. Separate with comma."
 msgstr ""
 
-#: admin/views/admin-general.php:115
+#: admin/views/admin-general.php:114
 msgid "Caching Support"
 msgstr ""
 
-#: admin/views/admin-general.php:121
+#: admin/views/admin-general.php:120
 msgid ""
 "If you are having issues loading Disqus comments when caching is enabled, "
 "please enable this."
 msgstr ""
 
-#: admin/views/admin-general.php:127
+#: admin/views/admin-general.php:126
 msgid "Rocker Loader Support"
 msgstr ""
 
-#: admin/views/admin-general.php:133
+#: admin/views/admin-general.php:132
 msgid ""
 "If you are using Cloudflare Rocker Loader, enable this to have %1$sRocket "
 "Loader ignore%2$s the Disqus scripts by adding the "
 "%3$sdata-cfasync=\"false\"%4$s attribute to the script tag."
 msgstr ""
 
-#: admin/views/admin-general.php:139
+#: admin/views/admin-general.php:138
 msgid "Save All Changes"
 msgstr ""
 
@@ -377,24 +387,22 @@ msgstr ""
 msgid "Tweet about the Plugin"
 msgstr ""
 
-#: disqus-conditional-load.php:98
+#: disqus-conditional-load.php:99
 msgid "More powerful Pro version of this plugin is already active. Just relax."
 msgstr ""
 
-#: includes/class-dcl-activator-deactivator-uninstaller.php:42
+#: includes/class-dcl-activator-deactivator.php:42
 msgid "Loading..."
 msgstr ""
 
-#: includes/class-disqus-conditional-load.php:203
+#: includes/class-disqus-conditional-load.php:276
 msgid ""
-"An incompatible version of Disqus plugin is already active. <strong>Disqus "
-"Conditional Load</strong> will not work, until you deactivate it or update "
-"your Disqus official plugin to latest version (3.0+). <strong>Disqus "
-"Conditional Load</strong> can work even if you deactivate official Disqus "
-"plugin."
+"An incompatible version of Disqus plugin is already active. %1$sDisqus "
+"Conditional Load%2$s will not work, until you %1$sdeactivate%2$s it or "
+"update your Disqus official plugin to latest version (3.0+)."
 msgstr ""
 
-#: public/class-dcl-public.php:120
+#: public/class-dcl-public.php:123
 msgid "Loading Comments...."
 msgstr ""
 

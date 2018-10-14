@@ -5,6 +5,9 @@ module.exports = function ( grunt ) {
 	var conf = {
 		plugin_branches: {
 			include_files: [
+				'assets/css/**',
+				'assets/js/**',
+				'assets/img/**',
 				'includes/**',
 				'admin/**',
 				'public/**',
@@ -74,6 +77,47 @@ module.exports = function ( grunt ) {
 			}
 		},
 
+		jshint: {
+			files: [
+				'assets/src/js/**/*.js'
+			],
+			options: {
+				expr: true,
+				globals: {
+					jQuery: true,
+					console: true,
+					module: true,
+					document: true
+				}
+			}
+		},
+		sass: {
+			all: {
+				options: {
+					style: 'compressed',
+					'sourcemap=none': true
+				},
+				files: {
+					'assets/css/admin/admin.min.css' : 'assets/src/scss/admin/admin.scss'
+				}
+			}
+		},
+		uglify: {
+			all: {
+				options: {
+					report: 'gzip'
+				},
+				files: {
+					'assets/js/public/embed.min.js' : 'assets/src/js/public/embed.js',
+					'assets/js/public/embed-click.min.js' : 'assets/src/js/public/embed-click.js',
+					'assets/js/public/embed-count.min.js' : 'assets/src/js/public/embed-count.js',
+					'assets/js/public/embed-count-click.min.js' : 'assets/src/js/public/embed-count-click.js',
+					'assets/js/public/embed-count-scroll.min.js' : 'assets/src/js/public/embed-count-scroll.js',
+					'assets/js/public/embed-scroll.min.js' : 'assets/src/js/public/embed-scroll.js'
+				}
+			}
+		},
+
 		// Clean temp folders and release copies.
 		clean: {
 			temp: {
@@ -85,7 +129,11 @@ module.exports = function ( grunt ) {
 				dot: true,
 				filter: 'isFile'
 			},
-			folder_v2: ['releases/**'],
+			folder_v2: [
+				'releases/**',
+				'assets/css/**',
+				'assets/js/**'
+			],
 		},
 
 		// Verify in text domain is used properly.
@@ -149,10 +197,18 @@ module.exports = function ( grunt ) {
 	// Make pot file from files.
 	grunt.registerTask( 'translate', ['makepot:main', 'po2mo:main'] );
 
+	// Compile and generate assets.
+	grunt.registerTask('compile', [
+		'jshint',
+		'uglify',
+		'sass'
+	]);
+
 	// Run build task to create release copy.
 	grunt.registerTask( 'build', 'Run all tasks.', function () {
 		grunt.task.run( 'clean' );
 		grunt.task.run( 'translate' );
+		grunt.task.run( 'compile' );
 		grunt.task.run( 'copy' );
 		grunt.task.run( 'makepot:release' );
 		grunt.task.run( 'po2mo:release' );
