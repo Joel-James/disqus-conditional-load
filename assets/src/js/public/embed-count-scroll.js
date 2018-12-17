@@ -8,6 +8,7 @@ var disqus_shortname = embedVars.disqusShortname;
 var disqus_title = embedVars.disqusTitle;
 var disqus_config_custom = window.disqus_config;
 var disqus_loaded = false;
+var current_url = window.location.href;
 var disqus_config = function () {
     /**
      * All currently supported events:
@@ -55,14 +56,18 @@ var disqus_comments = function () {
  *
  * @since 11.0.0
  */
-if ( document.body.scrollHeight < window.innerHeight ) {
+if ( current_url.indexOf( '#comment' ) != -1 ) {
+    // Load directly if trying to scroll to a comment.
+    disqus_comments();
+} else if ( document.body.scrollHeight < window.innerHeight ) {
     // If no scroll bar found, load comments.
     disqus_comments();
 } else if ( document.getElementById( 'disqus_thread' ) !== null ) {
     // Start loading the comments when user scroll down.
     window.onscroll = function () {
-        // Remove button.
-        disqus_comments();
+        if ( ( window.scrollY + window.innerHeight ) >= disqus_div.offsetTop ) {
+            disqus_comments();
+        }
     };
 }
 

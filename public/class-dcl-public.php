@@ -239,7 +239,7 @@ class DCL_Public {
 		$output = $this->get_comments_template_data();
 
 		// Now set the comments template as an empty file.
-		add_filter( 'comments_template', array( $this, 'empty_comments' ), 30 );
+		add_filter( 'comments_template', array( $this, 'empty_comments' ), 999 );
 
 		// If scripts not enqueued, enqueue.
 		if ( ! $this->enqueued ) {

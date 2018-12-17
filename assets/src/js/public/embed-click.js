@@ -9,6 +9,7 @@ var disqus_title = embedVars.disqusTitle;
 var disqus_config_custom = window.disqus_config;
 var disqus_loaded = false;
 var disqus_button = document.getElementById( 'dcl_comment_btn' );
+var current_url = window.location.href;
 var disqus_config = function () {
     /**
      * All currently supported events:
@@ -72,4 +73,10 @@ if ( disqus_button ) {
         this.remove();
         disqus_comments();
     };
+
+    // If trying to scroll to a comment, load now.
+    if ( current_url.indexOf( '#comment' ) != -1 ) {
+        // Load directly if trying to scroll to a comment.
+        disqus_button.click();
+    }
 }
