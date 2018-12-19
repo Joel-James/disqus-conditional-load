@@ -1,10 +1,10 @@
 === Disqus Conditional Load ===
-Contributors: joelcj91
+Contributors: joelcj91,duckdev
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XUVWY8HUBUXY4
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
-Tested up to: 4.5.1
-Stable tag: 10.2.0
+Tested up to: 5.0
+Stable tag: 11.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -148,13 +148,24 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 1. Comments Moderation Dashboard
 2. Disqus Comments UI
 3. General Settings ( Some options are Pro only ).
-4. Sample Buton when On Click lazy load enabled.
-5. **Pro only:** Integration Settings.
-6. **Pro only:** Widget Settings.
+4. Sample Button when On Click lazy load enabled.
 
 
 == Changelog ==
 
+
+= 11.0.0 =
+
+**New Features**
+
+- Complete rewrite based on Disqus 3.0..
+- Tested with WordPress 5.0
+
+**Improvements**
+
+- Improvements in UI.
+- Improvements in speed.
+- Fixed cron related bugs.
 
 = 10.2.0 =
 
@@ -396,10 +407,15 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 10.2.0 =
+= 11.0.0 =
+
+**New Features**
+
+- Complete rewrite based on Disqus 3.0..
+- Tested with WordPress 5.0
 
 **Improvements**
 
-- Added diqsus JavaScript variable configs to the page.
-- Broken respond link fixed.
-- Tested with WordPress 4.5.1
+- Improvements in UI.
+- Improvements in speed.
+- Fixed cron related bugs.

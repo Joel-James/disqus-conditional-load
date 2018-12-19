@@ -396,11 +396,11 @@ class DCL_Public {
 
 		$load_method = $dcl_helper->get_load_method();
 		// Get the assigned width.
-		$width = ( int) $dcl_helper->get_option( 'dcl_div_width', 0 );
+		$width = (int) $dcl_helper->get_option( 'dcl_div_width', false, 0 );
 		// Get the width type.
-		$width_type = $dcl_helper->get_option( 'dcl_div_width_type', '%' );
+		$width_type = $dcl_helper->get_option( 'dcl_div_width_type', false, '%' );
 		// Add width style if required.
-		if ( $width > 0 && in_array( $width_type, array( '%', 'px' ) ) ) {
+		if ( $width > 0 && in_array( $width_type, array( '%', 'px' ), true ) ) {
 			$custom_css .= "#disqus_thread{width: {$width}{$width_type};margin: 0 auto;}";
 		}
 		// Add button style if required.
