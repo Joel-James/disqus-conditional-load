@@ -120,7 +120,7 @@ class DCL_Public {
 		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'assets/js/public/' . $file, array(), DCL_VERSION, true );
 		// Custom vars for dcl.
 		$custom_vars = array(
-			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', __( 'Loading Comments....', 'disqus-conditional-load' ) ),
+			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', false, __( 'Loading Comments....', 'disqus-conditional-load' ) ),
 		);
 
 		$custom_vars = apply_filters( 'dcl_custom_vars', $custom_vars );
@@ -201,7 +201,7 @@ class DCL_Public {
 		}
 
 		// If a valid lazy load method.
-		if ( in_array( $method, $this->helper->methods ) ) {
+		if ( in_array( $method, $this->helper->methods, true ) ) {
 			$file .= '-' . $method;
 		}
 
@@ -225,7 +225,7 @@ class DCL_Public {
 	 * @since 11.0.0
 	 * @access public
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	public function comment_shortcode() {
 

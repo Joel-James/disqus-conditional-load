@@ -204,9 +204,9 @@ class DCL_Helper {
 	/**
 	 * Get single DCL option value from options.
 	 *
-	 * @param string      $key Option key.
+	 * @param string $key Option key.
 	 * @param bool|string $group Settings group.
-	 * @param bool        $default Default value.
+	 * @param bool $default Default value.
 	 *
 	 * @since  11.0.0
 	 * @access public
@@ -233,8 +233,8 @@ class DCL_Helper {
 	 * Get DCL options group value from options.
 	 *
 	 * @param bool|string $group Settings group.
-	 * @param string      $key Option key.
-	 * @param bool        $default Default value.
+	 * @param string $key Option key.
+	 * @param bool $default Default value.
 	 *
 	 * @since  11.0.0
 	 * @access public
