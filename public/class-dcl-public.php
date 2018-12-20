@@ -120,7 +120,7 @@ class DCL_Public {
 		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'assets/js/public/' . $file, array(), DCL_VERSION, true );
 		// Custom vars for dcl.
 		$custom_vars = array(
-			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', __( 'Loading Comments....', 'disqus-conditional-load' ) ),
+			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', false, __( 'Loading Comments....', 'disqus-conditional-load' ) ),
 		);
 
 		$custom_vars = apply_filters( 'dcl_custom_vars', $custom_vars );
@@ -201,7 +201,7 @@ class DCL_Public {
 		}
 
 		// If a valid lazy load method.
-		if ( in_array( $method, $this->helper->methods ) ) {
+		if ( in_array( $method, $this->helper->methods, true ) ) {
 			$file .= '-' . $method;
 		}
 
@@ -225,7 +225,7 @@ class DCL_Public {
 	 * @since 11.0.0
 	 * @access public
 	 *
-	 * @return string
+	 * @return string|void
 	 */
 	public function comment_shortcode() {
 
@@ -239,7 +239,7 @@ class DCL_Public {
 		$output = $this->get_comments_template_data();
 
 		// Now set the comments template as an empty file.
-		add_filter( 'comments_template', array( $this, 'empty_comments' ), 30 );
+		add_filter( 'comments_template', array( $this, 'empty_comments' ), 999 );
 
 		// If scripts not enqueued, enqueue.
 		if ( ! $this->enqueued ) {
@@ -396,11 +396,11 @@ class DCL_Public {
 
 		$load_method = $dcl_helper->get_load_method();
 		// Get the assigned width.
-		$width = ( int) $dcl_helper->get_option( 'dcl_div_width', 0 );
+		$width = (int) $dcl_helper->get_option( 'dcl_div_width', false, 0 );
 		// Get the width type.
-		$width_type = $dcl_helper->get_option( 'dcl_div_width_type', '%' );
+		$width_type = $dcl_helper->get_option( 'dcl_div_width_type', false, '%' );
 		// Add width style if required.
-		if ( $width > 0 && in_array( $width_type, array( '%', 'px' ) ) ) {
+		if ( $width > 0 && in_array( $width_type, array( '%', 'px' ), true ) ) {
 			$custom_css .= "#disqus_thread{width: {$width}{$width_type};margin: 0 auto;}";
 		}
 		// Add button style if required.
