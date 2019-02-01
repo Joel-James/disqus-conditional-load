@@ -5,7 +5,7 @@ Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comment
 Requires at least: 3.0
 Tested up to: 5.0
 Requires PHP: 5.6
-Stable tag: 11.0.0
+Stable tag: 11.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -154,15 +154,20 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Changelog ==
 
+= 11.0.1 =
+
+**👌 Improvements**
+
+- Replace comments anchor link with Disqus thread link.
 
 = 11.0.0 =
 
-**New Features**
+**📦 New Features**
 
 - Complete rewrite based on Disqus 3.0..
 - Tested with WordPress 5.0
 
-**Improvements**
+**👌 Improvements**
 
 - Improvements in UI.
 - Improvements in speed.
@@ -170,7 +175,7 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 = 10.2.0 =
 
-**Improvements**
+**👌 Improvements**
 
 - Added diqsus JavaScript variable configs to the page.
 - Broken respond link fixed.
@@ -178,11 +183,11 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 = 10.1.9 =
 
-**New Features**
+**📦 New Features**
 
 - Option to remove disqus scripts from post types.
 
-**Bug Fixes**
+**🐛 Bug Fixes**
 
 - Issues with custom post types fixed.
 - Deprecated usage fixed.
@@ -190,20 +195,20 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 = 10.1.8 =
 
-**Bug Fixes**
+**🐛 Bug Fixes**
 
 - Fixed issue when # found in url.
 
 = 10.1.7 =
 
-**Bug Fixes**
+**🐛 Bug Fixes**
 
 - Fixed issues in caching plugins - Thanks to [jackennils](https://wordpress.org/support/topic/dcl-wont-load-in-some-posts?replies=26#post-7875726)
 - Tested with WordPress 4.4.1
 
 = 10.1.6 =
 
-**Bug Fixes**
+**🐛 Bug Fixes**
 
 - Fixed issues in Internet Explorer after last update
 
@@ -408,15 +413,8 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 11.0.0 =
+= 11.0.1 =
 
-**New Features**
+**👌 Improvements**
 
-- Complete rewrite based on Disqus 3.0..
-- Tested with WordPress 5.0
-
-**Improvements**
-
-- Improvements in UI.
-- Improvements in speed.
-- Fixed cron related bugs.
+- Replace comments anchor link with Disqus thread link.

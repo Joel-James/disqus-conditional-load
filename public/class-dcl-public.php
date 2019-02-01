@@ -232,7 +232,7 @@ class DCL_Public {
 		global $post;
 
 		// Don't load embed if it's not a single post page.
-		if ( ! is_singular() || ! $this->dcl_embed_can_load_for_post( $post ) ) {
+		if ( ( ! is_singular() || ! $this->dcl_embed_can_load_for_post( $post ) ) && ! apply_filters( 'dcl_force_shortcode', false ) ) {
 			return;
 		}
 
@@ -546,5 +546,21 @@ class DCL_Public {
 		$cpts = apply_filters( 'dcl_excluded_cpts', array_map( 'trim', $cpts ) );
 
 		return empty( $cpts ) ? false : $cpts;
+	}
+
+	/**
+	 * Change the respond/comments links
+	 *
+	 * By default the respond links may be #respond.
+	 * In case Disqus is unable to do that,
+	 * We will change that to #disqus_thread.
+	 *
+	 * @since 10.2.0
+	 *
+	 * @return string
+	 */
+	public function comments_link() {
+
+		return get_permalink() . '#disqus_thread';
 	}
 }

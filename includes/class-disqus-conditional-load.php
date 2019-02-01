@@ -239,6 +239,10 @@ final class Disqus_Conditional_Load {
 			add_shortcode( 'dcl-comments', array( $public, 'comment_shortcode' ) );
 			// Backward compatibility for shortcode.
 			add_shortcode( 'js-disqus', array( $public, 'comment_shortcode' ) );
+
+			// Rewrite the comments link to Disqus thread.
+			add_filter( 'respond_link', array( $public, 'comments_link' ), 99 );
+			add_filter( 'get_comments_link', array( $public, 'comments_link' ), 99 );
 		}
 	}
 
@@ -271,7 +275,7 @@ final class Disqus_Conditional_Load {
 	 */
 	public function incompatible_alert() {
 
-		$html  = '<div class="notice notice-error">';
+		$html = '<div class="notice notice-error">';
 		$html .= '<p>';
 		$html .= sprintf( __( 'An incompatible version of Disqus plugin is already active. %1$sDisqus Conditional Load%2$s will not work, until you %1$sdeactivate%2$s it or update your Disqus official plugin to latest version (3.0+).', 'disqus-conditional-load' ), '<strong>', '</strong>' );
 		$html .= '</p>';
