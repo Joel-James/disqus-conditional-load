@@ -1,44 +1,44 @@
 {
-  "name": "disqus-conditional-load",
-  "version": "11.0.1",
-  "private": true,
-  "description": "Disqus commenting system for WordPress with advanced features like like <strong>lazy load, shortcode</strong> etc.",
-  "keywords": [
-    "disqus",
-    "disqus conditional load",
-    "comment hide",
-    "hide disqus",
-    "disqus comments",
-    "disqus on click",
-    "disqus auto load",
-    "disqus",
-    "woocommerce comments",
-    "edd comments"
-  ],
-  "homepage": "https://dclwp.com/",
-  "license": "GPL-2.0",
-  "author": {
-    "name": "Joel James",
-    "url": "https://dclwp.com"
-  },
-  "main": "disqus-conditional-load.php",
-  "repository": "git+https://github.com/Joel-James/disqus-conditional-load.git",
-  "scripts": {
-    "translate": "clear && grunt translate",
-    "compile": "clear && grunt compile",
-    "build": "clear && grunt prepare && grunt build"
-  },
-  "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-checktextdomain": "^1.0.1",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-compress": "^1.4.3",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-wp-i18n": "^1.0.2",
-    "grunt-po2mo": "^0.1.2",
-    "load-grunt-tasks": "^4.0.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-uglify": "^4.0.0"
-  }
+	"name": "disqus-conditional-load",
+	"version": "11.0.4",
+	"private": true,
+	"description": "Disqus commenting system for WordPress with advanced features like like <strong>lazy load, shortcode</strong> etc.",
+	"keywords": [
+		"disqus",
+		"disqus conditional load",
+		"comment hide",
+		"hide disqus",
+		"disqus comments",
+		"disqus on click",
+		"disqus auto load",
+		"disqus",
+		"woocommerce comments",
+		"edd comments"
+	],
+	"homepage": "https://dclwp.com/",
+	"license": "GPL-2.0",
+	"author": {
+		"name": "Joel James",
+		"url": "https://dclwp.com"
+	},
+	"main": "disqus-conditional-load.php",
+	"repository": "git+https://github.com/Joel-James/disqus-conditional-load.git",
+	"scripts": {
+		"translate": "clear && grunt translate",
+		"compile": "clear && grunt compile",
+		"build": "clear && grunt prepare && grunt build"
+	},
+	"devDependencies": {
+		"grunt": "^1.0.3",
+		"grunt-checktextdomain": "^1.0.1",
+		"grunt-contrib-clean": "^1.1.0",
+		"grunt-contrib-compress": "^1.4.3",
+		"grunt-contrib-copy": "^1.0.0",
+		"grunt-wp-i18n": "^1.0.2",
+		"grunt-po2mo": "^0.1.2",
+		"load-grunt-tasks": "^4.0.0",
+		"grunt-contrib-jshint": "~0.8.0",
+		"grunt-contrib-sass": "^1.0.0",
+		"grunt-contrib-uglify": "^4.0.0"
+	}
 }

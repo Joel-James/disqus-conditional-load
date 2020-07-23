@@ -1,11 +1,11 @@
 === Disqus Conditional Load ===
 Contributors: joelcj91,duckdev
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XUVWY8HUBUXY4
+Donate link: https://paypal.me/JoelCJ
 Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comments, disqus on click, disqus auto load, disqus, woocommerce comments, edd comments
 Requires at least: 3.0
-Tested up to: 5.0
+Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 11.0.1
+Stable tag: 11.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -153,6 +153,17 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 
 == Changelog ==
+
+= 11.0.4 =
+
+**👌 Improvements**
+
+- Tested with WordPress 5.5.
+
+**🐛 Bug Fixes**
+
+- Fix comments count script issue.
+- Fix Rocket Loader support.
 
 = 11.0.1 =
 
@@ -413,8 +424,13 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 11.0.1 =
+= 11.0.4 =
 
 **👌 Improvements**
 
-- Replace comments anchor link with Disqus thread link.
+- Tested with WordPress 5.5.
+
+**🐛 Bug Fixes**
+
+- Fix comments count script issue.
+- Fix Rocket Loader support.

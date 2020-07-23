@@ -168,7 +168,7 @@ class DCL_Public {
 		global $dcl_helper;
 
 		// Add only to our script.
-		if ( $handle === 'dcl_comments' && (bool) $dcl_helper->get_option( 'dcl_cfasync', 0 ) ) {
+		if ( $handle === 'dcl_comments' && (bool) $dcl_helper->get_option( 'dcl_cfasync', false, 0 ) ) {
 			$tag = '<script type="text/javascript" src="' . $src . '" data-cfasync="false"></script>';
 		}
 
@@ -196,7 +196,7 @@ class DCL_Public {
 		$method = $this->helper->get_load_method();
 
 		// If count is not disabled.
-		if ( (bool) $this->helper->get_option( 'dcl_count_disable', 1 ) ) {
+		if ( (bool) $this->helper->get_option( 'dcl_count_disable', false, 1 ) ) {
 			$file .= '-count';
 		}
 
