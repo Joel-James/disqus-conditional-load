@@ -10,7 +10,7 @@ Disqus commenting system for WordPress with advanced features like like <strong>
 
 ##### Tested up to: WordPress 5.5
 
-##### Stable tag: 11.0.4
+##### Stable tag: 11.0.5
 
 Before starting development make sure you read and understand everything in this README.
 
