@@ -95,7 +95,7 @@ module.exports = function ( grunt ) {
             all: {
                 options: {
                     style: 'compressed',
-                    'sourcemap=none': true
+                    sourcemap: false
                 },
                 files: {
                     'assets/css/admin/admin.min.css': 'assets/src/scss/admin/admin.scss'

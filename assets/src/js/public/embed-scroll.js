@@ -7,9 +7,9 @@ var disqus_container_id = 'disqus_thread';
 var disqus_shortname = embedVars.disqusShortname;
 var disqus_title = embedVars.disqusTitle;
 var disqus_config_custom = window.disqus_config;
-var disqus_loaded = false;
+var disqusLoaded = false;
 var current_url = window.location.href;
-var disqus_div = document.getElementById( 'disqus_thread' );
+var disqusDiv = document.getElementById( disqus_container_id );
 var disqus_config = function () {
     /**
      * All currently supported events:
@@ -39,8 +39,8 @@ var disqus_config = function () {
  */
 var disqus_comments = function () {
 
-    if ( !disqus_loaded ) {
-        disqus_loaded = true;
+    if ( !disqusLoaded ) {
+        disqusLoaded = true;
         var dsq = document.createElement( 'script' );
         dsq.type = 'text/javascript';
         dsq.async = true;
@@ -63,10 +63,10 @@ if ( current_url.indexOf( '#comment' ) != -1 ) {
 } else if ( document.body.scrollHeight < window.innerHeight ) {
     // If no scroll bar found, load comments.
     disqus_comments();
-} else if ( document.getElementById( 'disqus_thread' ) !== null ) {
+} else if ( disqusDiv !== null ) {
     // Start loading the comments when user scroll down.
     window.onscroll = function () {
-        if ( ( window.scrollY + window.innerHeight ) >= disqus_div.offsetTop ) {
+        if ( ( window.scrollY + window.innerHeight ) >= disqusDiv.offsetTop ) {
             disqus_comments();
         }
     };
