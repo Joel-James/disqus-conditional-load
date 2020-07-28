@@ -5,7 +5,7 @@ Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comment
 Requires at least: 3.0
 Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 11.0.4
+Stable tag: 11.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -153,6 +153,12 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 
 == Changelog ==
+
+= 11.0.5 =
+
+**🐛 Bug Fixes**
+
+- Fix scroll type JS error.
 
 = 11.0.4 =
 
@@ -424,13 +430,8 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 11.0.4 =
-
-**👌 Improvements**
-
-- Tested with WordPress 5.5.
+= 11.0.5 =
 
 **🐛 Bug Fixes**
 
-- Fix comments count script issue.
-- Fix Rocket Loader support.
+- Fix scroll type JS error.
