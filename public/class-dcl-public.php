@@ -117,7 +117,7 @@ class DCL_Public {
 		$file = $this->get_script_name();
 
 		// Enqueue the file.
-		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'assets/js/public/' . $file, array(), DCL_VERSION, true );
+		wp_enqueue_script( 'dcl_comments', DCL_PATH . 'assets/js/' . $file, array(), DCL_VERSION, true );
 		// Custom vars for dcl.
 		$custom_vars = array(
 			'dcl_progress_text' => $dcl_helper->get_option( 'dcl_message', false, __( 'Loading Comments....', 'disqus-conditional-load' ) ),

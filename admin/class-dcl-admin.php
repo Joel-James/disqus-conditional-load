@@ -122,7 +122,7 @@ class DCL_Admin {
 		if ( $this->helper->is_dcl_page() ) {
 
 			// Register DCL admin page styles.
-			wp_enqueue_style( DCL_NAME, DCL_PATH . 'assets/css/admin/admin.min.css', array(), DCL_VERSION, 'all' );
+			wp_enqueue_style( DCL_NAME, DCL_PATH . 'assets/css/admin.min.css', array(), DCL_VERSION, 'all' );
 		}
 	}
 
