@@ -49,7 +49,7 @@ if ( ! class_exists( 'Disqus_Conditional_Load' ) ) :
 			'DCL_PATH'           => plugin_dir_url( __FILE__ ),
 			'DCL_BASE_FILE'      => __FILE__,
 			'DCL_VERSION'        => '11.0.5',
-			'DCL_DISQUS_VERSION' => '3.0.16',
+			'DCL_DISQUS_VERSION' => '3.0.21',
 		),
 
 		// Aaaand, here is something for your choice.

@@ -634,7 +634,7 @@ class Disqus_Rest_Api {
      * Queries the WordPress database for existing comment by dsq_post_id. Creates or updates if comment found
      * in the WordPress database given a Disqus post.
      *
-     * @since    3.0.16
+     * @since    3.0.17
      * @param    array $post    The Disqus post object.
      * @return   int            The created or updated comment ID.
      * @throws   Exception      An exception if comment can't be saved from post data.
@@ -734,6 +734,7 @@ class Disqus_Rest_Api {
         $post_query = new WP_Query( array(
             'meta_key' => 'dsq_thread_id',
             'meta_value' => $thread['id'],
+            'ignore_sticky_posts' => true,
         ) );
 
         if ( $post_query->have_posts() ) {
@@ -806,6 +807,7 @@ class Disqus_Rest_Api {
             'comment_author_IP' => $post['ipAddress'],
             'comment_author_url' => isset( $author['url'] ) ? $author['url'] : '',
             'comment_content' => $post['raw_message'],
+            'comment_date' => $post['createdAt'],
             'comment_date_gmt' => $post['createdAt'],
             'comment_type' => '', // Leave blank for a regular comment.
             'comment_parent' => $parent,
