@@ -1,6 +1,6 @@
 {
 	"name": "disqus-conditional-load",
-	"version": "11.0.5",
+	"version": "11.0.6",
 	"private": true,
 	"description": "Disqus commenting system for WordPress with advanced features like like <strong>lazy load, shortcode</strong> etc.",
 	"keywords": [
