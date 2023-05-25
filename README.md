@@ -6,11 +6,11 @@ Disqus commenting system for WordPress with advanced features like like <strong>
 
 ##### Contributors: <a href="https://github.com/joel-james/">Joel James</a>
 
-##### Requires at least: WordPress 3.0
+##### Requires at least: WordPress 5.0
 
-##### Tested up to: WordPress 5.7
+##### Tested up to: WordPress 6.2
 
-##### Stable tag: 11.0.6
+##### Stable tag: 11.1.0
 
 Before starting development make sure you read and understand everything in this README.
 
