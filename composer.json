@@ -1,6 +1,6 @@
 {
     "name"       : "joel-james/disqus-conditional-load",
-    "version"    : "11.0.6",
+    "version"    : "11.1.0",
     "description": "Use Disqus comments with advanced features like lazy load, shortcode, widgets etc. Don't let Disqus to slow your site down.",
     "homepage"   : "https://dclwp.com/",
     "license"    : "GPL-2.0+",
