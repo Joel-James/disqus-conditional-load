@@ -18,7 +18,14 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 ?>
 <?php global $dcl_helper; ?>
 <div id="disqus_thread">
-	<?php do_action( 'dcl_thread_stub' ); ?>
+	<?php
+	/**
+	 * Action hook to add something inside Disqus thread.
+	 *
+	 * @since 11.1.0
+	 */
+	do_action( 'dcl_inside_disqus_thread' );
+	?>
 	<?php if ( $dcl_helper->get_load_method() === 'click' ) : ?>
 		<div id="dcl_btn_container">
 			<button id='dcl_comment_btn' class="<?php echo esc_html( apply_filters( 'dcl_button_class', $dcl_helper->get_option( 'dcl_btn_class', false, '' ) ) ); ?>">
