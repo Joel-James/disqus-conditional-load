@@ -16,8 +16,9 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
  * @link       https://dclwp.com
  */
 ?>
+<?php global $dcl_helper; ?>
 <div id="disqus_thread">
-	<?php global $dcl_helper; ?>
+	<?php do_action( 'dcl_thread_stub' ); ?>
 	<?php if ( $dcl_helper->get_load_method() === 'click' ) : ?>
 		<div id="dcl_btn_container">
 			<button id='dcl_comment_btn' class="<?php echo esc_html( apply_filters( 'dcl_button_class', $dcl_helper->get_option( 'dcl_btn_class', false, '' ) ) ); ?>">
