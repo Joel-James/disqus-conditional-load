@@ -70,7 +70,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 					<?php esc_html_e( 'Button Text', 'disqus-conditional-load' ); ?>
 				</th>
 				<td>
-					<input placeholder="<?php esc_html_e( 'Load Comments', 'disqus-conditional-load' ); ?>" type="text" name="dcl_gnrl_options[dcl_btn_txt]" value="<?php echo $options['dcl_btn_txt']; ?>" size="20">
+					<input placeholder="<?php esc_html_e( 'Load Comments', 'disqus-conditional-load' ); ?>" type="text" name="dcl_gnrl_options[dcl_btn_txt]" value="<?php echo esc_attr( $options['dcl_btn_txt'] ); ?>" size="20">
 					<p class="description">
 						<?php esc_html_e( 'If you are loading Disqus using On Click feature, then there will be a button to load comments. If you want to use custom text on the button, enter it here. By default it will be "Load Comments" (Works only with "On Click" option).', 'disqus-conditional-load' ); ?>
 					</p>
@@ -81,7 +81,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 					<?php esc_html_e( 'Custom Button Class', 'disqus-conditional-load' ); ?>
 				</th>
 				<td>
-					<input type="text" name="dcl_gnrl_options[dcl_btn_class]" value="<?php echo $options['dcl_btn_class']; ?>" size="20">
+					<input type="text" name="dcl_gnrl_options[dcl_btn_class]" value="<?php echo esc_attr( $options['dcl_btn_class'] ); ?>" size="20">
 					<p class="description">
 						<?php esc_html_e( 'Here you can add any custom class to the button. By using custom class you can use your own style for comment button. Leave empty if you do not care. (Works only with "On Click" option)', 'disqus-conditional-load' ); ?>
 					</p>
@@ -92,7 +92,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 					<?php esc_html_e( 'Loading Message', 'disqus-conditional-load' ); ?>
 				</th>
 				<td>
-					<input placeholder="<?php esc_html_e( 'Loading..', 'disqus-conditional-load' ); ?>" type="text" name="dcl_gnrl_options[dcl_message]" value="<?php echo $options['dcl_message']; ?>" size="20">
+					<input placeholder="<?php esc_html_e( 'Loading..', 'disqus-conditional-load' ); ?>" type="text" name="dcl_gnrl_options[dcl_message]" value="<?php echo esc_attr( $options['dcl_message'] ); ?>" size="20">
 					<p class="description thin">
 						<?php esc_html_e( 'There may be few milliseconds delay before Disqus starts loading when visitors clicks on the button. Enter something here, and we will show that during that delay. By Default it will be "Loading..". You may use html tags like <p><b><h2> (Works only with "On Click" option)', 'disqus-conditional-load' ); ?>
 					</p>
@@ -103,7 +103,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 					<?php esc_html_e( 'Disable on CPTs', 'disqus-conditional-load' ); ?>
 				</th>
 				<td>
-					<input placeholder="product" type="text" name="dcl_gnrl_options[dcl_cpt_exclude]" value="<?php echo $options['dcl_cpt_exclude']; ?>">
+					<input placeholder="product" type="text" name="dcl_gnrl_options[dcl_cpt_exclude]" value="<?php echo esc_attr( $options['dcl_cpt_exclude'] ); ?>">
 					<p class="description">
 						<?php esc_html_e( 'If Disqus adds its scripts on custom post types, and you dont like it, enter the custom post type here. Separate with comma.', 'disqus-conditional-load' ); ?>
 					</p>

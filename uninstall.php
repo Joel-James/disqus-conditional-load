@@ -25,9 +25,9 @@ if ( ! is_plugin_active( 'disqus-conditional-load-pro/disqus-conditional-load-pr
 	// Attempts to uninstall Disqus official plugin settings.
 	// @todo Check if official plugin is installed independently.
 	if ( ! is_plugin_active( 'disqus-comment-system/disqus.php' )
-	     && file_exists( DCL_DIR . 'vendor/disqus/disqus/uninstall.php' )
+	     && file_exists( trailingslashit( dirname( $file ) ) . 'vendor/disqus-comment-system/uninstall.php' )
 	) {
-		require_once DCL_DIR . 'vendor/disqus/disqus/uninstall.php';
+		require_once trailingslashit( dirname( $file ) ) . 'vendor/disqus-comment-system/uninstall.php';
 	}
 
 	// Options registered by DCL.
