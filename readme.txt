@@ -5,7 +5,7 @@ Tags: disqus, disqus conditional load, comment hide, hide disqus, disqus comment
 Requires at least: 5.0
 Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 11.1.1
+Stable tag: 11.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -153,6 +153,12 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 
 == Changelog ==
+
+= 11.1.2 =
+
+**🐛 Bug Fixes**
+
+- Security fixes.
 
 = 11.1.1 =
 
@@ -456,7 +462,7 @@ Bug reports for DCL are always welcome. [Report here](https://dclwp.com/bugs/). 
 
 == Upgrade Notice ==
 
-= 11.1.1 =
+= 11.1.2 =
 
 **🐛 Bug Fixes**
 

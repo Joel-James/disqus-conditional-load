@@ -44,7 +44,7 @@ defined( 'ABSPATH' ) || die( 'K. Bye.' );
 					<?php esc_html_e( 'Disqus Comments Width', 'disqus-conditional-load' ); ?>
 				</th>
 				<td>
-					<input placeholder="<?php esc_html_e( 'Default', 'disqus-conditional-load' ); ?>" type="number" name="dcl_gnrl_options[dcl_div_width]" value="<?php echo $options['dcl_div_width']; ?>">
+					<input placeholder="<?php esc_html_e( 'Default', 'disqus-conditional-load' ); ?>" type="number" name="dcl_gnrl_options[dcl_div_width]" value="<?php echo intval( $options['dcl_div_width'] ); ?>">
 					<input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked( $options['dcl_div_width_type'], '%' ); ?> value="%">%
 					<input type="radio" name="dcl_gnrl_options[dcl_div_width_type]" <?php checked( $options['dcl_div_width_type'], 'px' ); ?> value="px">px
 					<p class="description">
