@@ -70,7 +70,7 @@ if ( disqus_button ) {
             document.getElementById( 'dcl_btn_container' ).appendChild( tmp_p );
         }
         // Remove button.
-        this.remove();
+        this.outerHTML = "";
         disqus_comments();
     };
 
